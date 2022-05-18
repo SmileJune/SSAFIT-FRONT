@@ -1,7 +1,7 @@
 <template>
     <div>
         <HeaderNav></HeaderNav>
-         <div class="calda">
+        <div class="calda">
             <MyCalender></MyCalender>
             <MyDiary></MyDiary>
         </div>
@@ -35,9 +35,6 @@ export default {
 </script>
 
 <style>
-#my-schedule {
-    display: flex;
-    justify-content: space-around;
     
 .calda {
     display: flex;
