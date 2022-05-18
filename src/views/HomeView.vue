@@ -1,21 +1,17 @@
 <template>
     <div>
         <HeaderNav></HeaderNav>
-        <div id="my-schedule">
-            <MyCalender/>
-            <MyDiary/>
+         <div class="calda">
+            <MyCalender></MyCalender>
+            <MyDiary></MyDiary>
         </div>
         <MyDiaryCreate/>
         <VideoGoodJob></VideoGoodJob>
         <GoodInfo/>
-        
-
     </div>
 </template>
 
 <script>
-
-
 import HeaderNav from '@/components/common/HeaderNav.vue'
 import VideoGoodJob from '@/components/video/VideoGoodJob.vue'
 import GoodInfo from '@/components/common/GoodInformation.vue'
@@ -34,6 +30,7 @@ export default {
         MyDiary,
         MyDiaryCreate
     }
+
 }
 </script>
 
@@ -41,5 +38,9 @@ export default {
 #my-schedule {
     display: flex;
     justify-content: space-around;
+    
+.calda {
+    display: flex;
+    justify-content: center;
 }
 </style>

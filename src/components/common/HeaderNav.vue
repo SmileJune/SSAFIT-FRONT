@@ -20,8 +20,9 @@ export default {
     components: {
 
     }
+
 }
-</script>
+
 
 <style scoped>
 #header-nav {
@@ -44,6 +45,4 @@ v-app-bar a {
 v-app-bar a.router-link-exact-active {
     color: #42b983;
 }
-
-
 </style>
