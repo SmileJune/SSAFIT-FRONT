@@ -8,7 +8,7 @@
                 <a href="#">커뮤니티</a>
             </div>
             <div class="sign-in">
-                <router-link to ="/login" v-if="!isLogin">로그인</router-link>
+                <router-link v-if="!isLogin" to ="/login">로그인</router-link>
                 <router-link v-else @click="doLogout">로그아웃</router-link>
                 <router-link to ="/join">회원가입</router-link>
             </div>

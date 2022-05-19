@@ -1,12 +1,11 @@
 <template>
     <div>
-
         <router-view/>
-         <div class="calda">
-
+        <div class="calda">
             <MyCalender></MyCalender>
             <MyDiary></MyDiary>
         </div>
+        <VideoSelect/>
         <MyDiaryCreate/>
         <VideoGoodJob></VideoGoodJob>
         <GoodInfo/>
@@ -19,17 +18,18 @@ import GoodInfo from '@/components/common/GoodInformation.vue'
 import MyCalender from '@/components/diary/MyCalender.vue'
 import MyDiary from '@/components/diary/MyDiary.vue'
 import MyDiaryCreate from '@/components/diary/MyDiaryCreate.vue'
-
+import VideoSelect from '@/components/video/VideoSelect.vue'
 
 export default {
     name: 'HomeView',
     components: {
-        VideoGoodJob,
-        GoodInfo,
-        MyCalender,
-        MyDiary,
-        MyDiaryCreate
-    }
+    VideoGoodJob,
+    GoodInfo,
+    MyCalender,
+    MyDiary,
+    MyDiaryCreate,
+    VideoSelect,
+}
 
 }
 </script>

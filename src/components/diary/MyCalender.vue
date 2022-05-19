@@ -61,9 +61,7 @@
         month: 'Month'
       }
     }),
-    mounted () {
-      this.$refs.calendar.checkChange()
-    },
+   
     methods: {
       showDiary () {
         
