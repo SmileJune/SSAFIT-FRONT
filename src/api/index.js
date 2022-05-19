@@ -8,6 +8,7 @@ function createApi() {
     headers: {
       // json 형태로 날릴거야
       "Content-Type": "application/json",
+      "access-token" : sessionStorage.getItem("access-token")
     },
   });
 } 

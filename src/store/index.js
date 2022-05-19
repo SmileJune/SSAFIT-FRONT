@@ -10,6 +10,7 @@ const api = createApi();
 export default new Vuex.Store({
   state: {
     isLogin: false,
+    videoList: [],
   },
   getters: {},
   mutations: {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
       sessionStorage.removeItem("access-token");
       api.defaults.headers["access-token"] = "";
     },
+    SHOW_VIDEOS(state, videos) {
+      state.videoList = videos;
+    }
   },
   actions: {
     login({ commit }, user) {
@@ -45,6 +49,19 @@ export default new Vuex.Store({
         commit();
       });
     },
+
+    showVideos({commit}, condition) {
+      api({
+        url: `/video/search`,
+        method: "POST",
+        data: condition,
+      }).then((res) => {
+        console.log(res);
+        commit("SHOW_VIDEOS", res.data)
+      }).catch((error)=>{
+        console.log(error);
+      });
+    }
   },
   modules: {},
 });
