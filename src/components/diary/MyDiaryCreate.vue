@@ -6,44 +6,56 @@
             data-aos-delay="50"
             data-aos-duration="1000"
             data-aos-anchor-placement="top-center">
-            <div>step1</div>
-            <div>오늘은 어느 부위를 운동해볼까요?</div>
-            <div>[신체부위 사진]</div>
-            <p>{{ part }}</p>
-            <fieldset>
+        <div>step1</div>
+        <div>오늘은 어느 부위를 운동해볼까요?</div>
+        <div>[신체부위 사진]</div>
+        <p>{{ part }}</p>
 
-                <div>
-                <input type="radio" id="huey" v-model="part" value="1">
-                <label for="huey">전신</label>
-                </div>
+            <div>
+            <input type="radio" id="body" name="drone" value="1"  v-model="part"
+                    checked>
+            <label for="body">전신</label>
+            </div>
 
-                <div>
-                <input type="radio" id="dewey" v-model="part" value="2">
-                <label for="dewey">상체</label>
-                </div>
+            <div>
+            <input type="radio" id="top" name="drone" value="2" v-model="part">
+            <label for="top">상체</label>
+            </div>
 
-                <div>
-                <input type="radio" id="louie" v-model="part" value="3">
-                <label for="louie">하체</label>
-                </div>
+            <div>
+            <input type="radio" id="bottom" name="drone" value="3" v-model="part">
+            <label for="bottom">하체</label>
+            </div>
 
-                <div>
-                <input type="radio" id="asdf" v-model="part" value="4">
-                <label for="asdf">복부</label>
-                </div>
-            </fieldset>
+            <div>
+            <input type="radio" id="abs" name="drone" value="4" v-model="part">
+            <label for="abs">복부</label>
+            </div>
 
-            <v-btn rounded color="black" dark>다음 단계로</v-btn>
+        <v-btn rounded color="black" dark>다음 단계로</v-btn>
         </div>
-        <!-- 스크롤을 내릴때마다 시간차로 올라와야 하는데? -->
+
         <div class="step2" data-aos="fade-up"
             data-aos-delay="50"
             data-aos-duration="1000"
             data-aos-anchor-placement="top-center">
             <div>step2</div>
             <div>운동 강도를 골라주세요!</div>
+            <v-rating
+                v-model="rating"
+                background-color="grey lighten-1"
+                color="red lighten-3"
+                large
+            ></v-rating>
+
+
+
+            <v-btn rounded color="black" dark>다음 단계로</v-btn>
+
 
         </div>
+
+
         <div class="step3" data-aos="fade-up"
             data-aos-delay="50"
             data-aos-duration="1000"
@@ -80,10 +92,11 @@ export default {
     name: 'MyDiaryCreate',
     data() {
         return {
+            // 왜 바인딩이 안됨?
                 part: '',
                 difficulty: 3,
                 spot: null,
-                selected: '',
+                rating: 4,
 
         }
     },
