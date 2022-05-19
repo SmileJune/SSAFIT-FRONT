@@ -23,7 +23,6 @@ export default {
 
 }
 </script>
-
 <style scoped>
 #header-nav {
     display: flex;

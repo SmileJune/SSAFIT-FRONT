@@ -1,7 +1,9 @@
 <template>
     <div>
+
         <router-view/>
          <div class="calda">
+
             <MyCalender></MyCalender>
             <MyDiary></MyDiary>
         </div>
@@ -33,6 +35,7 @@ export default {
 </script>
 
 <style>
+
 #my-schedule {
     display: flex;
     justify-content: space-around;
