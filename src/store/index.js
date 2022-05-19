@@ -78,6 +78,18 @@ export default new Vuex.Store({
         commit("GET_PLAN", res.data);
       });
     },
+
+
+    makePlan({commit}, videoChoice) {
+      api({
+        url: `/plan/write`,
+        method: "POST",
+        data: videoChoice,
+      }).then(() => {
+        router.push({ name: "home"});
+        commit();
+      })
+    },
   },
   modules: {},
 });
