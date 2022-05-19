@@ -1,7 +1,9 @@
 <template>
     <div>
-        <HeaderNav></HeaderNav>
-        <div class="calda">
+
+        <router-view/>
+         <div class="calda">
+
             <MyCalender></MyCalender>
             <MyDiary></MyDiary>
         </div>
@@ -12,7 +14,6 @@
 </template>
 
 <script>
-import HeaderNav from '@/components/common/HeaderNav.vue'
 import VideoGoodJob from '@/components/video/VideoGoodJob.vue'
 import GoodInfo from '@/components/common/GoodInformation.vue'
 import MyCalender from '@/components/diary/MyCalender.vue'
@@ -23,7 +24,6 @@ import MyDiaryCreate from '@/components/diary/MyDiaryCreate.vue'
 export default {
     name: 'HomeView',
     components: {
-        HeaderNav,
         VideoGoodJob,
         GoodInfo,
         MyCalender,
@@ -35,7 +35,11 @@ export default {
 </script>
 
 <style>
-    
+
+#my-schedule {
+    display: flex;
+    justify-content: space-around;
+}    
 .calda {
     display: flex;
     justify-content: center;

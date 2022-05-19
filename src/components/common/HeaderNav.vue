@@ -7,8 +7,8 @@
                 <a href="#">커뮤니티</a>
             </div>
             <div class="sign-in">
-                <a href="#">로그인</a>
-                <a href="#">회원가입</a>
+                <router-link to ="/login">로그인</router-link>
+                <router-link to ="/join">회원가입</router-link>
             </div>
         </v-app-bar>
     </div>
@@ -23,8 +23,6 @@ export default {
 
 }
 </script>
-
-
 <style scoped>
 #header-nav {
     display: flex;
