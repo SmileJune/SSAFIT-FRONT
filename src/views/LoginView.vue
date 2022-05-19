@@ -3,7 +3,7 @@
     <label for="id">ID : </label>
     <input v-model="id" type="text" id="id">
     <label for="password">PASSWORD : </label>
-    <input v-model="password" type="password" id="password">
+    <input v-model="password" type="password" id="password" @keyup.13="login">
     <v-btn @click="login">로그인</v-btn>
   </div>
 </template>

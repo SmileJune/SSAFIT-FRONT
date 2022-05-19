@@ -59,6 +59,7 @@
       return{
         date:'',
       }
+
     },
     created() {
       // let today = new Date();
@@ -68,7 +69,6 @@
       // this.date = today;
       // console.log(this.date);
     },
-   
     methods: {
       showDiary () {
         

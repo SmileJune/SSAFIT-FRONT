@@ -3,6 +3,9 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import JoinView from "../views/JoinView.vue";
+import FollowManagement from "../components/mypage/FollowManagement.vue";
+import UpdateUser from "../components/mypage/UpdateUser.vue";
+import MyDiaryCreate from "../components/diary/MyDiaryCreate.vue";
 
 // import store from '@/store'
 // vuex가 아니라 store 객체를 직접 가져옴
@@ -42,8 +45,27 @@ const routes = [
     path: "/join",
     name: "join",
     component: JoinView,
-  }
-
+  },
+  {
+    path: "/mypage",
+    children: [
+      {
+        path: "",
+        name: "FollowManagement",
+        component: FollowManagement,
+      },
+      {
+        path: "/update",
+        name: "UpdateUser",
+        component: UpdateUser,
+      },
+    ],
+  },
+  {
+    path: "/createVideo",
+    name: "createVideo",
+    component: MyDiaryCreate,
+  },
 ];
 
 const router = new VueRouter({

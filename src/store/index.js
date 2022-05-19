@@ -11,6 +11,7 @@ export default new Vuex.Store({
   state: {
     isLogin: false,
     videoList: [],
+    somedayPlan: [],
   },
   getters: {},
   mutations: {
@@ -26,7 +27,10 @@ export default new Vuex.Store({
     },
     SHOW_VIDEOS(state, videos) {
       state.videoList = videos;
-    }
+    },
+    GET_PLAN(state, data) {
+      state.somedayPlan = data;
+    },
   },
   actions: {
     login({ commit }, user) {
@@ -36,6 +40,7 @@ export default new Vuex.Store({
         data: user,
       }).then(({ data }) => {
         commit("USER_LOGIN", data["access-token"]);
+        alert("오늘도 우리와 함께 신나게 운동해봐요!");
         router.push({ name: "home" });
       });
     },
@@ -50,18 +55,30 @@ export default new Vuex.Store({
       });
     },
 
-    showVideos({commit}, condition) {
+    showVideos({ commit }, condition) {
       api({
         url: `/video/search`,
         method: "POST",
         data: condition,
+      })
+        .then((res) => {
+          console.log(res);
+          commit("SHOW_VIDEOS", res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getPlan({ commit }, date) {
+      api({
+        url: `/plan`,
+        method: "POST",
+        data: date,
       }).then((res) => {
-        console.log(res);
-        commit("SHOW_VIDEOS", res.data)
-      }).catch((error)=>{
-        console.log(error);
+        commit("GET_PLAN", res.data);
       });
     },
+
 
     makePlan({commit}, videoChoice) {
       api({
@@ -73,7 +90,6 @@ export default new Vuex.Store({
         commit();
       })
     },
-  
   },
   modules: {},
 });

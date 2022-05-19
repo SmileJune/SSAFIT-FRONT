@@ -6,7 +6,6 @@
             <MyDiary></MyDiary>
         </div>
         <VideoSelect/>
-        <MyDiaryCreate/>
         <VideoGoodJob></VideoGoodJob>
         <GoodInfo/>
     </div>
@@ -17,7 +16,6 @@ import VideoGoodJob from '@/components/video/VideoGoodJob.vue'
 import GoodInfo from '@/components/common/GoodInformation.vue'
 import MyCalender from '@/components/diary/MyCalender.vue'
 import MyDiary from '@/components/diary/MyDiary.vue'
-import MyDiaryCreate from '@/components/diary/MyDiaryCreate.vue'
 import VideoSelect from '@/components/video/VideoSelect.vue'
 
 export default {
@@ -27,7 +25,6 @@ export default {
     GoodInfo,
     MyCalender,
     MyDiary,
-    MyDiaryCreate,
     VideoSelect,
 }
 
