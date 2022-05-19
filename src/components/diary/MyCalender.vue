@@ -2,7 +2,7 @@
   <div class="calender">
   <v-row>
     <v-col >
-      <v-sheet height="64" >
+      <!-- <v-sheet height="64" >
         <v-toolbar
           flat
           class="toolbar" 
@@ -38,14 +38,15 @@
             </v-icon>
           </v-btn>
         </v-toolbar>
-      </v-sheet>
+      </v-sheet> -->
       <v-sheet height="400">
-        <v-calendar
+        <!-- <v-calendar
           ref="calendar"
           v-model="focus"
           color="primary"
           @click="showDiary"
-        ></v-calendar>     
+        ></v-calendar> -->
+        <v-date-picker v-model="date" mode="date" ref="calendar" @change="getEvents" />
       </v-sheet>
     </v-col>
   </v-row>
@@ -54,13 +55,19 @@
 
 <script>
   export default {
-    data: () => ({
-      focus: '',
-      type: 'month',
-      typeToLabel: {
-        month: 'Month'
+    data(){
+      return{
+        date:'',
       }
-    }),
+    },
+    created() {
+      // let today = new Date();
+      // let year = today.getFullYear();
+      // let month = today.getMonth();
+      // let date = today.getDate();
+      // this.date = today;
+      // console.log(this.date);
+    },
    
     methods: {
       showDiary () {
@@ -69,12 +76,15 @@
       setToday () {
         this.focus = ''
       },
-      prev () {
-        this.$refs.calendar.prev()
-      },
-      next () {
-        this.$refs.calendar.next()
-      },
+      // prev () {
+      //   this.$refs.calendar.prev()
+      // },
+      // next () {
+      //   this.$refs.calendar.next()
+      // },
+      getEvents(event){
+        console.log(event);
+      }
     },
   }
 </script>

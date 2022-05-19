@@ -61,7 +61,19 @@ export default new Vuex.Store({
       }).catch((error)=>{
         console.log(error);
       });
-    }
+    },
+
+    makePlan({commit}, videoChoice) {
+      api({
+        url: `/plan/write`,
+        method: "POST",
+        data: videoChoice,
+      }).then(() => {
+        router.push({ name: "home"});
+        commit();
+      })
+    },
+  
   },
   modules: {},
 });
