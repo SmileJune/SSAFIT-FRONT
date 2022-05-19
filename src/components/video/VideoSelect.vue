@@ -20,9 +20,10 @@
 
                 <v-card-subtitle v-text="video.channelName"></v-card-subtitle>
               </div>
+                <input type="checkbox">
                 <div class="video">
                   <div class="video-container">
-                    <iframe width="100%" height="100%" src="video.url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="100%" height="100%" :src="video.url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                   </div>
                 </div>
             </div>

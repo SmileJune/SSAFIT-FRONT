@@ -9,8 +9,9 @@
             </div>
             <div class="sign-in">
                 <router-link v-if="!isLogin" to ="/login">로그인</router-link>
-                <router-link v-else @click="doLogout">로그아웃</router-link>
-                <router-link to ="/join">회원가입</router-link>
+                <a v-else @click="doLogout">로그아웃</a>
+                <router-link v-if="!isLogin" to ="/join">회원가입</router-link>
+                <router-link v-else to ="/mypage">사용자닉네임</router-link>
             </div>
         </v-app-bar>
     </div>
@@ -20,6 +21,10 @@
 import { mapState, mapMutations } from 'vuex'
 export default {
     name: 'HeaderNav',
+    data() {
+        return {
+        }
+    },
     components: {
 
     },

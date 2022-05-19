@@ -61,7 +61,7 @@
         month: 'Month'
       }
     }),
-   
+
     methods: {
       showDiary () {
         
