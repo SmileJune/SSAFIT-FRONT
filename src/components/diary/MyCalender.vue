@@ -44,7 +44,7 @@
           ref="calendar"
           v-model="focus"
           color="primary"
-          @click:event="showEvent"
+          @click="showDiary"
         ></v-calendar>     
       </v-sheet>
     </v-col>
@@ -65,9 +65,8 @@
       this.$refs.calendar.checkChange()
     },
     methods: {
-      viewDay ({ date }) {
-        this.focus = date
-        this.type = 'day'
+      showDiary () {
+        
       },
       setToday () {
         this.focus = ''

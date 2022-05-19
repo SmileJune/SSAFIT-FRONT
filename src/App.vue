@@ -1,16 +1,19 @@
 <template>
   <v-app>
-      <HomeView/>
+      <HeaderNav></HeaderNav>
+      <router-view />
   </v-app>
 </template>
 
 <script>
-import HomeView from '@/views/HomeView.vue'
+//import HomeView from '@/views/HomeView.vue'
+import HeaderNav from './components/common/HeaderNav.vue';
 export default {
   name: 'App',
   components: {
-    HomeView
-  },
+    //HomeView,
+    HeaderNav
+},
   data() {
     return {
 
