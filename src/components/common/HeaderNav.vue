@@ -3,6 +3,7 @@
         <v-app-bar id="header-nav"
             elevation="4"
         >
+
             <div>
                 <a href="#">커뮤니티</a>
             </div>
@@ -22,19 +23,15 @@ export default {
     components: {
 
     },
-      computed: {
-    ...mapState (
-      [
-        'isLogin',
-      ]
-    )
-  },
-  methods: {
+    computed: {
+    ...mapState (['isLogin',])
+    },
+    methods: {
     ...mapMutations(['USER_LOGOUT',]),
     doLogout() {
-      this.USER_LOGOUT();
+        this.USER_LOGOUT();
     }
-  }
+    }
     
 
 }

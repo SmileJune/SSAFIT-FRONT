@@ -36,9 +36,8 @@ export default new Vuex.Store({
       });
     },
     join({ commit }, user) {
-      const API_URL = `${REST_API}/join`;
       api({
-        url: API_URL,
+        url: `/join`,
         method: "POST",
         data: user,
       }).then(() => {
