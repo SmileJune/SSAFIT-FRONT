@@ -2,12 +2,14 @@ import { createApi } from "@/api";
 import Vue from "vue";
 import Vuex from "vuex";
 import router from "@/router";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
 const api = createApi();
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     isLogin: false,
     videoList: [],
@@ -50,12 +52,18 @@ export default new Vuex.Store({
       state.date = date;
     },
     GET_USER(state, data) {
+      console.log(data);
       state.user.id = data.id;
       state.user.nickname = data.nickname;
       state.user.introduce = data.introduce;
     },
     GET_REVIEW(state, data) {
       state.reviews = data;
+    },
+    SET_USER_PROFILE(state, data){
+      state.userProfile.id = data.id;
+      state.userProfile.nickname = data.nickname;
+      state.userProfile.introduce = data.introduce;
     }
   },
   actions: {
@@ -155,6 +163,33 @@ export default new Vuex.Store({
         data : {
           to : this.state.userProfile.id
         }
+      }).then((res) => {
+        console.log(res);
+        commit();
+      })
+    },
+    getMyProfile({commit}){
+      api({
+        url: `user`,
+        method: "GET",
+      }).then((res) => {
+        commit('SET_USER_PROFILE',res.data);
+      })
+    },
+    writeComment({commit}, payload) {
+      api({
+        url: `comment/write`,
+        method: "POST",
+        data: payload
+      }).then((res) => {
+        console.log(res);
+        commit();
+      })
+    },
+    deleteComment({commit}, no){
+      api({
+        url: `comment/delete/${no}`,
+        method: "DELETE",
       }).then((res) => {
         console.log(res);
         commit();
