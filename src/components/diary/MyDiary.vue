@@ -2,7 +2,7 @@
   <div class="diary">
     <v-card max-width="400" class="mx-auto">
       <v-app-bar dark color="pink">
-        <v-toolbar-title>정현이의 SSAFIT diary</v-toolbar-title>
+        <v-toolbar-title>{{user.nickname}} SSAFIT diary</v-toolbar-title>
 
         <v-spacer></v-spacer>
       </v-app-bar>
@@ -65,7 +65,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["somedayPlan"]),
+    ...mapState(["somedayPlan", "user"]),
   },
   created() {
     // 오늘의 운동 루틴이 미리 담겨 있으면 좋겠어

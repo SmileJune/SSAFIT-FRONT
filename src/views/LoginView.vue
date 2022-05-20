@@ -20,6 +20,7 @@ export default {
     login() {
       let user = {id : this.id, password : this.password}
       this.$store.dispatch('login', user)
+      this.$store.dispatch('who', user.id)
     }
   } 
 }

@@ -29,11 +29,15 @@
             <div>step2</div>
             <div>운동 강도를 골라주세요!</div>
             <v-rating
+                full-icon="★"
+                empty-icon="☆"
+                hover
                 v-model="difficulty"
                 background-color="grey lighten-1"
                 color="red lighten-3"
                 large
             ></v-rating>
+
             {{difficulty}}
             <v-btn rounded color="black" dark>다음 단계로</v-btn>
         </div>

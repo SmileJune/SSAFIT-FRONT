@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
 import JoinView from "@/views/JoinView.vue";
+import CommunityView from "@/views/CommunityView.vue";
+
 import FollowManagement from "@/components/mypage/FollowManagement.vue";
 import UpdateUser from "@/components/mypage/UpdateUser.vue";
 import MyDiaryCreate from "@/components/diary/MyDiaryCreate.vue";
@@ -71,6 +73,11 @@ const routes = [
     path: "/showVideo",
     name: "showVideo",
     component: VideoShow,
+  },
+  {
+    path: "/review",
+    name: "review",
+    component: CommunityView,
   },
 ];
 

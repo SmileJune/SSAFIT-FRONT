@@ -1,65 +1,62 @@
 <template>
-    <div>
-        <v-app-bar id="header-nav"
-            elevation="4"
-        >
-
-            <div>
-                <a href="#">커뮤니티</a>
-            </div>
-            <div class="sign-in">
-                <router-link v-if="!isLogin" to ="/login">로그인</router-link>
-                <a v-else @click="doLogout">로그아웃</a>
-                <router-link v-if="!isLogin" to ="/join">회원가입</router-link>
-                <router-link v-else to ="/mypage">사용자닉네임</router-link>
-            </div>
-        </v-app-bar>
-    </div>
+  <div>
+    <v-app-bar id="header-nav" elevation="4">
+      <router-link to="/">
+        <img id="logo" src="@/assets/ssafit.png" alt="logo" />
+      </router-link>
+      <div class="sign-in">
+        <router-link to="/review">커뮤니티</router-link>
+        <router-link v-if="!isLogin" to="/login">로그인</router-link>
+        <a v-else @click="doLogout">로그아웃</a>
+        <router-link v-if="!isLogin" to="/join">회원가입</router-link>
+        <router-link v-else to="/mypage">사용자닉네임</router-link>
+      </div>
+    </v-app-bar>
+  </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations } from "vuex";
 export default {
-    name: 'HeaderNav',
-    data() {
-        return {
-        }
-    },
-    components: {
-
-    },
-    computed: {
-    ...mapState (['isLogin',])
-    },
-    methods: {
-    ...mapMutations(['USER_LOGOUT',]),
+  name: "HeaderNav",
+  data() {
+    return {};
+  },
+  components: {},
+  computed: {
+    ...mapState(["isLogin"]),
+  },
+  methods: {
+    ...mapMutations(["USER_LOGOUT"]),
     doLogout() {
-        this.USER_LOGOUT();
-    }
-    }
-    
-
-}
+      this.USER_LOGOUT();
+    },
+  },
+};
 </script>
 <style scoped>
 #header-nav {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 .sign-in > a {
-    padding: 0px 5px;
+  padding: 0px 5px;
 }
 
 v-app-bar {
-    padding: 10px;
+  padding: 10px;
 }
 
 v-app-bar a {
-    font-weight: bold;
-    color: #2c3e50;
+  font-weight: bold;
+  color: #2c3e50;
 }
 
 v-app-bar a.router-link-exact-active {
-    color: #42b983;
+  color: #42b983;
+}
+
+#logo {
+  height: 80px;
 }
 </style>
