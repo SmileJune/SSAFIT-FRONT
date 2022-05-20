@@ -4,6 +4,7 @@ import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
 import JoinView from "@/views/JoinView.vue";
 import CommunityView from "@/views/CommunityView.vue";
+import MyPageView from "@/views/MyPageView.vue";
 
 import FollowManagement from "@/components/mypage/FollowManagement.vue";
 import UpdateUser from "@/components/mypage/UpdateUser.vue";
@@ -51,9 +52,11 @@ const routes = [
   },
   {
     path: "/mypage",
+    name : "mypage",
+    component: MyPageView,
     children: [
       {
-        path: "",
+        path: "/follow",
         name: "FollowManagement",
         component: FollowManagement,
       },
