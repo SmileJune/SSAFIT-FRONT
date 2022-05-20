@@ -55,12 +55,15 @@
             </div>
             {{spotNo}}
             <v-btn rounded color="black" dark @click="showVideos">다 골랐어요!</v-btn>
-
         </div>
+        <video-select></video-select>
     </div>
 </template>
 
 <script>
+import videoSelect from "@/components/video/VideoSelect.vue"
+import { mapState } from 'vuex'
+
 export default {
     name: 'MyDiaryCreate',
     data() {
@@ -69,6 +72,9 @@ export default {
             difficulty: "",
             spotNo: "",
         }
+    },
+    computed : {
+        ...mapState(['videoList'])
     },
     methods: {
         showVideos() {
@@ -80,8 +86,11 @@ export default {
             console.log(condition);
             this.$store.dispatch('showVideos', condition)
         }
+    },
+    components : {
+        videoSelect
     }
-
+    
     
 }
 </script>

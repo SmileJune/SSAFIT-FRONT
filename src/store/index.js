@@ -12,6 +12,7 @@ export default new Vuex.Store({
     isLogin: false,
     videoList: [],
     somedayPlan: [],
+    date: "",
   },
   getters: {},
   mutations: {
@@ -30,6 +31,12 @@ export default new Vuex.Store({
     },
     GET_PLAN(state, data) {
       state.somedayPlan = data;
+    },
+    SET_TODAY(state, date) {
+      state.date = date;
+    },
+    SET_DATE(state, date) {
+      state.date = date;
     },
   },
   actions: {
@@ -73,23 +80,28 @@ export default new Vuex.Store({
       api({
         url: `/plan`,
         method: "POST",
-        data: date,
+        data: {date : date},
       }).then((res) => {
         commit("GET_PLAN", res.data);
+        commit("SET_TODAY", date);
+      }).catch((error) => {
+        console.log(error);
       });
     },
-
-
-    makePlan({commit}, videoChoice) {
+    makePlan({commit}, plan) {
       api({
         url: `/plan/write`,
         method: "POST",
-        data: videoChoice,
+        data: plan,
       }).then(() => {
         router.push({ name: "home"});
         commit();
       })
     },
+    changeDate({commit}, date) {
+      commit("SET_DATE", date);
+    },
+    
   },
   modules: {},
 });
