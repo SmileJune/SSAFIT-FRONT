@@ -1,11 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import LoginView from "../views/LoginView.vue";
-import JoinView from "../views/JoinView.vue";
-import FollowManagement from "../components/mypage/FollowManagement.vue";
-import UpdateUser from "../components/mypage/UpdateUser.vue";
-import MyDiaryCreate from "../components/diary/MyDiaryCreate.vue";
+import HomeView from "@/views/HomeView.vue";
+import LoginView from "@/views/LoginView.vue";
+import JoinView from "@/views/JoinView.vue";
+import CommunityView from "@/views/CommunityView.vue";
+
+import FollowManagement from "@/components/mypage/FollowManagement.vue";
+import UpdateUser from "@/components/mypage/UpdateUser.vue";
+import MyDiaryCreate from "@/components/diary/MyDiaryCreate.vue";
+import VideoShow from "@/components/video/VideoShow.vue";
 
 // import store from '@/store'
 // vuex가 아니라 store 객체를 직접 가져옴
@@ -65,6 +68,16 @@ const routes = [
     path: "/createVideo",
     name: "createVideo",
     component: MyDiaryCreate,
+  },
+  {
+    path: "/showVideo",
+    name: "showVideo",
+    component: VideoShow,
+  },
+  {
+    path: "/review",
+    name: "review",
+    component: CommunityView,
   },
 ];
 

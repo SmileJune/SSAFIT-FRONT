@@ -12,6 +12,18 @@ export default new Vuex.Store({
     isLogin: false,
     videoList: [],
     somedayPlan: [],
+    date: "",
+    user : {
+      id : '',
+      nickname: '',
+      introduce:''
+    },
+    reviews: [],
+    userProfile : {
+      id : 'dlfwns',
+      nickname: 'SmileJun',
+      introduce: 'Im SmileJun'
+    }
   },
   getters: {},
   mutations: {
@@ -31,6 +43,20 @@ export default new Vuex.Store({
     GET_PLAN(state, data) {
       state.somedayPlan = data;
     },
+    SET_TODAY(state, date) {
+      state.date = date;
+    },
+    SET_DATE(state, date) {
+      state.date = date;
+    },
+    GET_USER(state, data) {
+      state.user.id = data.id;
+      state.user.nickname = data.nickname;
+      state.user.introduce = data.introduce;
+    },
+    GET_REVIEW(state, data) {
+      state.reviews = data;
+    }
   },
   actions: {
     login({ commit }, user) {
@@ -42,7 +68,16 @@ export default new Vuex.Store({
         commit("USER_LOGIN", data["access-token"]);
         alert("오늘도 우리와 함께 신나게 운동해봐요!");
         router.push({ name: "home" });
-      });
+      })
+    },
+    who({commit}, id) {
+      api({
+        url:`user/${id}`,
+        method: "GET",
+      }).then((res) =>{
+        console.log(res);
+        commit("GET_USER", res.data);
+      })
     },
     join({ commit }, user) {
       api({
@@ -73,23 +108,58 @@ export default new Vuex.Store({
       api({
         url: `/plan`,
         method: "POST",
-        data: date,
+        data: {date : date},
       }).then((res) => {
         commit("GET_PLAN", res.data);
+        commit("SET_TODAY", date);
+      }).catch((error) => {
+        console.log(error);
       });
     },
-
-
-    makePlan({commit}, videoChoice) {
+    makePlan({commit}, plan) {
       api({
         url: `/plan/write`,
         method: "POST",
-        data: videoChoice,
+        data: plan,
       }).then(() => {
         router.push({ name: "home"});
         commit();
       })
     },
+    changeDate({commit}, date) {
+      commit("SET_DATE", date);
+    },
+    writeReview({commit}, data) {
+      api({
+        url: `review/write`,
+        method: "POST",
+        data: data,
+      }).then((res) => {
+        router.push({ name : "review"});
+        commit();
+        console.log(res)
+      })
+    },
+    getReview({commit}) {
+      api({
+        url: `review`,
+        method: "GET",
+      }).then((res) => {
+        commit("GET_REVIEW", res.data);
+      })
+    },
+    follow({commit}){
+      api({
+        url: `follow/write`,
+        method: "POST",
+        data : {
+          to : this.state.userProfile.id
+        }
+      }).then((res) => {
+        console.log(res);
+        commit();
+      })
+    }
   },
   modules: {},
 });

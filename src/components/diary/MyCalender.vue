@@ -1,8 +1,8 @@
 <template>
   <div class="calender">
-  <v-row>
-    <v-col >
-      <!-- <v-sheet height="64" >
+    <v-row>
+      <v-col>
+        <!-- <v-sheet height="64" >
         <v-toolbar
           flat
           class="toolbar" 
@@ -39,54 +39,57 @@
           </v-btn>
         </v-toolbar>
       </v-sheet> -->
-      <v-sheet height="400">
-        <!-- <v-calendar
+        <v-sheet height="400">
+          <!-- <v-calendar
           ref="calendar"
           v-model="focus"
           color="primary"
           @click="showDiary"
         ></v-calendar> -->
-        <v-date-picker v-model="date" mode="date" ref="calendar" @change="getEvents" />
-      </v-sheet>
-    </v-col>
-  </v-row>
+          <v-date-picker
+            v-model="date"
+            mode="date"
+            ref="calendar"
+            @change="getEvents"
+          />
+        </v-sheet>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
-  export default {
-    data(){
-      return{
-        date:'',
-      }
-
+export default {
+  data() {
+    return {
+      date: "",
+    };
+  },
+  created() {
+    // let today = new Date();
+    // let year = today.getFullYear();
+    // let month = today.getMonth();
+    // let date = today.getDate();
+    // this.date = today;
+    // console.log(this.date);
+  },
+  methods: {
+    showDiary() {},
+    setToday() {
+      this.focus = "";
     },
-    created() {
-      // let today = new Date();
-      // let year = today.getFullYear();
-      // let month = today.getMonth();
-      // let date = today.getDate();
-      // this.date = today;
-      // console.log(this.date);
+    // prev () {
+    //   this.$refs.calendar.prev()
+    // },
+    // next () {
+    //   this.$refs.calendar.next()
+    // },
+    getEvents(event) {
+      this.$store.dispatch("changeDate", event);
+      this.$store.dispatch("getPlan", this.$store.state.date);
     },
-    methods: {
-      showDiary () {
-        
-      },
-      setToday () {
-        this.focus = ''
-      },
-      // prev () {
-      //   this.$refs.calendar.prev()
-      // },
-      // next () {
-      //   this.$refs.calendar.next()
-      // },
-      getEvents(event){
-        console.log(event);
-      }
-    },
-  }
+  },
+};
 </script>
 
 <style>

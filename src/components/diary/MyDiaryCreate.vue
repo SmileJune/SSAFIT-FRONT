@@ -29,11 +29,15 @@
             <div>step2</div>
             <div>운동 강도를 골라주세요!</div>
             <v-rating
+                full-icon="★"
+                empty-icon="☆"
+                hover
                 v-model="difficulty"
                 background-color="grey lighten-1"
                 color="red lighten-3"
                 large
             ></v-rating>
+
             {{difficulty}}
             <v-btn rounded color="black" dark>다음 단계로</v-btn>
         </div>
@@ -55,12 +59,15 @@
             </div>
             {{spotNo}}
             <v-btn rounded color="black" dark @click="showVideos">다 골랐어요!</v-btn>
-
         </div>
+        <video-select></video-select>
     </div>
 </template>
 
 <script>
+import videoSelect from "@/components/video/VideoSelect.vue"
+import { mapState } from 'vuex'
+
 export default {
     name: 'MyDiaryCreate',
     data() {
@@ -69,6 +76,9 @@ export default {
             difficulty: "",
             spotNo: "",
         }
+    },
+    computed : {
+        ...mapState(['videoList'])
     },
     methods: {
         showVideos() {
@@ -80,8 +90,11 @@ export default {
             console.log(condition);
             this.$store.dispatch('showVideos', condition)
         }
+    },
+    components : {
+        videoSelect
     }
-
+    
     
 }
 </script>
