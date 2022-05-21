@@ -22,9 +22,9 @@ export default new Vuex.Store({
     },
     reviews: [],
     userProfile : {
-      id : 'dlfwns',
-      nickname: 'SmileJun',
-      introduce: 'Im SmileJun'
+      id : '',
+      nickname: '',
+      introduce: ''
     }
   },
   getters: {},
@@ -38,6 +38,11 @@ export default new Vuex.Store({
       state.isLogin = false;
       sessionStorage.removeItem("access-token");
       api.defaults.headers["access-token"] = "";
+      state.user = {
+        id : '',
+        nickname: '',
+        introduce:''
+      }
     },
     SHOW_VIDEOS(state, videos) {
       state.videoList = videos;
@@ -60,11 +65,12 @@ export default new Vuex.Store({
     GET_REVIEW(state, data) {
       state.reviews = data;
     },
-    SET_USER_PROFILE(state, data){
+    GET_USER_PROFILE(state, data){
       state.userProfile.id = data.id;
       state.userProfile.nickname = data.nickname;
       state.userProfile.introduce = data.introduce;
-    }
+    },
+    
   },
   actions: {
     login({ commit }, user) {
@@ -76,6 +82,7 @@ export default new Vuex.Store({
         commit("USER_LOGIN", data["access-token"]);
         alert("오늘도 우리와 함께 신나게 운동해봐요!");
         router.push({ name: "home" });
+        this.dispatch('who', user.id);
       })
     },
     who({commit}, id) {
@@ -193,6 +200,32 @@ export default new Vuex.Store({
       }).then((res) => {
         console.log(res);
         commit();
+      })
+    },
+    updateComment({commit}, payload) {
+      api({
+        url: `comment/update`,
+        method: "PUT",
+        data: payload,
+      }).then(() => {
+        commit();
+      })
+    },
+    updateReview({commit}, review) {
+      api({
+        url: `review/update`,
+        method: "PUT",
+        data: review,
+      }).then(() => {
+        commit();
+      })
+    },
+    getUserProfile({commit}, userId) {
+      api({
+        url:`user/${userId}`,
+        method: "GET",
+      }).then((res) =>{
+        commit("GET_USER_PROFILE", res.data);
       })
     }
   },
