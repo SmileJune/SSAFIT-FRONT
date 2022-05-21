@@ -25,9 +25,13 @@ export default new Vuex.Store({
       id : '',
       nickname: '',
       introduce: ''
-    }
+    },
+    followingList: [],
+    followerList : [],
+    TimelineList : [],
+    check: false,
   },
-  getters: {},
+  
   mutations: {
     USER_LOGIN(state, token) {
       state.isLogin = true;
@@ -43,6 +47,9 @@ export default new Vuex.Store({
         nickname: '',
         introduce:''
       }
+      state.TimelineList= [];
+      state.somedayPlan = [];
+      alert("로그아웃 됐습니다.");
     },
     SHOW_VIDEOS(state, videos) {
       state.videoList = videos;
@@ -57,7 +64,6 @@ export default new Vuex.Store({
       state.date = date;
     },
     GET_USER(state, data) {
-      console.log(data);
       state.user.id = data.id;
       state.user.nickname = data.nickname;
       state.user.introduce = data.introduce;
@@ -70,8 +76,26 @@ export default new Vuex.Store({
       state.userProfile.nickname = data.nickname;
       state.userProfile.introduce = data.introduce;
     },
-    
+    GET_FOLLOWER(state, data) {
+      state.followerList = data;
+    },
+    GET_FOLLOWING(state, data) {
+      state.followingList = data;
+    },
+    GET_TIMELINELIST(state, data){
+      state.TimelineList = data;
+      console.log(state.TimelineList);
+    },
+    GET_CHECK(state, data) {
+      state.check = data;
+    },
+    UPDATE_PROFILE(state, data) {
+      state.user.nickname = data.nickname;
+      state.user.introduce = data.introduce;
+      state.check = false;
+    }
   },
+  
   actions: {
     login({ commit }, user) {
       api({
@@ -83,6 +107,8 @@ export default new Vuex.Store({
         alert("오늘도 우리와 함께 신나게 운동해봐요!");
         router.push({ name: "home" });
         this.dispatch('who', user.id);
+        this.dispatch('getFollower', user);
+        this.dispatch('getFollowing', user);
       })
     },
     who({commit}, id) {
@@ -90,7 +116,6 @@ export default new Vuex.Store({
         url:`user/${id}`,
         method: "GET",
       }).then((res) =>{
-        console.log(res);
         commit("GET_USER", res.data);
       })
     },
@@ -112,7 +137,6 @@ export default new Vuex.Store({
         data: condition,
       })
         .then((res) => {
-          console.log(res);
           commit("SHOW_VIDEOS", res.data);
         })
         .catch((error) => {
@@ -163,16 +187,15 @@ export default new Vuex.Store({
         commit("GET_REVIEW", res.data);
       })
     },
-    follow({commit}){
+    follow({commit}, to){
       api({
         url: `follow/write`,
         method: "POST",
-        data : {
-          to : this.state.userProfile.id
-        }
+        data : to,
       }).then((res) => {
         console.log(res);
-        commit();
+        commit('FOLLOW', to);
+        this.dispatch('getFollowing', this.state.user);
       })
     },
     getMyProfile({commit}){
@@ -180,7 +203,7 @@ export default new Vuex.Store({
         url: `user`,
         method: "GET",
       }).then((res) => {
-        commit('SET_USER_PROFILE',res.data);
+        commit('GET_USER_PROFILE',res.data);
       })
     },
     writeComment({commit}, payload) {
@@ -220,6 +243,14 @@ export default new Vuex.Store({
         commit();
       })
     },
+    deleteReview({commit}, no) {
+      api({
+        url: `review/delete/${no}`,
+        method: "DELETE",
+      }).then(() => {
+        commit();
+      })
+    },
     getUserProfile({commit}, userId) {
       api({
         url:`user/${userId}`,
@@ -227,7 +258,66 @@ export default new Vuex.Store({
       }).then((res) =>{
         commit("GET_USER_PROFILE", res.data);
       })
-    }
+    },
+    getFollower({commit},user){
+      api({
+        url:`follower/${user.id}`,
+        method: "GET",
+      }).then((res) =>{
+        commit("GET_FOLLOWER", res.data);
+      })
+    },
+    getFollowing({commit}, user){
+      api({
+        url:`following/${user.id}`,
+        method: "GET",
+      }).then((res) =>{
+        commit("GET_FOLLOWING", res.data);
+      })
+    },
+    unFollow({commit}, followingUser) {
+      api({
+        url: `follow/delete/${followingUser}`,
+        method: "DELETE",
+      }).then(() => {
+        this.dispatch('getFollowing', this.state.user);
+        commit();
+      })
+    },
+    getTimelineList({commit}){
+      api({
+        url: `review/timeline`,
+        method: "GET",
+      }).then((res)=>{
+        commit("GET_TIMELINELIST",res.data);
+      })
+    },
+    checkPassword({commit}, user) {
+      api({
+        url: `user/identify`,
+        method: "POST",
+        data: user,
+      }).then((res) => {
+        commit("GET_CHECK", res.data);
+      })
+    },
+    updateProfile({commit}, profile) {
+      api({
+        url: `user/update`,
+        method: "PUT",
+        data: profile,
+      }).then(() => {
+        commit("UPDATE_PROFILE", profile);
+      })
+    },
+    deleteUser({commit}) {
+      api({
+        url: `user/delete`,
+        method : "DELETE",
+      }).then(() =>{
+        commit();
+      })
+    },
   },
   modules: {},
 });

@@ -5,11 +5,11 @@
         <img id="logo" src="@/assets/ssafit.png" alt="logo" />
       </router-link>
       <div class="sign-in">
-        <router-link to="/review">커뮤니티</router-link>
-        <router-link v-if="!isLogin" to="/login">로그인</router-link>
-        <a v-else @click="doLogout">로그아웃</a>
-        <router-link v-if="!isLogin" to="/join">회원가입</router-link>
-        <router-link v-else to="/mypage">사용자닉네임</router-link>
+        <router-link to="/review" class="link">커뮤니티</router-link>
+        <router-link v-if="!isLogin" to="/login" class="link" >로그인</router-link>
+        <a v-else @click="doLogout" class="link">로그아웃</a>
+        <router-link v-if="!isLogin" to="/join" class="link">회원가입</router-link>
+        <router-link v-else to="/mypage" class="link">{{user.nickname}}</router-link>
       </div>
     </v-app-bar>
   </div>
@@ -24,7 +24,7 @@ export default {
   },
   components: {},
   computed: {
-    ...mapState(["isLogin"]),
+    ...mapState(["isLogin", "user"]),
   },
   methods: {
     ...mapMutations(["USER_LOGOUT"]),
@@ -37,7 +37,7 @@ export default {
 <style scoped>
 #header-nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .sign-in > a {
   padding: 0px 5px;
@@ -58,5 +58,11 @@ v-app-bar a.router-link-exact-active {
 
 #logo {
   height: 80px;
+}
+.link {
+  color : black;
+  text-decoration: none;
+  font-size: 20px;
+
 }
 </style>

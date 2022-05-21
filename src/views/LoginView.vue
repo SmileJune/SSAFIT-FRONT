@@ -16,6 +16,9 @@ export default {
       password: "",
     };
   },
+  mounted() {
+    document.getElementById("id").focus();
+  },
   methods: {
     login() {
       let user = { id: this.id, password: this.password };

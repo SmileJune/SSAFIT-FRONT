@@ -39,7 +39,7 @@
           </v-btn>
         </v-toolbar>
       </v-sheet> -->
-        <v-sheet height="400">
+        <v-sheet height="300">
           <!-- <v-calendar
           ref="calendar"
           v-model="focus"
@@ -50,6 +50,7 @@
             v-model="date"
             mode="date"
             ref="calendar"
+            width="400"
             @change="getEvents"
           />
         </v-sheet>
@@ -101,4 +102,8 @@ export default {
   display: flex;
   justify-content: center;
 }
+
+/* .v-date-picker-table {
+  height : 500px !important;
+} */
 </style>
