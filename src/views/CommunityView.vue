@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container v-for="(review, idx) in reviews" :key="idx">
+    <v-container v-for="(review, idx) in pageReviewList" :key="idx">
       <v-row justify="space-around">
         <v-card width="400">
           <!-- 리뷰 파트 -->
@@ -13,15 +13,15 @@
               />
             </v-avatar> -->
             <span class="ml-3 font-weight-bold">
-              <!-- <a @click="showProfile(review.userId)"> -->
-              {{ review.userId }}
-              <!-- </a> -->
+              <a @click="getUserProfile(review.userId)">
+                {{ review.userId }}
+              </a>
             </span>
             <span class="ml-3">님의 리뷰</span>
 
             <!-- 아이디 클릭하면 모달 컴포넌트 띄울거야 -->
-            <v-dialog v-model="profileSwitch" width="500">
-              <template v-slot:activator="{ on, attrs }">
+            <v-dialog v-model="profileSwitch" width="500" :retain-focus="false">
+              <!-- <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   color="red lighten-2"
                   dark
@@ -31,11 +31,11 @@
                 >
                   {{ review.userId }} 님이 궁금하다면?
                 </v-btn>
-              </template>
+              </template> -->
 
               <v-card>
                 <v-card-title class="text-h5 grey lighten-2">
-                  {{ review.userId }}님의 프로필
+                  {{ userProfile.id }}님의 프로필
                 </v-card-title>
 
                 <v-card-text>
@@ -44,19 +44,13 @@
                   <v-card-text
                     >간단한 소개 : {{ userProfile.introduce }}</v-card-text
                   >
-                  <v-card-text>현재 팔로워 수 : </v-card-text>
-                  <v-card-text>현재 팔로잉 수 : </v-card-text>
                 </v-card-text>
 
                 <v-divider></v-divider>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn
-                    color="primary"
-                    text
-                    @click="followThisUser(review.userId)"
-                  >
+                  <v-btn color="primary" text @click="follow(userProfile.id)">
                     팔로우하기
                   </v-btn>
                   <v-btn color="primary" text @click="profileSwitch = false">
@@ -65,19 +59,16 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-
             <!-- 프로필 모달창 끝 -->
+
             <v-card-text>
               <!-- <div class="ml-3 font-weight-bold">{{ review.title }}</div> -->
               <div class="sm-3 font-weight-bold">
                 {{ review.userId }}님의 한마디
               </div>
+              <div>{{ review.title }}</div>
               <div>{{ review.content }}</div>
               <div class="ml-3">{{ review.date }}</div>
-              <!--여기라고-->
-              <!-- <v-btn v-if="user.id === review.userId" @click="updateReview()"
-                >수정</v-btn
-              > -->
 
               <!-- 수정시 모달창 -->
               <template>
@@ -155,14 +146,14 @@
                         <v-btn
                           color="green darken-1"
                           text
-                          @click="dialog = false"
+                          @click="dialog.splice(idx, 1, false)"
                         >
                           작성안할래요
                         </v-btn>
                         <v-btn
                           color="green darken-1"
                           text
-                          @click="updateReview(idx)"
+                          @click="updateReview(review.no, idx)"
                         >
                           리뷰저장
                         </v-btn>
@@ -215,16 +206,19 @@
           <!-- 댓글 part 시작-->
 
           <!-- <v-btn @click="[writeReview, this.no = review.no]">댓글 달기</v-btn> -->
-          <v-btn @click="writeComment(review.no)">댓글 달기</v-btn>
-          <v-col cols="12" sm="40">
-            <v-textarea
-              append-outer-icon="mdi-comment"
-              class="mx-2"
-              label="댓글 쓰기"
-              rows="1"
-              v-model="message"
-            ></v-textarea>
-          </v-col>
+          <div class="comment-input">
+              <v-col cols="10" sm="40">
+                <v-textarea
+                append-outer-icon="mdi-comment"
+                class="mx-2"
+                label="댓글 쓰기"
+                rows="1"
+                v-model="message"
+                @keyup.13="writeComment(review.no)"
+              ></v-textarea>
+            </v-col>
+            <v-btn @click="writeComment(review.no)"> 댓글 > </v-btn>
+          </div>
 
           <v-card-text>
             <div class="font-weight-bold ml-8 mb-2">댓글</div>
@@ -238,7 +232,12 @@
                 <div>
                   <!-- 수정, 삭제 아이콘도 추가하기 -->
                   <div class="font-weight-normal">
-                    <strong>{{ comment.userId }}</strong> {{ comment.date }}
+                    <strong>
+                      <a @click="getUserProfile(comment.userId)">{{
+                        comment.userId
+                      }}</a>
+                    </strong>
+                    {{ comment.date }}
                   </div>
                   <div>{{ comment.comment }}</div>
                   <!-- 유저 아이디와 코멘트 작성한 사람의 아이디가 같으면  -->
@@ -277,6 +276,12 @@
         </v-card>
       </v-row>
     </v-container>
+    <!-- 페이지네이션 -->
+    <v-pagination
+      v-model="currPage"
+      :length="numOfPages"
+      circle
+    ></v-pagination>
   </div>
 </template>
 
@@ -295,10 +300,22 @@ export default {
     title: "",
     content: "",
     profileSwitch: false,
+    currPage: 1,
+    reviewPerPage: 3,
     //  arr1 : Array.from(Array(5), () => new Array(2))
   }),
   computed: {
     ...mapState(["reviews", "user", "userProfile"]),
+    numOfPages() {
+      console.log(this.reviews.length / this.reviewPerPage);
+      return Math.ceil(this.reviews.length / this.reviewPerPage);
+    },
+    pageReviewList() {
+      return this.reviews.slice(
+        (this.currPage - 1) * this.reviewPerPage,
+        this.currPage * this.reviewPerPage
+      );
+    },
 
     // arr1(){
     //   let arr = new Array(this.reviews.length);
@@ -366,8 +383,9 @@ export default {
     updateReviewSwitch(idx) {
       this.dialog[idx] = true;
     },
-    updateReview(idx) {
+    updateReview(no, idx) {
       let review = {
+        no: no,
         title: this.title,
         content: this.content,
         videoList: [],
@@ -380,24 +398,38 @@ export default {
       });
       console.log(review);
       this.$store.dispatch("updateReview", review);
-      this.dialog = false;
+      this.dialog.splice(idx, 1, false);
       this.$router.go();
     },
     deleteReview(reviewNo) {
       this.$store.dispatch("deleteReview", reviewNo);
+      this.$router.go();
     },
-    // showProfile(userId) {
-    //   this.profileSwitch = true;
-    //   userId;
-    // },
     getUserProfile(userId) {
+      this.profileSwitch = true;
       this.$store.dispatch("getUserProfile", userId);
     },
+    follow(toUser) {
+      if (this.user.id == toUser) {
+        alert("왜 니꺼 팔로우하냐?");
+      } else {
+        let follow = {
+          to: toUser,
+        };
+        this.$store.dispatch("follow", follow);
+        alert("팔로우 성공!");
+        this.profileSwitch = false;
+      }
+    },
   },
+  
 };
 </script>
 <style>
 .video {
   width: 400px;
+}
+.comment-input {
+  display: flex;
 }
 </style>

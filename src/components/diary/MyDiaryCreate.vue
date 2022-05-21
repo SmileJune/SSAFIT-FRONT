@@ -60,7 +60,7 @@
             {{spotNo}}
             <v-btn rounded color="black" dark @click="showVideos">다 골랐어요!</v-btn>
         </div>
-        <video-select></video-select>
+        <video-select v-if="finish"></video-select>
     </div>
 </template>
 
@@ -75,6 +75,7 @@ export default {
             partNo: "",
             difficulty: "",
             spotNo: "",
+            finish : false,
         }
     },
     computed : {
@@ -89,6 +90,7 @@ export default {
             }
             console.log(condition);
             this.$store.dispatch('showVideos', condition)
+            this.finish = true;
         }
     },
     components : {

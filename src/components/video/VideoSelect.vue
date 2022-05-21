@@ -33,6 +33,7 @@
             </div>
           </v-card>
         </v-col>
+        <div v-show="videoList.length == 0">없다 이자식아</div>
         <v-btn @click="choiceVideo()"> 운동 루틴 저장하기</v-btn>
       </v-row>
     </v-container>
