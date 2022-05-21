@@ -2,7 +2,7 @@
   <div class="diary">
     <v-card max-width="400" class="mx-auto">
       <v-app-bar dark color="pink">
-        <v-toolbar-title>{{user.nickname}} SSAFIT diary</v-toolbar-title>
+        <v-toolbar-title>{{ user.nickname }} SSAFIT diary</v-toolbar-title>
 
         <v-spacer></v-spacer>
       </v-app-bar>
@@ -20,10 +20,6 @@
                 {{ plan.channelName }}
                 {{ plan.url }}
               </v-card-subtitle>
-
-              <v-card-actions>
-                <v-btn text> 버튼이 요깄네 </v-btn>
-              </v-card-actions>
             </v-card>
           </v-col>
           <!-- 여기까지 -->
@@ -31,23 +27,17 @@
           <div v-if="somedayPlan.length == 0">오늘 운동할 영상이 없네요!</div>
 
           <!-- 운동 루틴이 있으면 보여주기 -->
-          <v-btn
-            rounded
-            color="black"
-            small
-            dark
-            v-if="somedayPlan.length > 0"
+          <v-btn rounded color="black" small dark v-if="somedayPlan.length > 0"
             ><router-link to="/showVideo"
               >운동하러 가볼까요?</router-link
             ></v-btn
           >
           <!-- 운동 루틴이 없으면 보여주기 -->
-          <v-btn rounded color="black" small dark @click="chooseVideos" v-else
+          <v-btn rounded color="black" small dark v-else
             ><router-link to="/createVideo"
               >새로운 운동 영상을 고르러 가볼까요?</router-link
             ></v-btn
           >
-          <v-btn text> </v-btn>
         </v-row>
       </v-container>
     </v-card>
@@ -84,9 +74,7 @@ export default {
 
     this.$store.dispatch("getPlan", today);
   },
-  methods: {
-    
-  },
+  methods: {},
 };
 </script>
 
