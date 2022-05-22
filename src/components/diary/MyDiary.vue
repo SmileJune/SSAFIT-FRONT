@@ -7,6 +7,7 @@
       class="mx-auto"
       id="diary-box"
     >
+
       <v-app-bar dark color="var(--color-blue5)" style="height: 87px">
         <v-toolbar-title 
           >{{ user.nickname }}님의 SSAFIT diary 📝
@@ -33,8 +34,8 @@
         </v-row>
       </v-card-text>
       <!-- 운동 루틴이 있으면 보여주기 -->
-      <v-btn rounded color="black" dark v-if="somedayPlan.length > 0"
-        ><router-link to="/showVideo">운동하러 가볼까요?</router-link></v-btn
+      <v-btn rounded dark v-if="somedayPlan.length > 0"
+        ><router-link color="black" to="/showVideo">운동하러 가볼까요?</router-link></v-btn
       >
       <v-btn rounded color="black" dark v-if="somedayPlan.length > 0"
         ><router-link to="/createVideo"
@@ -91,26 +92,26 @@ export default {
   flex-grow: 1;
   overflow: auto;
 }
+
 .v-card-text {
   overflow: auto;
 }
+
 .v-btn {
   margin: 0 16px;
   width: 250px;
-  color: white;
 }
-a {
+
+/* a {
   color: white;
-}
+} */
 
 .v-toolbar-title {
   padding: 8px 16px 0px 16px;
 }
 
 .v-card__title.text-h6,
-.v-card__subtitle.text
- {
+.v-card__subtitle.text {
   background-color: rgb(250, 250, 255);
 }
-
 </style>
