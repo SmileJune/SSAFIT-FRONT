@@ -4,7 +4,7 @@
     <div v-for="(review, idx) in TimelineList" :key="idx">
       <!--실험시작-->
       <div class="timeline-box">
-        <v-card class="mx-auto" color="#2C73D2" dark max-width="1023">
+        <v-card class="mx-auto" color="#74A8FF" dark max-width="1023">
           <v-card-title>
             <v-icon large left> mdi-twitter </v-icon>
             <span class="text-h6 font-weight-light">{{ review.title }}</span>

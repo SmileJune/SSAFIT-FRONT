@@ -8,7 +8,9 @@
       id="diary-box"
     >
       <v-app-bar dark color="blue">
-        <v-toolbar-title>{{ user.nickname }} SSAFIT diary</v-toolbar-title>
+        <v-toolbar-title
+          >{{ user.nickname }}님의 SSAFIT diary 📝</v-toolbar-title
+        >
 
         <v-spacer></v-spacer>
       </v-app-bar>
@@ -35,6 +37,11 @@
       <!-- 운동 루틴이 있으면 보여주기 -->
       <v-btn rounded color="black" dark v-if="somedayPlan.length > 0"
         ><router-link to="/showVideo">운동하러 가볼까요?</router-link></v-btn
+      >
+      <v-btn rounded color="black" dark v-if="somedayPlan.length > 0"
+        ><router-link to="/createVideo"
+          >운동 다시 고를래요요</router-link
+        ></v-btn
       >
       <!-- 운동 루틴이 없으면 보여주기 -->
       <v-btn rounded color="black" dark v-else
@@ -87,22 +94,22 @@ export default {
 
 .diary {
   flex: 1;
-  display: flex;
-  justify-content: flex-end;
 }
-/* #diary-box {
-  justify-content: flex-end;
-} */
+
 .v-card {
   flex-grow: 1;
   overflow: auto;
 }
-
+.v-card-text {
+  overflow: auto;
+}
 .v-btn {
   margin: 0 16px;
+  width: 250px;
 }
 a {
-  text-decoration: none;
+  /* text-decoration: none; */
   color: white;
+  /* padding: 2px 14px; */
 }
 </style>

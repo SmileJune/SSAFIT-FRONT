@@ -7,7 +7,6 @@
         </router-link>
       </div>
       <div class="menu">
-        <div class="balance"></div>
         <div class="menuWrap">
           <router-link to="/review" class="link">커뮤니티</router-link>
         </div>
@@ -56,19 +55,15 @@ header {
 }
 .header-box {
   width: 1023px;
-
+  margin: 10px;
   display: flexbox;
   justify-content: center;
 }
 .menu {
   display: flex;
   justify-content: space-between;
-}
-.balance {
-  flex-grow: 1.37;
-}
-.menuWrap {
-  flex-grow: 1;
+  font-size: 1.5rem;
+  font-style: bold;
 }
 .logo {
   display: flex;
@@ -76,5 +71,10 @@ header {
 }
 #logo {
   height: 150px;
+}
+.link {
+  padding: 10px;
+  color: #000;
+  font-style: bold;
 }
 </style>

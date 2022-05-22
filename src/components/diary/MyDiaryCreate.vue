@@ -1,119 +1,127 @@
 <template>
-  <v-container>
-    <div
-      class="step1"
-      data-aos="fade-up"
-      data-aos-delay="50"
-      data-aos-duration="1000"
-      data-aos-anchor-placement="top-center"
-    >
-      <!-- <div class="step"> -->
-      <h1>step1</h1>
-      <h1>오늘은 어느 부위를 운동해볼까요?</h1>
-      <!-- </div> -->
-      <div class="select-part">
-        <div>
-          <input
-            type="radio"
-            id="body"
-            name="drone"
-            value="1"
-            v-model="partNo"
-          />
-          <label for="body">전신</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="top"
-            name="drone"
-            value="2"
-            v-model="partNo"
-          />
-          <label for="top">상체</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="bottom"
-            name="drone"
-            value="3"
-            v-model="partNo"
-          />
-          <label for="bottom">하체</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="abs"
-            name="drone"
-            value="4"
-            v-model="partNo"
-          />
+  <div>
+      <div class="container">
+        <div class="step1">
+          <div class="wrapper fadeInDown">
+            <!-- <div class="step"> -->
+            <h1>step1</h1>
+            <h1>오늘은 어느 부위를 운동해볼까요?</h1>
+            <!-- </div> -->
+            <div class="select-part">
+              <div>
+                <input
+                  type="radio"
+                  id="body"
+                  name="drone"
+                  value="1"
+                  v-model="partNo"
+                />
+                <label for="body">전신</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="top"
+                  name="drone"
+                  value="2"
+                  v-model="partNo"
+                />
+                <label for="top">상체</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="bottom"
+                  name="drone"
+                  value="3"
+                  v-model="partNo"
+                />
+                <label for="bottom">하체</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="abs"
+                  name="drone"
+                  value="4"
+                  v-model="partNo"
+                />
 
-          <label for="abs">복부</label>
+                <label for="abs">복부</label>
+              </div>
+            </div>
+            <v-btn rounded dark @click="showStep2" color="var(--color-blue5)"
+              >다음 단계로 👉🏼</v-btn
+            >
+          </div>
         </div>
+        <div class="step2" v-show="okStep2">
+          <div class="wrapper fadeInDown">
+            <h1>step2</h1>
+            <h1>운동 강도를 골라주세요!</h1>
+            <v-rating
+              full-icon="★"
+              empty-icon="☆"
+              hover
+              v-model="difficulty"
+              background-color="grey lighten-1"
+              color="red lighten-3"
+              large
+            ></v-rating>
+            <v-btn rounded dark @click="showStep3" color="var(--color-blue5)"
+              >다음 단계로 👉🏼</v-btn
+            >
+          </div>
+        </div>
+        <div class="step3" v-show="okStep3">
+          <div class="wrapper fadeInDown">
+            <h1>step3</h1>
+            <h1>어디에서 운동을 하실건가요?</h1>
+            <div class="work-out-spot">
+              <div class="img-gym">
+                <v-img
+                  id="img-gym"
+                  max-width="200"
+                  max-height="200"
+                  @click="spotNo = 1"
+                  src="@/assets/gym.png"
+                />
+                <div class="place">헬스장</div>
+              </div>
+              <div class="img-home">
+                <v-img
+                  id="img-home"
+                  max-width="200"
+                  max-height="200"
+                  @click="spotNo = 2"
+                  src="@/assets/hometraing.png"
+                />
+                <div class="place">집</div>
+              </div>
+            </div>
+            <div class="finish">
+              <v-btn rounded dark @click="showVideos" color="var(--color-blue5)"
+                >다 골랐어요! 🙌🏻</v-btn
+              >
+            </div>
+          </div>
+        </div>
+      <div class="fly">
+        <!-- <div class="wrapper fadeInDown"></div> -->
+        <v-progress-circular
+          :rotate="-90"
+          :size="250"
+          :width="15"
+          :value="value"
+          color="primary"
+        >
+          {{ value }}
+        </v-progress-circular>
       </div>
-      <v-btn rounded color="black" dark @click="showStep2">다음 단계로</v-btn>
-    </div>
-
-    <div
-      class="step2"
-      data-aos="fade-up"
-      data-aos-delay="50"
-      data-aos-duration="1000"
-      data-aos-anchor-placement="top-center"
-      v-show="okStep2"
-    >
-      <h1>step2</h1>
-      <h1>운동 강도를 골라주세요!</h1>
-      <v-rating
-        full-icon="★"
-        empty-icon="☆"
-        hover
-        v-model="difficulty"
-        background-color="grey lighten-1"
-        color="red lighten-3"
-        large
-      ></v-rating>
-
-      {{ difficulty }}
-      <v-btn rounded color="black" dark @click="showStep3">다음 단계로</v-btn>
-    </div>
-
-    <div
-      class="step3"
-      data-aos="fade-up"
-      data-aos-delay="50"
-      data-aos-duration="1000"
-      data-aos-anchor-placement="top-center"
-      v-show="okStep3"
-    >
-      <h1>step3</h1>
-      <h1>어디에서 운동을 하실건가요?</h1>
-      <div class="work-out-spot">
-        <div>
-          <v-img
-            max-width="100"
-            max-height="100"
-            @click="spotNo = 1"
-            src="@/assets/gym.png"
-          />
-        </div>
-        <div class="img-box">
-          <v-img
-            max-width="100"
-            max-height="100"
-            @click="spotNo = 2"
-            src="@/assets/hometraing.png"
-          />
-        </div>
       </div>
-      {{ spotNo }}
-      <v-btn rounded color="black" dark @click="showVideos">다 골랐어요!</v-btn>
-    </div>
+
     <video-select v-if="finish"></video-select>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -130,13 +138,20 @@ export default {
       finish: false,
       okStep2: false,
       okStep3: false,
+      interval: {},
+      value: "0 %",
     };
   },
+  beforeDestroy() {
+    clearInterval(this.interval);
+  },
+
   computed: {
     ...mapState(["videoList"]),
   },
   methods: {
     showVideos() {
+      this.value = "100 %";
       const condition = {
         partNo: this.partNo,
         difficulty: this.difficulty,
@@ -148,9 +163,11 @@ export default {
     },
     showStep2() {
       this.okStep2 = true;
+      this.value = "30 %";
     },
     showStep3() {
       this.okStep3 = true;
+      this.value = "70 %";
     },
   },
   components: {
@@ -160,8 +177,16 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+.container {
+  display: flex;
+  justify-content: space-around;
+}
 .work-out-spot {
   display: flex;
+  height: 300px;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .step {
@@ -177,8 +202,17 @@ export default {
   margin: 20px;
 }
 
-.img-box {
-  border-radius: 70%;
+#img-home {
+  height: 300px;
+  border-radius: 20%;
+}
+#img-gym {
+  height: 200px;
+  border-radius: 20%;
+}
+#img-home:active,
+#img-gym:active {
+  border: 5px solid #5fbae9;
 }
 
 .v-rating {
@@ -194,6 +228,113 @@ export default {
 
 .v-application--wrap {
   min-height: unset;
+}
+
+.v-btn {
+  width: 250px;
+  color: var(--color-blue5);
+}
+.fly {
+  text-align: center;
+  left: 50%;
+  width: 100px;
+  margin: 90px;
+}
+
+.step1,
+.step2,
+.step3 {
+  margin: 50px 0;
+}
+.step3 {
+  display: flexbox;
+}
+.wrapper {
+  justify-content: flex-start;
+}
+.v-progress-circular {
+  margin: 1rem;
+}
+.place {
+  text-align: center;
+  font-size: 2rem;
+  font-style: bold;
+}
+
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+/* Simple CSS3 Fade-in Animation */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  opacity: 0;
+  -webkit-animation: fadeIn ease-in 1;
+  -moz-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  animation-duration: 1s;
 }
 
 /* .step1 {
