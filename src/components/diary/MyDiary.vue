@@ -75,7 +75,6 @@ export default {
       // let token = sessionStorage.getItem("access-token")
       // this.$store.dispatch('getToken', token)
 
-      this.$store.dispatch("getPlan", today);
     }
   },
   methods: {},

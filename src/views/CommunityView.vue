@@ -400,6 +400,7 @@ export default {
       this.$store.dispatch("updateReview", review);
       this.dialog.splice(idx, 1, false);
       this.$router.go();
+
     },
     deleteReview(reviewNo) {
       this.$store.dispatch("deleteReview", reviewNo);
