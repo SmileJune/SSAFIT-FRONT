@@ -103,6 +103,19 @@ export default {
   justify-content: center;
 }
 
+/* .v-picker__body {
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    justify-content: center;
+} */
+
 /* .v-date-picker-table {
   height : 500px !important;
 } */

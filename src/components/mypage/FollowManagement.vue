@@ -1,17 +1,33 @@
 <template>
   <div>
     <hr />
-    <h2>정현 : 일준오빠 ~~~~</h2>
-    <div>나를 팔로잉 중인 사람</div>
-    <div v-for="(follower, idx) in followerList" :key="idx">
-      <div>{{ follower.nickname }}</div>
+    <div class="second">
+      <div class="follow-first">
+        <h3>나를 팔로잉 중인 사람</h3>
+        <h3>내가 팔로우 중인 사람</h3>
+      </div>
+      <hr />
+      <div class="follow-second">
+        <div>
+          <div v-show="followerList.length === 0">팔로우 한 사람이 없습니다.</div>
+          <div v-for="(follower, idx) in followerList" :key="idx">
+            <div class="follow">{{ follower.nickname }}</div>
+          </div>
+        </div>
+        <div class="border-left">
+          <div v-show="followingList.length === 0">팔로우 한 사람이 없습니다.</div>
+          <div v-for="(following, idx) in followingList" :key="idx">
+            <div class="follow-third">
+              <v-btn class="but" text color="error" x-large @click="unFollow(following.id)">
+                unfollow
+              </v-btn>
+              <div class="follow">{{ following.nickname }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <hr />
-    <div>내가 팔로우 중인 사람</div>
-    <div v-for="(following, idx) in followingList" :key="idx">
-      <div>{{ following.nickname }}</div>
-      <v-btn @click="unFollow(following.id)">연 끊기</v-btn>
-    </div>
   </div>
 </template>
 
@@ -30,4 +46,23 @@ export default {
 </script>
 
 <style>
+.follow-first {
+  display: flex;
+  justify-content: space-between;
+}
+.follow-second {
+  display: flex;
+  justify-content: space-between;
+}
+.follow-third {
+  display: flex;
+}
+
+.but {
+  margin-top: 5px;
+}
+
+.border-left {
+  border-left: 1px solid #000;
+}
 </style>

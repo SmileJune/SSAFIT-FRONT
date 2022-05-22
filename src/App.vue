@@ -4,18 +4,20 @@
     <div id="main">
       <router-view />
     </div>
-
+    <contact-us />
   </v-app>
 </template>
 
 <script>
 //import HomeView from '@/views/HomeView.vue'
 import HeaderNav from "./components/common/HeaderNav.vue";
+import ContactUs from "@/components/common/ContactUs.vue";
 export default {
   name: "App",
   components: {
     //HomeView,
     HeaderNav,
+    ContactUs,
   },
   data() {
     return {
@@ -25,16 +27,16 @@ export default {
 };
 </script>
 <style>
-  /* @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css); */
-  @import url('//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
+/* @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css); */
+@import url("//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css");
+@import "@/assets/style.css";
 
-
-* { 
-  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif'; 
+* {
+  font-family: "Spoqa Han Sans", "Spoqa Han Sans JP", "Sans-serif";
 }
 
 #main {
   width: 1023px;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 </style>

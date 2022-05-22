@@ -1,17 +1,16 @@
 <template>
   <div>
+    <h1>다른 분들은 어떤 운동을 하셨을까요? 🧐</h1>
+    <h3>누가누가 운동 많이 했나~~~</h3>
+     <br>
+     <h3>👇🏼 요기 아래 아이디를 클릭하면 프로필도 볼 수 있어요</h3>
+     <br>
     <v-container v-for="(review, idx) in pageReviewList" :key="idx">
       <v-row justify="space-around">
         <v-card width="400">
           <!-- 리뷰 파트 -->
-          <v-card-title class="mt-8">
+          <v-card-title class="review-top">
             <!-- 사용자 프로필 -->
-            <!-- <v-avatar size="56">
-              <img
-                alt="user"
-                src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg"
-              />
-            </v-avatar> -->
             <span class="ml-3 font-weight-bold">
               <a @click="getUserProfile(review.userId)">
                 {{ review.userId }}
@@ -21,18 +20,6 @@
 
             <!-- 아이디 클릭하면 모달 컴포넌트 띄울거야 -->
             <v-dialog v-model="profileSwitch" width="500" :retain-focus="false">
-              <!-- <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  color="red lighten-2"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
-                  @click="getUserProfile(review.userId)"
-                >
-                  {{ review.userId }} 님이 궁금하다면?
-                </v-btn>
-              </template> -->
-
               <v-card>
                 <v-card-title class="text-h5 grey lighten-2">
                   {{ userProfile.id }}님의 프로필
@@ -50,10 +37,10 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="primary" text @click="follow(userProfile.id)">
+                  <v-btn rounded dart color="var(--color-blue5)" text @click="follow(userProfile.id)">
                     팔로우하기
                   </v-btn>
-                  <v-btn color="primary" text @click="profileSwitch = false">
+                  <v-btn rounded dart color="var(--color-blue5)" text @click="profileSwitch = false">
                     닫기
                   </v-btn>
                 </v-card-actions>
@@ -63,10 +50,10 @@
 
             <v-card-text>
               <!-- <div class="ml-3 font-weight-bold">{{ review.title }}</div> -->
-              <div class="sm-3 font-weight-bold">
-                {{ review.userId }}님의 한마디
-              </div>
-              <div>{{ review.title }}</div>
+              <h2 class="sm-3 font-weight-bold" color="black">
+                {{ review.userId }}님의 후기
+              </h2>
+              <!-- <div>{{ review.title }}</div> -->
               <div>{{ review.content }}</div>
               <div class="ml-3">{{ review.date }}</div>
 
@@ -425,11 +412,17 @@ export default {
   
 };
 </script>
-<style>
+<style scoped>
 .video {
   width: 400px;
 }
 .comment-input {
   display: flex;
+}
+
+h2 {
+  margin: 0;
+  color: black;
+
 }
 </style>

@@ -5,6 +5,7 @@ import LoginView from "@/views/LoginView.vue";
 import JoinView from "@/views/JoinView.vue";
 import CommunityView from "@/views/CommunityView.vue";
 import MyPageView from "@/views/MyPageView.vue";
+import TogetherView from "@/views/TogetherView.vue";
 
 import UpdateUser from "@/components/mypage/UpdateUser.vue";
 import MyDiaryCreate from "@/components/diary/MyDiaryCreate.vue";
@@ -76,6 +77,12 @@ const routes = [
     component: CommunityView,
     beforeEnter: checkLogin(),
   },
+  {
+    path: "/together",
+    name: "together",
+    component: TogetherView,
+    beforeEnter: checkLogin(),
+  }
 ];
 
 const router = new VueRouter({

@@ -1,14 +1,31 @@
 <template>
-  <div>
+  <div class="timeline">
+    <h1>내 친구들은 언제 운동했을까?</h1>
     <div v-for="(review, idx) in TimelineList" :key="idx">
-    <!--실험시작-->
-  
-    <!--실험끝-->
-      <div>{{ review.userId }}</div>
-      <div>{{ review.title }}</div>
-      <div>{{ review.content }}</div>
-      <div>{{ distance[idx] }}</div>
-      <hr />
+      <!--실험시작-->
+      <div class="timeline-box">
+        <v-card class="mx-auto" color="var(--color-blue4)" dark max-width="1023">
+          <v-card-actions>
+            <v-list-item class="grow">
+              <v-list-item-avatar color="white">
+                <v-img
+                  class="elevation-6"
+                  alt=""
+                  src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                ></v-img>
+              </v-list-item-avatar>
+
+              <v-list-item-content>
+                <v-list-item-title>{{ review.userId }}님이 운동을 마쳤습니다!</v-list-item-title>
+              </v-list-item-content>
+
+              <v-row align="center" justify="end"> </v-row>
+              <span class="subheading">{{ distance[idx] }}</span>
+            </v-list-item>
+          </v-card-actions>
+        </v-card>
+      </div>
+      <!--실험끝-->
     </div>
   </div>
 </template>
@@ -70,7 +87,11 @@ export default {
 </script>
 
 <style>
-/* 실험 시작 */
+.timeline {
+  margin: 50px;
+}
 
-/* 실험 끝 */
+.timeline-box {
+  margin: 5px;
+}
 </style>
