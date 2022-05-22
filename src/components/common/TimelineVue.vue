@@ -4,19 +4,10 @@
     <div v-for="(review, idx) in TimelineList" :key="idx">
       <!--실험시작-->
       <div class="timeline-box">
-        <v-card class="mx-auto" color="#74A8FF" dark max-width="1023">
-          <v-card-title>
-            <v-icon large left> mdi-twitter </v-icon>
-            <span class="text-h6 font-weight-light">{{ review.title }}</span>
-          </v-card-title>
-
-          <v-card-text class="text-h5 font-weight-bold">
-            {{ review.content }}
-          </v-card-text>
-
+        <v-card class="mx-auto" color="var(--color-blue4)" dark max-width="1023">
           <v-card-actions>
             <v-list-item class="grow">
-              <v-list-item-avatar color="grey darken-3">
+              <v-list-item-avatar color="white">
                 <v-img
                   class="elevation-6"
                   alt=""
@@ -25,7 +16,7 @@
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title>{{ review.userId }}</v-list-item-title>
+                <v-list-item-title>{{ review.userId }}님이 운동을 마쳤습니다!</v-list-item-title>
               </v-list-item-content>
 
               <v-row align="center" justify="end"> </v-row>

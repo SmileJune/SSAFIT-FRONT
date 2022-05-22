@@ -7,19 +7,17 @@
       class="mx-auto"
       id="diary-box"
     >
-      <v-app-bar dark color="blue">
-        <v-toolbar-title
-          >{{ user.nickname }}님의 SSAFIT diary 📝</v-toolbar-title
-        >
-
-        <v-spacer></v-spacer>
+      <v-app-bar dark color="var(--color-blue5)" style="height: 87px">
+        <v-toolbar-title 
+          >{{ user.nickname }}님의 SSAFIT diary 📝
+        </v-toolbar-title>
       </v-app-bar>
 
       <v-card-text>
         <v-row dense>
           <!-- v-col 반복 돌면 됨 -->
           <v-col cols="12" v-for="(plan, idx) in somedayPlan" :key="idx">
-            <v-card color="black" dark>
+            <v-card color="black" light >
               <v-card-title class="text-h6">
                 {{ plan.title }}
               </v-card-title>
@@ -59,7 +57,6 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      // date: '2022-05-19',
       date: "",
     };
   },
@@ -78,10 +75,6 @@ export default {
       let today = year + "-" + month + "-" + date;
       this.date = today;
 
-      // 토큰을 가져오자
-      // let token = sessionStorage.getItem("access-token")
-      // this.$store.dispatch('getToken', token)
-
       this.$store.dispatch("getPlan", today);
     }
   },
@@ -90,8 +83,6 @@ export default {
 </script>
 
 <style>
-@import "../../assets/style.css";
-
 .diary {
   flex: 1;
 }
@@ -106,10 +97,20 @@ export default {
 .v-btn {
   margin: 0 16px;
   width: 250px;
+  color: white;
 }
 a {
-  /* text-decoration: none; */
   color: white;
-  /* padding: 2px 14px; */
 }
+
+.v-toolbar-title {
+  padding: 8px 16px 0px 16px;
+}
+
+.v-card__title.text-h6,
+.v-card__subtitle.text
+ {
+  background-color: rgb(250, 250, 255);
+}
+
 </style>

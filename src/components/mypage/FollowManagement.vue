@@ -14,7 +14,7 @@
             <div class="follow">{{ follower.nickname }}</div>
           </div>
         </div>
-        <div>
+        <div class="border-left">
           <div v-show="followingList.length === 0">팔로우 한 사람이 없습니다.</div>
           <div v-for="(following, idx) in followingList" :key="idx">
             <div class="follow-third">
@@ -60,5 +60,9 @@ export default {
 
 .but {
   margin-top: 5px;
+}
+
+.border-left {
+  border-left: 1px solid #000;
 }
 </style>

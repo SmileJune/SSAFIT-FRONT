@@ -200,6 +200,10 @@ export default {
 
 .select-part {
   margin: 20px;
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #img-home {
@@ -216,7 +220,7 @@ export default {
 }
 
 .v-rating {
-  height: 200px;
+  height: 250px;
   display: flex;
 }
 

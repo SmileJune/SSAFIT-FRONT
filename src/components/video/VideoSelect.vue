@@ -12,21 +12,26 @@
           <v-col v-for="video in videoList" :key="video.no" cols="12">
             <v-card>
               <div>
-                <div>
-                  <v-card-title
+                <!-- <div class="video-and-check-box"> -->
+                  <div class="video-info">
+                    <v-card-title
                     class="text-h5"
                     v-text="video.title"
                   ></v-card-title>
-
                   <v-card-subtitle v-text="video.channelName"></v-card-subtitle>
-                  <input
+                  </div>
+                <!-- </div> -->
+                  <div class="check-box">
+                    <input
                     type="checkbox"
                     v-model="videoChoice"
                     :value="video.no"
-                    class="text-h5 bold"
-                  />
-                  이 운동 할래요!
-                </div>
+                    class="text-h5 bold ml-10"
+                    :id="video.no" 
+                    name="video-chk"
+                    />
+                  <label :for="video.no" class="chk-ment" :value="video.no">이 운동 할래요!</label>
+                  </div>
                 <div class="video">
                   <div class="video-container">
                     <iframe
@@ -42,6 +47,7 @@
               </div>
             </v-card>
           </v-col>
+          <br>
           <v-btn rounded dark color="var(--color-blue5)" @click="choiceVideo()">
             운동 루틴 저장하기</v-btn
           >
@@ -108,5 +114,30 @@ iframe {
 
 h3 {
   margin: 50px 0;
+}
+
+.video-and-check-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.check-box {
+  padding: 0px;
+  line-height: 86px;
+}
+
+.chk-ment {
+  color: var(--color-blue5);
+  font-weight: bold;
+  font-size: 20px;
+
+}
+
+.video-chk{
+  zoom: 1.3;
+}
+
+.v-btn {
+  margin: 16px;
 }
 </style>

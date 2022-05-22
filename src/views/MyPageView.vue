@@ -168,7 +168,7 @@ export default {
     },
     updateProfile() {
       if (!this.check) {
-        alert("비번 틀렸다 멍충아");
+        alert("비밀번호를 다시 한번 확인해주세요!");
       } else {
         this.$store.dispatch("updateProfile", this.profile);
         this.dialog = false;
