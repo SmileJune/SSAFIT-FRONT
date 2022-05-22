@@ -39,4 +39,8 @@ export default {
   width: 1023px;
   margin: 30px auto;
 }
+
+.v-btn {
+  color : var(--color-blue5)
+}
 </style>
