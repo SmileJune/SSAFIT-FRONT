@@ -4,7 +4,6 @@
     <div id="main">
       <router-view />
     </div>
-
   </v-app>
 </template>
 
@@ -27,11 +26,13 @@ export default {
 <style>
   /* @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css); */
   @import url('//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
-
+  @import '@/assets/style.css';
 
 * { 
   font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif'; 
 }
+
+
 
 #main {
   width: 1023px;

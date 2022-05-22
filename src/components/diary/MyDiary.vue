@@ -1,7 +1,13 @@
 <template>
   <div class="diary">
-    <v-card min-height="500" max-height="500" width="450" class="mx-auto">
-      <v-app-bar dark color="pink">
+    <v-card
+      min-height="500"
+      max-height="500"
+      width="450"
+      class="mx-auto"
+      id="diary-box"
+    >
+      <v-app-bar dark color="blue">
         <v-toolbar-title>{{ user.nickname }} SSAFIT diary</v-toolbar-title>
 
         <v-spacer></v-spacer>
@@ -24,21 +30,18 @@
           <!-- 여기까지 -->
 
           <div v-if="somedayPlan.length == 0">오늘 운동할 영상이 없네요!</div>
-
         </v-row>
       </v-card-text>
-          <!-- 운동 루틴이 있으면 보여주기 -->
-          <v-btn rounded color="black" dark v-if="somedayPlan.length > 0"
-            ><router-link to="/showVideo"
-              >운동하러 가볼까요?</router-link
-            ></v-btn
-          >
-          <!-- 운동 루틴이 없으면 보여주기 -->
-          <v-btn rounded color="black" dark v-else
-            ><router-link to="/createVideo"
-              >새로운 운동 영상을 고르러 가볼까요?</router-link
-            ></v-btn
-          >
+      <!-- 운동 루틴이 있으면 보여주기 -->
+      <v-btn rounded color="black" dark v-if="somedayPlan.length > 0"
+        ><router-link to="/showVideo">운동하러 가볼까요?</router-link></v-btn
+      >
+      <!-- 운동 루틴이 없으면 보여주기 -->
+      <v-btn rounded color="black" dark v-else
+        ><router-link to="/createVideo"
+          >새로운 운동 영상을 고르러 가볼까요?</router-link
+        ></v-btn
+      >
     </v-card>
   </div>
 </template>
@@ -59,19 +62,19 @@ export default {
   created() {
     // 오늘의 운동 루틴이 미리 담겨 있으면 좋겠어
     // 날짜를 store에 보내면 뜨게 할 수 있지 않을까?
-    if(sessionStorage.getItem("access-token")){
+    if (sessionStorage.getItem("access-token")) {
       let day = new Date();
       let year = day.getFullYear();
       let month = day.getMonth() + 1;
       let date = day.getDate();
-  
+
       let today = year + "-" + month + "-" + date;
       this.date = today;
-  
+
       // 토큰을 가져오자
       // let token = sessionStorage.getItem("access-token")
       // this.$store.dispatch('getToken', token)
-  
+
       this.$store.dispatch("getPlan", today);
     }
   },
@@ -80,9 +83,16 @@ export default {
 </script>
 
 <style>
+@import "../../assets/style.css";
+
 .diary {
   flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }
+/* #diary-box {
+  justify-content: flex-end;
+} */
 .v-card {
   flex-grow: 1;
   overflow: auto;
@@ -95,5 +105,4 @@ a {
   text-decoration: none;
   color: white;
 }
-
 </style>

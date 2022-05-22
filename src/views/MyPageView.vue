@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>마이페이지</div>
-    <div>id</div>
+    <div id="adad">id</div>
     <div>{{ userProfile.id }}</div>
     <div>{{ userProfile.nickname }}</div>
     <div>{{ userProfile.introduce }}</div>
@@ -226,4 +226,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+  @import "../assets/style.css";
+  #adad {
+    color : var(--color-blue5);
+  }
+</style>

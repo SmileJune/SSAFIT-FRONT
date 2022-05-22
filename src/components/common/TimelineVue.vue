@@ -1,14 +1,40 @@
 <template>
-  <div>
+  <div class="timeline">
+    <h1>내 친구들은 언제 운동했을까?</h1>
     <div v-for="(review, idx) in TimelineList" :key="idx">
-    <!--실험시작-->
-  
-    <!--실험끝-->
-      <div>{{ review.userId }}</div>
-      <div>{{ review.title }}</div>
-      <div>{{ review.content }}</div>
-      <div>{{ distance[idx] }}</div>
-      <hr />
+      <!--실험시작-->
+      <div class="timeline-box">
+        <v-card class="mx-auto" color="#2C73D2" dark max-width="1023">
+          <v-card-title>
+            <v-icon large left> mdi-twitter </v-icon>
+            <span class="text-h6 font-weight-light">{{ review.title }}</span>
+          </v-card-title>
+
+          <v-card-text class="text-h5 font-weight-bold">
+            {{ review.content }}
+          </v-card-text>
+
+          <v-card-actions>
+            <v-list-item class="grow">
+              <v-list-item-avatar color="grey darken-3">
+                <v-img
+                  class="elevation-6"
+                  alt=""
+                  src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                ></v-img>
+              </v-list-item-avatar>
+
+              <v-list-item-content>
+                <v-list-item-title>{{ review.userId }}</v-list-item-title>
+              </v-list-item-content>
+
+              <v-row align="center" justify="end"> </v-row>
+              <span class="subheading">{{ distance[idx] }}</span>
+            </v-list-item>
+          </v-card-actions>
+        </v-card>
+      </div>
+      <!--실험끝-->
     </div>
   </div>
 </template>
@@ -70,7 +96,11 @@ export default {
 </script>
 
 <style>
-/* 실험 시작 */
+.timeline {
+  margin: 50px;
+}
 
-/* 실험 끝 */
+.timeline-box {
+  margin: 5px;
+}
 </style>
