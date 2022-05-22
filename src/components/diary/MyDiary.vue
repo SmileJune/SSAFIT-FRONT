@@ -60,19 +60,22 @@ export default {
   created() {
     // 오늘의 운동 루틴이 미리 담겨 있으면 좋겠어
     // 날짜를 store에 보내면 뜨게 할 수 있지 않을까?
-    let day = new Date();
-    let year = day.getFullYear();
-    let month = day.getMonth() + 1;
-    let date = day.getDate();
 
-    let today = year + "-" + month + "-" + date;
-    this.date = today;
+    if (sessionStorage.getItem("access-token") != null) {
+      let day = new Date();
+      let year = day.getFullYear();
+      let month = day.getMonth() + 1;
+      let date = day.getDate();
 
-    // 토큰을 가져오자
-    // let token = sessionStorage.getItem("access-token")
-    // this.$store.dispatch('getToken', token)
+      let today = year + "-" + month + "-" + date;
+      this.date = today;
 
-    this.$store.dispatch("getPlan", today);
+      // 토큰을 가져오자
+      // let token = sessionStorage.getItem("access-token")
+      // this.$store.dispatch('getToken', token)
+
+      this.$store.dispatch("getPlan", today);
+    }
   },
   methods: {},
 };

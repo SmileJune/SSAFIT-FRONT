@@ -381,7 +381,7 @@ export default {
       console.log(review);
       this.$store.dispatch("updateReview", review);
       this.dialog = false;
-      this.$router.go();
+      // this.$router.go();
     },
     deleteReview(reviewNo) {
       this.$store.dispatch("deleteReview", reviewNo);
