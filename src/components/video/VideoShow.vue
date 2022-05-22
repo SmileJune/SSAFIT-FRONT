@@ -78,9 +78,54 @@
     </v-stepper-items>
     </v-stepper>
     <v-btn rounded light @click="finishExercise" color="var(--color-blue5)"
-        >운동 끝!!</v-btn
+        >유후 운동 끝</v-btn
       >
-      <VideoGoodJob v-show="done"></VideoGoodJob>
+    <!-- 축하 모달창 뜸 -->
+      <template>
+        <div class="text-center">
+          <v-dialog
+            v-model="isEnd"
+            width="500"
+          >
+            <!-- <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="red lighten-2"
+                dark
+                v-bind="attrs"
+                v-on="on"
+              >
+                Click Me
+              </v-btn>
+            </template> -->
+
+            <v-card>
+              <v-card-title class="congratulation-modal-header">
+                <span>
+                  운동을 끝내신 우리 {{user.nickname}}님 너무 멋져요!
+                </span>
+              </v-card-title>
+
+              <v-card-text style="padding: 0">
+                <img src="@/assets/congratulation.gif" alt="">
+              </v-card-text>
+
+              <v-divider></v-divider>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="var(--color-blue4)"
+                  text
+                  @click="isEnd = false"
+                >
+                  닫기
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </div>
+      </template>
+    <VideoGoodJob v-show="done"></VideoGoodJob>
   </div> 
 </template>
 
@@ -92,19 +137,23 @@ export default {
     return {
       done: false,
       el: 1,
+      isEnd: false,
     };
   },
   components: {
     VideoGoodJob,
   },
   computed: {
-    ...mapState(["somedayPlan"]),
+    ...mapState(["somedayPlan", "user"]),
   },
   methods: {
     finishExercise() {
       // 운동을 다 하고 클릭하면 goodJob 컴포넌트 보여줄 거야
       this.done = true;
-      console.log(this.done);
+      // console.log(this.done);
+      // 모달창 띄우기
+      this.isEnd = true;
+
     },
   },
 };
@@ -137,7 +186,7 @@ h3 {
 
 .v-btn {
   width: 250px;
-  font-size: 25px;
+  font-size: 20px;
   color: white;
 }
 #teacher {
@@ -145,5 +194,9 @@ h3 {
 }
 h1 {
   text-align: center;
+}
+
+.congratulation-modal-header {
+  background-color: var(--color-blue2);
 }
 </style>
