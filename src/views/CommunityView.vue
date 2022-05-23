@@ -60,27 +60,28 @@
                   님의 리뷰
                   </span>
                 </div>
-                <!-- <span class="ml-3 review-id">님의 리뷰</span> -->
-                <!-- <h2 class="sm-3 font-weight-bold"  color="black">
-                  {{ review.userId }}님의 후기
-                </h2> -->
                 <div class="mr-3">{{ review.date }}</div>
               </div>
-              <div>제목 : {{ review.title }}</div>
-              <div>내용 : {{ review.content }}</div>
-
-              <v-btn
-                rounded dark color="var(--color-blue5)"
-                v-if="user.id === review.userId"
-                @click="updateReviewSwitch(idx)"
-                ><font-awesome-icon icon="fa-solid fa-pen" /></v-btn
-              >
-              <v-btn
-                rounded dark color="var(--color-blue5)"
-                v-if="user.id === review.userId"
-                @click="deleteReview(review.no)"
-                ><font-awesome-icon icon="fa-solid fa-trash-can" /></v-btn
-              >
+              <div id="title-and-content-and-buttons" >
+                <div class="title-and-content">
+                  <div><strong>제목</strong>  {{ review.title }}</div>
+                  <div><strong>내용</strong> {{ review.content }}</div>
+                </div>
+                <div class="buttons">
+                  <v-btn
+                  rounded dark color="var(--color-blue5)"
+                  v-if="user.id === review.userId"
+                  @click="updateReviewSwitch(idx)"
+                  ><font-awesome-icon icon="fa-solid fa-pen" /></v-btn
+                  >
+                  <v-btn
+                    rounded dark color="var(--color-blue5)"
+                    v-if="user.id === review.userId"
+                    @click="deleteReview(review.no)"
+                    ><font-awesome-icon icon="fa-solid fa-trash-can" /></v-btn
+                  >
+                </div>
+              </div>
 
               <!-- 수정시 모달창 -->
               <template>
@@ -474,6 +475,7 @@ img {
   width: 160px;
   height: 100px;
 }
+
 div {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -484,5 +486,22 @@ div {
 .review-userid-and-date {
   display: flex;
   justify-content: space-between;
+}
+
+#title-and-content-and-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title-and-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  font-size: 25px;
+}
+
+.title-and-content div {
+  margin: 4px 0;
 }
 </style>

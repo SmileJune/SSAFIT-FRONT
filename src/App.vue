@@ -11,7 +11,7 @@
 <script>
 //import HomeView from '@/views/HomeView.vue'
 import HeaderNav from "./components/common/HeaderNav.vue";
-import ContactUs from "@/components/common/ContactUs.vue";
+import ContactUs from "@/components/common/ContactUsvue.vue";
 export default {
   name: "App",
   components: {
