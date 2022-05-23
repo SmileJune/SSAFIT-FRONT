@@ -5,7 +5,7 @@ import LoginView from "@/views/LoginView.vue";
 import JoinView from "@/views/JoinView.vue";
 import CommunityView from "@/views/CommunityView.vue";
 import MyPageView from "@/views/MyPageView.vue";
-import TogetherView from "@/views/TogetherView.vue";
+import TogetherVue from "@/views/TogetherVue.vue";
 import MainVue from "@/views/MainVue.vue";
 
 import UpdateUser from "@/components/mypage/UpdateUser.vue";
@@ -86,7 +86,7 @@ const routes = [
   {
     path: "/together",
     name: "together",
-    component: TogetherView,
+    component: TogetherVue,
     beforeEnter: checkLogin(),
   }
 ];

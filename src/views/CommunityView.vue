@@ -11,12 +11,12 @@
           <!-- 리뷰 파트 -->
           <v-card-title class="review-top">
             <!-- 사용자 프로필 -->
-            <span class="ml-3 font-weight-bold review-id">
+            <!-- <span class="ml-3 font-weight-bold review-id">
               <a @click="getUserProfile(review.userId)" class="review-userId">
                 {{ review.userId }}
               </a>
             </span>
-            <!-- <span class="ml-3 review-id">님의 리뷰</span> -->
+            <span class="ml-3 review-id">님의 리뷰</span> -->
 
             <!-- 아이디 클릭하면 모달 컴포넌트 띄울거야 -->
             <v-dialog v-model="profileSwitch" width="500" :retain-focus="false">
@@ -50,13 +50,24 @@
 
             <!-- start : 후기 작성 part -->
             <v-card-text>
-              <div class=""></div>
-              <h2 class="sm-3 font-weight-bold"  color="black">
-                {{ review.userId }}님의 후기
-              </h2>
-              <div class="ml-3">{{ review.date }}</div>
-              <div>{{ review.title }}</div>
-              <div>{{ review.content }}</div>
+              <div class="review-userid-and-date">
+                <div>
+
+                  <span class="ml-3 font-weight-bold review-id">
+                  <a @click="getUserProfile(review.userId)" class="review-userId">
+                    {{ review.userId }}
+                  </a>
+                  님의 리뷰
+                  </span>
+                </div>
+                <!-- <span class="ml-3 review-id">님의 리뷰</span> -->
+                <!-- <h2 class="sm-3 font-weight-bold"  color="black">
+                  {{ review.userId }}님의 후기
+                </h2> -->
+                <div class="mr-3">{{ review.date }}</div>
+              </div>
+              <div>제목 : {{ review.title }}</div>
+              <div>내용 : {{ review.content }}</div>
 
               <v-btn
                 rounded dark color="var(--color-blue5)"
@@ -96,7 +107,7 @@
                             <!-- 별점 주기 -->
                             <div style="text-align: center;">
                               
-                                <img :src="'https://img.youtube.com/vi/' + makeId(video.url) + '/default.jpg'" alt="">
+                                <img :src="'https://img.youtube.com/vi/' + makeId(video.url) + '/maxresdefault.jpg'" alt="">
                               
                               <v-rating
                                 full-icon="★"
@@ -167,11 +178,11 @@
             <v-card color="white" >
               <v-card-text id="reviewText">
                 <div>
-              <img :src="'https://img.youtube.com/vi/' + makeId(video.url) + '/default.jpg'" alt="">
+              <img :src="'https://img.youtube.com/vi/' + makeId(video.url) + '/maxresdefault.jpg'" alt="">
               </div>
               <div class="reviewArea">
-                <div class="font-weight-bold">{{ video.title }}</div>
-                <div>{{ video.channelName }}</div>
+                <div class="font-weight-bold" style="font-size:large;" >{{ video.title }}</div>
+                <div style="font-size:medium ;" >{{ video.channelName }}</div>
               <v-rating
                       full-icon="★"
                       empty-icon="☆"
@@ -458,5 +469,20 @@ h2, h3 {
 .review-userId {
   font-weight: bold;
   color: black;
+}
+img {
+  width: 160px;
+  height: 100px;
+}
+div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
+.review-userid-and-date {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

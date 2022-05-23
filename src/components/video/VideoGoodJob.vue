@@ -28,8 +28,12 @@
                   <v-card-subtitle>
                     {{ plan.channelName }}
                   </v-card-subtitle>
+                  <div class="planVideo">
+                    <div>
+                    <img :src="'https://img.youtube.com/vi/' + makeId(plan.url) + '/maxresdefault.jpg'" alt="">
+                    </div>
                   <!-- 별점 주기 -->
-                  <div>
+                  <div class="rating">
                     <v-rating
                       full-icon="★"
                       empty-icon="☆"
@@ -40,16 +44,9 @@
                       large
                     ></v-rating>
                   </div>
+                  </div>
                   <!-- 영상이 안들어와 썸네일만 보여주게 해야겠어 -->
-                  <v-card>
-                    <iframe
-                      style="zoom: 50%"
-                      :src="plan.url"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen
-                    ></iframe>
-                  </v-card>
+                  
                 </v-card>
               </v-col>
             </v-card-text>
@@ -107,7 +104,6 @@ export default {
       let review = {
         title: this.title,
         content: this.content,
-        date: this.$store.state.date,
         routineList: [],
       };
       // console.log(this.somedayPlan);
@@ -124,6 +120,9 @@ export default {
       this.$store.dispatch("writeReview", review);
 
     },
+    makeId(url) {
+      return url.substring(30,41);
+    }
   },
 };
 </script>
@@ -146,7 +145,18 @@ export default {
   align-items: center;
   margin: 20px 0
 }
-
-
+.planVideo {
+  display: flex;
+  justify-content: center;
+}
+img {
+  width: 200px;
+  height: 155px;
+}
+.rating {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 </style>

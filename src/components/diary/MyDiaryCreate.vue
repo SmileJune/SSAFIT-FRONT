@@ -206,6 +206,10 @@ export default {
   justify-content: center;
 }
 
+.img-home, .img-gym {
+  margin: 0px 8px;
+}
+
 #img-home {
   height: 300px;
   border-radius: 20%;

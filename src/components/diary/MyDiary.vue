@@ -42,12 +42,12 @@
           <!-- v-col 반복 돌면 됨 -->
           <v-col cols="12" v-for="(plan, idx) in somedayPlan" :key="idx">
             <v-card color="black" light >
-              <v-card-title class="text-h6">
-                {{ plan.title }}
+              <v-card-title class="text-h6" >
+                <p id="ptitle">{{ plan.title }}</p>
               </v-card-title>
 
               <v-card-subtitle class="text">
-                {{ plan.channelName }}
+                <p id="psub">{{ plan.channelName }}</p>
               </v-card-subtitle>
             </v-card>
           </v-col>
@@ -153,5 +153,16 @@ export default {
     position: relative;
     z-index: 0;
 }
-
+p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 418px;
+}
+#ptitle {
+  font-size: 1.4rem;
+}
+#psub {
+  font-size: 1.2rem;
+}
 </style>

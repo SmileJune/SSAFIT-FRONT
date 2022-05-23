@@ -2,89 +2,56 @@
   <div>
     <div id="map" style="width:1000px; height:700px;"></div>
     <div class="button-group">
+      <button @click="displayMarker(markerPositions1)">marker set 1</button>
+      <button @click="displayMarker(markerPositions2)">marker set 2</button>
+      <button @click="displayInfoWindow">infowindow</button>
       <button @click="changeSize(800)"></button>
-      <v-btn
+      <!-- <v-btn
       color="primary"
       elevation="3"
       large
       rounded
       @click="displayMarker(markerPositions1)"
-      >내 주위 등록된 약속 보기</v-btn>
-        <v-btn
+      >내 주위 등록된 약속 보기</v-btn> -->
+        <!-- <v-btn
         color="primary"
         elevation="3"
         large
         rounded
-      >약속잡기</v-btn>
-      <button @click="displayInfoWindow"></button>
+      >약속잡기</v-btn> -->
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Together",
+  name: "TogetherVue",
   data() {
     return {
       markerPositions1: [
-        {
-          content : `<div>몰라1</div>`,
-          latlng: new kakao.maps.LatLng(36.35630083428502,127.30929633898431)
-        },
-        {
-          content : `<div>몰라2</div>`,
-          latlng: new kakao.maps.LatLng(36.35730083428502,127.31029633898431)
-        },
-        {
-          content : `<div>몰라3</div>`,
-          latlng: new kakao.maps.LatLng(36.35530083428502,127.30829633898431)
-        }
+        [33.452278, 126.567803],
+        [33.452671, 126.574792],
+        [33.451744, 126.572441],
+      ],
+      markerPositions2: [
+        [37.499590490909185, 127.0263723554437],
+        [37.499427948430814, 127.02794423197847],
+        [37.498553760499505, 127.02882598822454],
+        [37.497625593121384, 127.02935713582038],
+        [37.49629291770947, 127.02587362608637],
+        [37.49754540521486, 127.02546694890695],
+        [37.49646391248451, 127.02675574250912],
       ],
       markers: [],
       infowindow: null,
       now: {
-        lat :37.499590490909185,
-        lng : 127.0263723554437
+        lat: 37.599590490909185,
+        lng: 127.0263723554437
       },
     };
   },
-  // created(){
-  //   this.getLocation();
-  // },
-  mounted() {
-    if (window.kakao && window.kakao.maps) {
-      this.initMap();
-    } else {
-      const script = document.createElement("script");
-      /* global kakao */
-      script.onload = () => kakao.maps.load(this.initMap);
-      script.src =
-        `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
-      document.head.appendChild(script);
-    }
-    this.displayMarker(this.markerPositions1);
-  },
-  methods: {
-    // getLocation(){
-    //   if(navigator.geolocation){
-    //     navigator.geolocation.getCurrentPosition((position)=>{
-    //       this.now = {
-    //         lat : position.coords.latitude,
-    //         lng : position.coords.longitude
-    //       }
-    //       }, (error)=>{
-    //         console.error(error);
-    //       }, {
-    //         enableHighAccuracy: false,
-    //         maximumAge : 0,
-    //         timeout : Infinity
-    //       })
-    //   }else{
-    //     alert('GPS를 지원하지 않습니다');
-    //   }
-    },
-    initMap() {
-      if(navigator.geolocation){
+  created(){
+    if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition((position)=>{
           this.now = {
             lat : position.coords.latitude,
@@ -100,31 +67,38 @@ export default {
       }else{
         alert('GPS를 지원하지 않습니다');
       }
-
+  },
+  mounted() {
+    if (window.kakao && window.kakao.maps) {
+      this.initMap();
+    } else {
+      const script = document.createElement("script");
+      /* global kakao */
+      script.onload = () => kakao.maps.load(this.initMap);
+      script.src =
+                `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
+      document.head.appendChild(script);
+    }
+  },
+  methods: {
+    initMap() {
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(this.now.lat, this.now.lng),
-        level: 3,
+        level: 4,
       };
 
       //지도 객체를 등록합니다.
       //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
       this.map = new kakao.maps.Map(container, options);
     },
-    changeSize(size) {
-      const container = document.getElementById("map");
-      container.style.width = `${size}px`;
-      container.style.height = `${size*0.7}px`;
-      this.map.relayout();
-    },
     displayMarker(markerPositions) {
       if (this.markers.length > 0) {
         this.markers.forEach((marker) => marker.setMap(null));
       }
 
-      const positions = markerPositions.map((position) => {
-          new kakao.maps.LatLng(...position);
-          }
+      const positions = markerPositions.map(
+        (position) => new kakao.maps.LatLng(...position)
       );
 
       if (positions.length > 0) {
@@ -157,12 +131,13 @@ export default {
 
       this.infowindow = new kakao.maps.InfoWindow({
         map: this.map, // 인포윈도우가 표시될 지도
-        position: iwPosition,
+        position: new kakao.maps.LatLng(this.now.lat, this.now.lng),
         content: iwContent,
         removable: iwRemoveable,
       });
 
       this.map.setCenter(iwPosition);
+    },
   },
 };
 </script>
@@ -175,10 +150,7 @@ export default {
 }
 
 .button-group {
-  display: flex;
-  flex-direction: row-reverse;
   margin: 10px 0px;
-  
 }
 
 button {

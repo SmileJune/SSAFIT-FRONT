@@ -5,8 +5,7 @@ import router from './router'
 import vuetify from './plugins/vuetify'
 import AOS from "aos";
 import "aos/dist/aos.css";
-
-
+import EasyCamera from 'easy-vue-camera';
 // /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 
@@ -33,4 +32,6 @@ new Vue({
     vuetify,
     FontAwesomeIcon,
     render: (h) => h(App),
+    EasyCamera,
+    
 }).$mount("#app");

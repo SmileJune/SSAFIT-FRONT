@@ -1,15 +1,4 @@
 <template>
-  <!-- <div>
-    <label for="id">ID : </label>
-    <input v-model="id" type="text" id="id">
-    <label for="password">PASSWORD : </label>
-    <input v-model="password" type="password" id="password">
-    <label for="nickname">닉네임 : </label>
-    <input v-model="nickname" type="text" id="nickname">
-    <label for="introduce">자기소개 : </label>
-    <input v-model="introduce" type="text" id="introduce">
-    <v-btn @click="join">회원가입</v-btn>
-  </div> -->
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <!-- Tabs Titles -->
@@ -30,7 +19,7 @@
           name="id"
           placeholder="아이디"
         />
-        <v-btn id="btn" class="fadeIn fourth" @click="checkDuplId">아이디 중복체크</v-btn>
+        <!-- <v-btn id="btn" class="fadeIn fourth" @click="checkDuplId">아이디 중복체크</v-btn> -->
         <input
           type="text"
           v-model="password"

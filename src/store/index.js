@@ -112,12 +112,18 @@ export default new Vuex.Store({
         method: "POST",
         data: user,
       }).then(({ data }) => {
-        commit("USER_LOGIN", data["access-token"]);
-        alert("오늘도 우리와 함께 신나게 운동해봐요!");
-        router.push({ name: "home" });
-        this.dispatch('who', user.id);
-        this.dispatch('getFollower', user);
-        this.dispatch('getFollowing', user);
+        if (data["access-token"] === undefined) {
+          alert("비밀번호가 잘못되었습니다.")
+          router.push({ name: "login" });
+        } else {
+          alert("오늘도 우리와 함께 신나게 운동해봐요!");
+          commit("USER_LOGIN", data["access-token"]);
+          this.dispatch('who', user.id);
+          this.dispatch('getFollower', user);
+          this.dispatch('getFollowing', user);
+          router.push({ name: "home" });
+          location.reload();
+        }
       })
     },
     who({commit}, id) {
@@ -210,11 +216,9 @@ export default new Vuex.Store({
         url: `review/write`,
         method: "POST",
         data: data,
-      }).then((res) => {
-        commit();
-        console.log(res)
-        // console.log(data.slice(0))
+      }).then(() => {
         router.push({ name : "review"});
+        commit();
       })
     },
     getReview({commit}) {
@@ -260,6 +264,7 @@ export default new Vuex.Store({
         method: "DELETE",
       }).then((res) => {
         console.log(res);
+        
         commit();
       })
     },
@@ -352,7 +357,8 @@ export default new Vuex.Store({
       api({
         url: `user/delete`,
         method : "DELETE",
-      }).then(() =>{
+      }).then(() => {
+        router.push({ name: "home" });
         commit();
       })
     },

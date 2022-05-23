@@ -29,20 +29,20 @@ export default {
 
   created() {
     this.$store.dispatch("getUserPlan");
-    this.arraytemp = this.$store.state.userPlan;
   },
    mounted () {
+     this.arraytemp = this.$store.state.userPlan;
+     for (let i = 0; i < this.$store.state.reviews.length; i++) {
+       let temp = this.$store.state.reviews[i];
+       if(temp.userId == this.$store.state.user.id) {
+         this.arraySuccess.push(temp.date.substr(8,2))
+       }
+     }
         for (let i = 0; i < this.arraytemp.length; i++) {
           let day = this.arraytemp[i].date.substr(8,2);
           this.arrayFail.push(day);
         }
       
-      for (let i = 0; i < this.$store.state.reviews.length; i++) {
-        let temp = this.$store.state.reviews[i];
-        if(temp.userId == this.$store.state.user.id) {
-          this.arraySuccess.push(temp.date.substr(8,2))
-        }
-      }
     },
 
   methods: {
@@ -53,8 +53,12 @@ export default {
     },
      functionEvents (date) {
         const [,, day] = date.split('-')
-        if (this.arrayFail.includes(day)) return true
-        if (this.arraySuccess.includes(parseInt(day, 10))) return false;
+        if (this.arrayFail.includes(day)) {
+          if (this.arraySuccess.includes(day)) {
+            return ['green'];
+            } else return true;
+
+        }  
         return false
       },
 
@@ -92,6 +96,9 @@ export default {
     font-size: 27px !important;
   ;
   }
-  
+.red,.green {
+  margin-top: 15px;
+  width: 30px;
+}
 }
 </style>

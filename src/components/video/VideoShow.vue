@@ -123,6 +123,8 @@
           </v-dialog>
         </div>
       </template>
+      <v-easy-camera
+    v-model="picture"></v-easy-camera>
     <!-- <VideoGoodJob v-show="done"></VideoGoodJob> -->
   </div> 
 </template>
@@ -130,16 +132,19 @@
 <script>
 import { mapState } from "vuex";
 import VideoGoodJob from "@/components/video/VideoGoodJob.vue";
+import EasyCamera from 'easy-vue-camera';
 export default {
   data() {
     return {
       done: false,
       el: 1,
       isEnd: false,
+      picture : "",
     };
   },
   components: {
     VideoGoodJob,
+    'v-easy-camera': EasyCamera,
   },
   computed: {
     ...mapState(["somedayPlan", "user"]),
@@ -206,5 +211,9 @@ h1 {
 
 .congratulation-modal-header {
   background-color: var(--color-blue2);
+}
+.v-easy-camera {
+  max-width: 100px;
+  max-height: 500px;
 }
 </style>
