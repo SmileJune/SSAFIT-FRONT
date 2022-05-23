@@ -2,9 +2,9 @@
   <div>
     <h1>다른 분들은 어떤 운동을 하셨을까요? 🧐</h1>
     <h3>누가누가 운동 많이 했나~~~</h3>
-     <br>
-     <h3>👇🏼 요기 아래 아이디를 클릭하면 프로필도 볼 수 있어요</h3>
-     <br>
+    <br>
+    <h3>👇🏼 요기 아래 아이디를 클릭하면 프로필도 볼 수 있어요</h3>
+    <br>
     <v-container v-for="(review, idx) in pageReviewList" :key="idx">
       <v-row justify="space-around">
         <v-card width="400">
@@ -37,10 +37,10 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn rounded dart color="var(--color-blue5)" text @click="follow(userProfile.id)">
+                  <v-btn rounded dark color="var(--color-blue5)" text @click="follow(userProfile.id)">
                     팔로우하기
                   </v-btn>
-                  <v-btn rounded dart color="var(--color-blue5)" text @click="profileSwitch = false">
+                  <v-btn rounded dark color="var(--color-blue5)" text @click="profileSwitch = false">
                     닫기
                   </v-btn>
                 </v-card-actions>
@@ -50,12 +50,25 @@
 
             <v-card-text>
               <!-- <div class="ml-3 font-weight-bold">{{ review.title }}</div> -->
-              <h2 class="sm-3 font-weight-bold" color="black">
+              <h2 class="sm-3 font-weight-bold"  color="black">
                 {{ review.userId }}님의 후기
               </h2>
               <!-- <div>{{ review.title }}</div> -->
               <div>{{ review.content }}</div>
               <div class="ml-3">{{ review.date }}</div>
+
+              <v-btn
+                rounded dark color="var(--color-blue5)"
+                v-if="user.id === review.userId"
+                @click="deleteReview(review.no)"
+                >수정</v-btn
+              >
+              <v-btn
+                rounded dark color="var(--color-blue5)"
+                v-if="user.id === review.userId"
+                @click="deleteReview(review.no)"
+                >삭제</v-btn
+              >
 
               <!-- 수정시 모달창 -->
               <template>
@@ -63,9 +76,7 @@
                   <v-dialog v-model="dialog[idx]" width="600px">
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
-                        color="black"
-                        rounded
-                        dark
+                        rounded dark color="var(--color-blue5)"
                         v-bind="attrs"
                         v-on="on"
                         v-if="user.id === review.userId"
@@ -131,14 +142,14 @@
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn
-                          color="green darken-1"
+                          rounded dark color="var(--color-blue5)"
                           text
                           @click="dialog.splice(idx, 1, false)"
                         >
                           작성안할래요
                         </v-btn>
                         <v-btn
-                          color="green darken-1"
+                          rounded dark color="var(--color-blue5)"
                           text
                           @click="updateReview(review.no, idx)"
                         >
@@ -151,14 +162,12 @@
               </template>
               <!-- 수정 리뷰 모달창  -->
 
-              <v-btn
-                color="black"
-                rounded
-                dark
+              <!-- <v-btn
+                rounded dark color="var(--color-blue5)"
                 v-if="user.id === review.userId"
                 @click="deleteReview(review.no)"
                 >삭제</v-btn
-              >
+              > -->
             </v-card-text>
           </v-card-title>
           <!-- 리뷰 파트 끝 -->
@@ -185,7 +194,7 @@
                       background-color="grey lighten-1"
                       color="red lighten-3"
                       large
-                    ></v-rating> -->
+              ></v-rating> -->
             </v-card>
           </div>
           <!-- 루틴 리뷰 작성 -->
@@ -204,7 +213,7 @@
                 @keyup.13="writeComment(review.no)"
               ></v-textarea>
             </v-col>
-            <v-btn @click="writeComment(review.no)"> 댓글 > </v-btn>
+            <v-btn rounded dark color="var(--color-blue5)" @click="writeComment(review.no)"> 댓글 > </v-btn>
           </div>
 
           <v-card-text>
@@ -229,11 +238,13 @@
                   <div>{{ comment.comment }}</div>
                   <!-- 유저 아이디와 코멘트 작성한 사람의 아이디가 같으면  -->
                   <v-btn
+                  rounded dark color="var(--color-blue5)"
                     v-if="user.id === comment.userId"
                     @click="update(idx, idx2)"
                     >수정</v-btn
                   >
                   <v-btn
+                  rounded dark color="var(--color-blue5)"
                     v-if="user.id === comment.userId"
                     @click="deleteComment(comment.no)"
                     >삭제</v-btn
@@ -251,6 +262,7 @@
                     ></v-textarea>
                   </v-col>
                   <v-btn
+                  rounded dark color="var(--color-blue5)"
                     v-if="user.id === comment.userId"
                     @click="updateComment(comment.no, idx, idx2)"
                     v-show="ok[idx][idx2]"
@@ -420,9 +432,14 @@ export default {
   display: flex;
 }
 
-h2 {
+h2, h3 {
   margin: 0;
   color: black;
+}
+
+.v-btn {
+  color: white;
+  width: 10px;
 
 }
 </style>

@@ -176,7 +176,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Poppins");
 .container {
   display: flex;
@@ -236,7 +236,7 @@ export default {
 
 .v-btn {
   width: 250px;
-  color: var(--color-blue5);
+  color: white;
 }
 .fly {
   text-align: center;
