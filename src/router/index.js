@@ -6,11 +6,12 @@ import JoinView from "@/views/JoinView.vue";
 import CommunityView from "@/views/CommunityView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import TogetherView from "@/views/TogetherView.vue";
+import MainVue from "@/views/MainVue.vue";
 
 import UpdateUser from "@/components/mypage/UpdateUser.vue";
 import MyDiaryCreate from "@/components/diary/MyDiaryCreate.vue";
 import VideoShow from "@/components/video/VideoShow.vue";
-
+import MainView from "@/views/MainVue.vue";
 import store from '@/store'
 // vuex가 아니라 store 객체를 직접 가져옴
 
@@ -33,8 +34,18 @@ const checkLogin = () => (from, to, next) => {
 const routes = [
   {
     path: "/",
+    name: "main",
+    component: MainView,
+  },
+  {
+    path: "/home",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/main",
+    name: "main",
+    component: MainVue,
   },
   {
     path: "/login",

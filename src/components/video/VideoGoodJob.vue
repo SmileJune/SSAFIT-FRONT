@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="compliment">
-      <h1>🎉🎊 오늘도 운동하신 {{ user.nickname }}님 너무 멋있어요! 👍🏼</h1>
+      <h1>🎉🎊 와아! 고생많았어요! 👍🏼</h1><br>
       <h1>친구들한테 자랑하러 가볼까요?</h1>
     </div>
 
@@ -10,7 +10,7 @@
       <v-row justify="center">
         <v-dialog v-model="dialog" width="600px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="var(--color-blue5)" rounded dark v-bind="attrs" v-on="on">
+            <v-btn class="mb-10px" color="var(--color-blue5)" rounded dark v-bind="attrs" v-on="on">
               자랑하러가기
             </v-btn>
           </template>
@@ -28,8 +28,12 @@
                   <v-card-subtitle>
                     {{ plan.channelName }}
                   </v-card-subtitle>
+                  <div class="planVideo">
+                    <div>
+                    <img :src="'https://img.youtube.com/vi/' + makeId(plan.url) + '/maxresdefault.jpg'" alt="">
+                    </div>
                   <!-- 별점 주기 -->
-                  <div>
+                  <div class="rating">
                     <v-rating
                       full-icon="★"
                       empty-icon="☆"
@@ -40,16 +44,9 @@
                       large
                     ></v-rating>
                   </div>
+                  </div>
                   <!-- 영상이 안들어와 썸네일만 보여주게 해야겠어 -->
-                  <v-card>
-                    <iframe
-                      style="zoom: 50%"
-                      :src="plan.url"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen
-                    ></iframe>
-                  </v-card>
+                  
                 </v-card>
               </v-col>
             </v-card-text>
@@ -107,22 +104,25 @@ export default {
       let review = {
         title: this.title,
         content: this.content,
-        videoList: [],
+        routineList: [],
       };
       // console.log(this.somedayPlan);
 
       this.somedayPlan.forEach((plan) => {
-        review.videoList.push({
+        review.routineList.push({
           videoNo: plan.no,
           difficulty: plan.partNo,
         });
       });
 
       // console.log(review);
+      alert('리뷰가 작성되었어요 \n 다른 분들의 리뷰를 보러 가볼까요?')
       this.$store.dispatch("writeReview", review);
 
-      alert('리뷰가 작성되었어요 \n 다른 분들의 리뷰를 보러 가볼까요?')
     },
+    makeId(url) {
+      return url.substring(30,41);
+    }
   },
 };
 </script>
@@ -143,7 +143,20 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px 0
+  margin: 20px 0
+}
+.planVideo {
+  display: flex;
+  justify-content: center;
+}
+img {
+  width: 200px;
+  height: 155px;
+}
+.rating {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 </style>

@@ -2,56 +2,15 @@
   <div class="calender">
     <v-row>
       <v-col>
-        <!-- <v-sheet height="64" >
-        <v-toolbar
-          flat
-          class="toolbar" 
-        >
-          <v-btn
-            outlined
-            class="mr-4"
-            color="grey darken-2"
-            @click="setToday"
-          >
-            Today
-          </v-btn>
-          <v-btn
-            fab
-            text
-            small
-            color="grey darken-2"
-            @click="prev"
-          >
-            <v-icon small>
-              mdi-chevron-left
-            </v-icon>
-          </v-btn>
-          <v-btn
-            fab
-            text
-            small
-            color="grey darken-2"
-            @click="next"
-          >
-            <v-icon small>
-              mdi-chevron-right
-            </v-icon>
-          </v-btn>
-        </v-toolbar>
-      </v-sheet> -->
         <v-sheet height="300">
-          <!-- <v-calendar
-          ref="calendar"
-          v-model="focus"
-          color="primary"
-          @click="showDiary"
-        ></v-calendar> -->
           <v-date-picker
-            v-model="date"
-            mode="date"
-            ref="calendar"
-            width="400"
+            v-model="date1"
+            header-color="primary"
+            width="500"
+           
             @change="getEvents"
+            :events="functionEvents"
+            :event-color="date => date ? 'red' : 'green'"
           />
         </v-sheet>
       </v-col>
@@ -61,39 +20,53 @@
 
 <script>
 export default {
-  data() {
-    return {
-      date: "",
-    };
-  },
+   data: () => ({
+     arraytemp: [],
+      arrayFail: [],
+      arraySuccess: [],
+      date1: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+    }),
+
   created() {
-    // let today = new Date();
-    // let year = today.getFullYear();
-    // let month = today.getMonth();
-    // let date = today.getDate();
-    // this.date = today;
-    // console.log(this.date);
+    this.$store.dispatch("getUserPlan");
   },
-  methods: {
-    showDiary() {},
-    setToday() {
-      this.focus = "";
+   mounted () {
+     this.arraytemp = this.$store.state.userPlan;
+     for (let i = 0; i < this.$store.state.reviews.length; i++) {
+       let temp = this.$store.state.reviews[i];
+       if(temp.userId == this.$store.state.user.id) {
+         this.arraySuccess.push(temp.date.substr(8,2))
+       }
+     }
+        for (let i = 0; i < this.arraytemp.length; i++) {
+          let day = this.arraytemp[i].date.substr(8,2);
+          this.arrayFail.push(day);
+        }
+      
     },
-    // prev () {
-    //   this.$refs.calendar.prev()
-    // },
-    // next () {
-    //   this.$refs.calendar.next()
-    // },
+
+  methods: {
+   
     getEvents(event) {
       this.$store.dispatch("changeDate", event);
       this.$store.dispatch("getPlan", this.$store.state.date);
     },
+     functionEvents (date) {
+        const [,, day] = date.split('-')
+        if (this.arrayFail.includes(day)) {
+          if (this.arraySuccess.includes(day)) {
+            return ['green'];
+            } else return true;
+
+        }  
+        return false
+      },
+
   },
 };
 </script>
 
-<style>
+<style lang="scss">
 .calender {
   flex: 1;
   justify-content: center;
@@ -103,20 +76,29 @@ export default {
   justify-content: center;
 }
 
-/* .v-picker__body {
-    height: 400px;
-    overflow: hidden;
-    position: relative;
-    z-index: 0;
-    flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    justify-content: center;
-} */
-
-/* .v-date-picker-table {
-  height : 500px !important;
-} */
+.v-date-picker-header {
+  height: 60px;
+  font-size: 30px;
+}
+.v-date-picker-table {
+ 
+  max-width: 500px !important;
+  height: 351px !important;
+ 
+  th{
+    font-size: 25px !important;
+    color: var(--color-blue4) !important;
+  }
+  td {
+    font-size: 30px !important
+  }
+  .v-btn__content {
+    font-size: 27px !important;
+  ;
+  }
+.red,.green {
+  margin-top: 15px;
+  width: 30px;
+}
+}
 </style>

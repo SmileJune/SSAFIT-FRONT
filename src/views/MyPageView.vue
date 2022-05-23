@@ -156,9 +156,6 @@ export default {
     this.$store.dispatch("getMyProfile");
   },
   methods: {
-    // updateProfile() {
-    //   this.dialog = true;
-    // },
     checkPassword() {
       let user = {
         password: this.password,
@@ -178,12 +175,15 @@ export default {
     },
     deleteUser() {
       if (!this.check) {
-        alert("비번 틀렸다 멍충아");
+        alert("비밀번호를 다시 한번 확인해주세요!");
       } else {
         this.$store.dispatch("deleteUser", this.profile);
-        this.delteDialog = false;
-        this.check = false;
-        this.$router.push({ name: "home" });
+        this.deleteDialog = false;
+        localStorage.removeItem("vuex")
+        sessionStorage.removeItem("access-token")
+        // this.check = false;
+        alert('회원 탈퇴가 되었습니다.')
+        this.$router.go();
       }
     },
   },

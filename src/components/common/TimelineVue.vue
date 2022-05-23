@@ -1,6 +1,6 @@
 <template>
   <div class="timeline">
-    <h1>내 친구들은 언제 운동했을까?</h1>
+    <h1 v-if="isLogin">내 친구들은 언제 운동했을까?</h1>
     <div v-for="(review, idx) in TimelineList" :key="idx">
       <!--실험시작-->
       <div class="timeline-box">
@@ -39,7 +39,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["TimelineList"]),
+    ...mapState(["TimelineList", "isLogin"]),
   },
 
   created() {

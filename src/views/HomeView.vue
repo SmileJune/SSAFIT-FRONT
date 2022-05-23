@@ -1,8 +1,11 @@
 <template>
   <div>
     <router-view />
-    <h1>{{ user.nickname }} 님 🙌🏻</h1>
-    <h1>오늘도 SSAFIT과 함께 운동해요 💪🏽</h1>
+    <h1 v-if="isLogin">{{ user.nickname }} 님 🙌🏻</h1>
+    <h1 v-if="isLogin">오늘도 SSAFIT과 함께 운동해요 💪🏽</h1>
+    <br>
+    <br>
+    <br>
     <div class="calda">
       <MyCalender></MyCalender>
       <MyDiary></MyDiary>
@@ -19,7 +22,7 @@ import { mapState } from "vuex";
 export default {
   name: "HomeView",
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "isLogin"]),
   },
   components: {
     MyCalender,

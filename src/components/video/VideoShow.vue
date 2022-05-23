@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div id="teacher"><img src="@/assets/followme.jpg" alt=""></div>
     <h1>따라만 하세요 유후 🏋🏽‍♀️</h1>
     <!-- 플랜 비디오만큼 반복 돌면서 보여주기
     <div class="video-container">
@@ -26,8 +25,8 @@
     </div> -->
     <v-stepper v-model="el">
     <v-stepper-header>
-      <v-col v-for="(video , idx) in somedayPlan" :key="idx">
-      <div v-if="idx != somedayPlan.length -1">
+      <div v-for="(video , idx) in somedayPlan" :key="idx">
+      <template v-if="idx != somedayPlan.length -1">
       <v-stepper-step 
         :complete="el > idx + 1"
         :step = "idx + 1"
@@ -36,16 +35,16 @@
       </v-stepper-step>
 
       <v-divider></v-divider>
-      </div>
-      <div v-else> 
+      </template>
+      <template v-else> 
       <v-stepper-step  :step="idx + 1">
         step {{idx + 1}}
       </v-stepper-step>
+      </template>
       </div>
-      </v-col>
     </v-stepper-header>
     <v-stepper-items>
-      <v-col v-for="(video2 , idx2) in somedayPlan" :key="idx2">
+      <div v-for="(video2 , idx2) in somedayPlan" :key="idx2">
       <v-stepper-content :step="idx2 + 1">
         
         <h3>{{video2.title}} 🔥</h3>
@@ -61,25 +60,23 @@
             ></iframe>
           </v-card>
         </div>
-      
         <v-btn
           color="primary"
-          @click= "el = idx + 1"
+          @click= "slideVideo(idx2)"
         >
           Continue
         </v-btn>
 
         <v-btn text
-        color="primary">
+        v-if="idx2 > 0"
+        color="primary"
+        @click="beforeVideo(idx2)">
           Cancel
         </v-btn>
       </v-stepper-content>
-      </v-col>
+      </div>
     </v-stepper-items>
     </v-stepper>
-    <v-btn rounded light @click="finishExercise" color="var(--color-blue5)"
-        >유후 운동 끝</v-btn
-      >
     <!-- 축하 모달창 뜸 -->
       <template>
         <div class="text-center">
@@ -107,6 +104,7 @@
 
               <v-card-text style="padding: 0">
                 <img src="@/assets/congratulation.gif" alt="">
+                <VideoGoodJob v-show="done"></VideoGoodJob>
               </v-card-text>
 
               <v-divider></v-divider>
@@ -125,23 +123,28 @@
           </v-dialog>
         </div>
       </template>
-    <VideoGoodJob v-show="done"></VideoGoodJob>
+      <v-easy-camera
+    v-model="picture"></v-easy-camera>
+    <!-- <VideoGoodJob v-show="done"></VideoGoodJob> -->
   </div> 
 </template>
 
 <script>
 import { mapState } from "vuex";
 import VideoGoodJob from "@/components/video/VideoGoodJob.vue";
+import EasyCamera from 'easy-vue-camera';
 export default {
   data() {
     return {
       done: false,
       el: 1,
       isEnd: false,
+      picture : "",
     };
   },
   components: {
     VideoGoodJob,
+    'v-easy-camera': EasyCamera,
   },
   computed: {
     ...mapState(["somedayPlan", "user"]),
@@ -155,6 +158,16 @@ export default {
       this.isEnd = true;
 
     },
+    slideVideo(idx2) {
+      if(idx2 + 1 < this.somedayPlan.length) {
+        this.el = idx2 + 2;
+      } else {
+        this.finishExercise();
+      }
+    },
+    beforeVideo(idx2) {
+      this.el = idx2;
+    }
   },
 };
 </script>
@@ -198,5 +211,9 @@ h1 {
 
 .congratulation-modal-header {
   background-color: var(--color-blue2);
+}
+.v-easy-camera {
+  max-width: 100px;
+  max-height: 500px;
 }
 </style>

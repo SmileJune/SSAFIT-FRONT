@@ -1,22 +1,22 @@
 <template>
   <div>
     <h1>다른 분들은 어떤 운동을 하셨을까요? 🧐</h1>
-    <h3>누가누가 운동 많이 했나~~~</h3>
+    <div class="ment">누가누가 운동 많이 했나~~~</div>
     <br>
-    <h3>👇🏼 요기 아래 아이디를 클릭하면 프로필도 볼 수 있어요</h3>
+    <div class="ment">👇🏼 요기 아래 아이디를 클릭하면 프로필도 볼 수 있어요</div>
     <br>
     <v-container v-for="(review, idx) in pageReviewList" :key="idx">
       <v-row justify="space-around">
-        <v-card width="400">
+        <v-card width="1000">
           <!-- 리뷰 파트 -->
           <v-card-title class="review-top">
             <!-- 사용자 프로필 -->
-            <span class="ml-3 font-weight-bold">
-              <a @click="getUserProfile(review.userId)">
+            <!-- <span class="ml-3 font-weight-bold review-id">
+              <a @click="getUserProfile(review.userId)" class="review-userId">
                 {{ review.userId }}
               </a>
             </span>
-            <span class="ml-3">님의 리뷰</span>
+            <span class="ml-3 review-id">님의 리뷰</span> -->
 
             <!-- 아이디 클릭하면 모달 컴포넌트 띄울거야 -->
             <v-dialog v-model="profileSwitch" width="500" :retain-focus="false">
@@ -48,48 +48,50 @@
             </v-dialog>
             <!-- 프로필 모달창 끝 -->
 
+            <!-- start : 후기 작성 part -->
             <v-card-text>
-              <!-- <div class="ml-3 font-weight-bold">{{ review.title }}</div> -->
-              <h2 class="sm-3 font-weight-bold"  color="black">
-                {{ review.userId }}님의 후기
-              </h2>
-              <!-- <div>{{ review.title }}</div> -->
-              <div>{{ review.content }}</div>
-              <div class="ml-3">{{ review.date }}</div>
+              <div class="review-userid-and-date">
+                <div>
 
-              <v-btn
-                rounded dark color="var(--color-blue5)"
-                v-if="user.id === review.userId"
-                @click="deleteReview(review.no)"
-                >수정</v-btn
-              >
-              <v-btn
-                rounded dark color="var(--color-blue5)"
-                v-if="user.id === review.userId"
-                @click="deleteReview(review.no)"
-                >삭제</v-btn
-              >
+                  <span class="ml-3 font-weight-bold review-id">
+                  <a @click="getUserProfile(review.userId)" class="review-userId">
+                    {{ review.userId }}
+                  </a>
+                  님의 리뷰
+                  </span>
+                </div>
+                <div class="mr-3">{{ review.date }}</div>
+              </div>
+              <div id="title-and-content-and-buttons" >
+                <div class="title-and-content">
+                  <div><strong>제목</strong>  {{ review.title }}</div>
+                  <div><strong>내용</strong> {{ review.content }}</div>
+                </div>
+                <div class="buttons">
+                  <v-btn
+                  rounded dark color="var(--color-blue5)"
+                  v-if="user.id === review.userId"
+                  @click="updateReviewSwitch(idx)"
+                  ><font-awesome-icon icon="fa-solid fa-pen" /></v-btn
+                  >
+                  <v-btn
+                    rounded dark color="var(--color-blue5)"
+                    v-if="user.id === review.userId"
+                    @click="deleteReview(review.no)"
+                    ><font-awesome-icon icon="fa-solid fa-trash-can" /></v-btn
+                  >
+                </div>
+              </div>
 
               <!-- 수정시 모달창 -->
               <template>
                 <v-row justify="center">
                   <v-dialog v-model="dialog[idx]" width="600px">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        rounded dark color="var(--color-blue5)"
-                        v-bind="attrs"
-                        v-on="on"
-                        v-if="user.id === review.userId"
-                        @click="updateReviewSwitch(idx)"
-                      >
-                        수정
-                      </v-btn>
-                    </template>
                     <v-card>
                       <v-card-title>
                         <span class="text-h5">오늘 운동은 어떠셨어요?</span>
                       </v-card-title>
-                      <v-card-text>
+                      <v-card-text id="updateModal">
                         <v-col
                           cols="12"
                           v-for="(video, idx3) in review.videoList"
@@ -104,40 +106,37 @@
                               {{ video.channelName }}
                             </v-card-subtitle>
                             <!-- 별점 주기 -->
-                            <div>
+                            <div style="text-align: center;">
+                              
+                                <img :src="'https://img.youtube.com/vi/' + makeId(video.url) + '/maxresdefault.jpg'" alt="">
+                              
                               <v-rating
                                 full-icon="★"
                                 empty-icon="☆"
                                 hover
-                                v-model="video.partNo"
+                                v-model="review.routineList[idx3].difficulty"
                                 background-color="grey lighten-1"
                                 color="red lighten-3"
-                                large
+                                medieum
                               ></v-rating>
                             </div>
-                            <v-card>
-                              <iframe
-                                style="zoom: 50%"
-                                :src="video.url"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen
-                              ></iframe>
-                            </v-card>
                           </v-card>
                         </v-col>
                       </v-card-text>
-                      <input
+                      <div class="review-update-input">
+
+                        <input
                         type="text"
                         placeholder="제목을 입력해주세요"
                         v-model="title"
-                      />
+                        />
 
-                      <input
-                        type="textarea"
-                        placeholder="내용을 입력해주세요"
-                        v-model="content"
-                      />
+                        <input
+                          type="text"
+                          placeholder="내용을 입력해주세요"
+                          v-model="content"
+                        />
+                      </div>
 
                       <v-card-actions>
                         <v-spacer></v-spacer>
@@ -169,38 +168,39 @@
                 >삭제</v-btn
               > -->
             </v-card-text>
+            <!-- end : 후기 작성 part -->
+
           </v-card-title>
           <!-- 리뷰 파트 끝 -->
 
-          <!-- 운동한 비디오 -->
-          <div v-for="video in review.videoList" :key="video.no">
-            <v-card color="blue lighten-5">
-              <iframe
-                style="zoom: 15%"
-                :src="video.url"
-                frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-              <v-card-text>
-                <div class="font-weight-bold">{{ video.title }}</div>
-                <div>{{ video.channelName }}</div>
-              </v-card-text>
-              <!-- <v-rating
+
+              <!-- 운동한 비디오 -->
+          <div v-for="(video, idx4) in review.videoList" :key="idx4">
+            <v-card color="white" >
+              <v-card-text id="reviewText">
+                <div>
+              <img :src="'https://img.youtube.com/vi/' + makeId(video.url) + '/maxresdefault.jpg'" alt="">
+              </div>
+              <div class="reviewArea">
+                <div class="font-weight-bold" style="font-size:large;" >{{ video.title }}</div>
+                <div style="font-size:medium ;" >{{ video.channelName }}</div>
+              <v-rating
                       full-icon="★"
                       empty-icon="☆"
                       hover
-                      v-model="plan.partNo"
+                      v-model="review.routineList[idx4].difficulty"
                       background-color="grey lighten-1"
                       color="red lighten-3"
-                      large
-              ></v-rating> -->
+                      small
+              ></v-rating>
+              </div>
+              </v-card-text>
+              
             </v-card>
           </div>
-          <!-- 루틴 리뷰 작성 -->
 
-          <!-- 댓글 part 시작-->
 
+          <!-- start : 댓글 part -->
           <!-- <v-btn @click="[writeReview, this.no = review.no]">댓글 달기</v-btn> -->
           <div class="comment-input">
               <v-col cols="10" sm="40">
@@ -213,7 +213,7 @@
                 @keyup.13="writeComment(review.no)"
               ></v-textarea>
             </v-col>
-            <v-btn rounded dark color="var(--color-blue5)" @click="writeComment(review.no)"> 댓글 > </v-btn>
+            <v-btn rounded dark color="var(--color-blue5)" @click="writeComment(review.no)"> 작성 </v-btn>
           </div>
 
           <v-card-text>
@@ -225,34 +225,37 @@
                 :key="idx2"
                 small
               >
-                <div>
-                  <!-- 수정, 삭제 아이콘도 추가하기 -->
-                  <div class="font-weight-normal">
+                <div class="comment-and-button">
+                  <div class="comment">
+                    <div class="font-weight-normal">
                     <strong>
                       <a @click="getUserProfile(comment.userId)">{{
                         comment.userId
                       }}</a>
                     </strong>
-                    {{ comment.date }}
+                      {{ comment.date }}
+                    </div>
+                    <div>{{ comment.comment }}</div>
                   </div>
-                  <div>{{ comment.comment }}</div>
-                  <!-- 유저 아이디와 코멘트 작성한 사람의 아이디가 같으면  -->
-                  <v-btn
-                  rounded dark color="var(--color-blue5)"
-                    v-if="user.id === comment.userId"
-                    @click="update(idx, idx2)"
-                    >수정</v-btn
-                  >
-                  <v-btn
-                  rounded dark color="var(--color-blue5)"
-                    v-if="user.id === comment.userId"
-                    @click="deleteComment(comment.no)"
-                    >삭제</v-btn
-                  >
+                  <div class="button">
+                    <v-btn
+                    rounded dark color="var(--color-blue5)"
+                      v-if="user.id === comment.userId"
+                      @click="update(idx, idx2)"
+                      ><font-awesome-icon icon="fa-solid fa-pen" /></v-btn
+                    >
+                    <v-btn
+                    rounded dark color="var(--color-blue5)"
+                      v-if="user.id === comment.userId"
+                      @click="deleteComment(comment.no)"
+                      ><font-awesome-icon icon="fa-solid fa-trash-can" /></v-btn
+                    >
+                  </div>
 
                   <!-- 수정 할 수 있는 칸이 생겨야 하는데 -->
-                  <v-col cols="12" sm="40">
-                    <v-textarea
+                  <div class="comment-update">
+                    <v-col cols="12" sm="40">
+                      <v-textarea
                       v-show="ok[idx][idx2]"
                       append-outer-icon="mdi-comment"
                       class="mx-2"
@@ -260,14 +263,15 @@
                       rows="1"
                       v-model="editMessage"
                     ></v-textarea>
-                  </v-col>
-                  <v-btn
-                  rounded dark color="var(--color-blue5)"
-                    v-if="user.id === comment.userId"
-                    @click="updateComment(comment.no, idx, idx2)"
-                    v-show="ok[idx][idx2]"
-                    >완료</v-btn
-                  >
+                    </v-col>
+                    <v-btn
+                    rounded dark color="var(--color-blue5)"
+                      v-if="user.id === comment.userId"
+                      @click="updateComment(comment.no, idx, idx2)"
+                      v-show="ok[idx][idx2]"
+                      >완료</v-btn
+                    >
+                  </div>
                 </div>
               </v-timeline-item>
             </v-timeline>
@@ -275,6 +279,7 @@
         </v-card>
       </v-row>
     </v-container>
+
     <!-- 페이지네이션 -->
     <v-pagination
       v-model="currPage"
@@ -306,7 +311,7 @@ export default {
   computed: {
     ...mapState(["reviews", "user", "userProfile"]),
     numOfPages() {
-      console.log(this.reviews.length / this.reviewPerPage);
+      
       return Math.ceil(this.reviews.length / this.reviewPerPage);
     },
     pageReviewList() {
@@ -353,6 +358,7 @@ export default {
         comment: this.message,
         reviewNo: no,
       };
+      console.log(this.message);
       // payload : 메시지, 리뷰 넘버
       this.$store.dispatch("writeComment", payLoad);
       this.$router.go();
@@ -372,15 +378,11 @@ export default {
       this.$router.go();
     },
     update(idx, idx2) {
-      // 어떨 때만 트루여야 하지...
-      // 1. 유저 아이디 === 코멘트를 작성한 사람의 아이디가 같고
-      // no이
       // this.ok[idx[idx2]] = true;
-      // console.log(this.ok[idx[idx2]]);
       this.ok[idx].splice([idx2], 1, true);
     },
     updateReviewSwitch(idx) {
-      this.dialog[idx] = true;
+      this.dialog.splice(idx, 1, true);
     },
     updateReview(no, idx) {
       let review = {
@@ -395,7 +397,7 @@ export default {
           difficulty: video.partNo,
         });
       });
-      console.log(review);
+      
       this.$store.dispatch("updateReview", review);
       this.dialog.splice(idx, 1, false);
       this.$router.go();
@@ -420,11 +422,19 @@ export default {
         this.profileSwitch = false;
       }
     },
+    makeId(url) {
+      return url.substring(30,41);
+    }
   },
   
 };
 </script>
 <style scoped>
+.ment, .review-id {
+  font-size: 24px;
+  font-weight: bold;
+}
+
 .video {
   width: 400px;
 }
@@ -440,6 +450,58 @@ h2, h3 {
 .v-btn {
   color: white;
   width: 10px;
+}
+#reviewText {
+  display: flex;
+}
+#updateModal {
+  display: flexbox;
+}
+.reviewArea {
+  margin-left: 40px;
+}
 
+.review-update-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-userId {
+  font-weight: bold;
+  color: black;
+}
+img {
+  width: 160px;
+  height: 100px;
+}
+
+div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
+.review-userid-and-date {
+  display: flex;
+  justify-content: space-between;
+}
+
+#title-and-content-and-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title-and-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  font-size: 25px;
+}
+
+.title-and-content div {
+  margin: 4px 0;
 }
 </style>

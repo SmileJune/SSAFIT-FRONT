@@ -1,15 +1,4 @@
 <template>
-  <!-- <div>
-    <label for="id">ID : </label>
-    <input v-model="id" type="text" id="id">
-    <label for="password">PASSWORD : </label>
-    <input v-model="password" type="password" id="password">
-    <label for="nickname">닉네임 : </label>
-    <input v-model="nickname" type="text" id="nickname">
-    <label for="introduce">자기소개 : </label>
-    <input v-model="introduce" type="text" id="introduce">
-    <v-btn @click="join">회원가입</v-btn>
-  </div> -->
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <!-- Tabs Titles -->
@@ -20,7 +9,7 @@
         </router-link>
       </h2>
 
-      <!-- Login Form -->
+      <!-- Join Form -->
       <form>
         <input
           type="text"
@@ -30,6 +19,7 @@
           name="id"
           placeholder="아이디"
         />
+        <!-- <v-btn id="btn" class="fadeIn fourth" @click="checkDuplId">아이디 중복체크</v-btn> -->
         <input
           type="text"
           v-model="password"
@@ -58,15 +48,15 @@
         <v-btn id="btn" class="fadeIn fourth" @click="join">회원가입</v-btn>
       </form>
 
-      <!-- Remind Passowrd -->
       <div id="formFooter">
-        <div class="underlineHover">즐거운 시간 되십시오</div>
+        <div class="underlineHover">SSAFIT에 오신 걸 환영합니다!</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   data() {
     return {
@@ -76,10 +66,20 @@ export default {
       introduce: "",
     };
   },
+  computed: {
+    ...mapState(["duplId"])
+  },
   mounted() {
     document.getElementById("id").focus();
   },
   methods: {
+    // 아이디 중복체크 버튼을 누르면 해당 아이디를 사용하는 유저가 있는지 확인하고 오기
+    checkDuplId() {
+      this.$store.dispatch('checkDuplId', this.id)
+    },
+    checkDuplUser() {
+    },
+
     join() {
       let user = {
         id: this.id,
@@ -179,7 +179,7 @@ input[type="reset"] {
   box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
-  margin: 5px 20px 40px 20px;
+  margin: 30px auto;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;

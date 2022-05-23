@@ -14,12 +14,15 @@ export default new Vuex.Store({
     isLogin: false,
     videoList: [],
     somedayPlan: [],
+    userPlan : [],
     date: "",
     user : {
       id : '',
       nickname: '',
       introduce:''
     },
+    // 회원 가입시 사용
+    duplId: '',
     reviews: [],
     userProfile : {
       id : '',
@@ -51,11 +54,17 @@ export default new Vuex.Store({
       state.somedayPlan = [];
       alert("로그아웃 됐습니다.");
     },
+    CHECK_DUPL_ID(state, id) {
+      state.duplId = id;
+    },
     SHOW_VIDEOS(state, videos) {
       state.videoList = videos;
     },
     GET_PLAN(state, data) {
       state.somedayPlan = data;
+    },
+    GET_USER_PLAN(state, data) {
+      state.userPlan = data;
     },
     SET_TODAY(state, date) {
       state.date = date;
@@ -93,7 +102,7 @@ export default new Vuex.Store({
       state.user.nickname = data.nickname;
       state.user.introduce = data.introduce;
       state.check = false;
-    }
+    },
   },
   
   actions: {
@@ -103,12 +112,18 @@ export default new Vuex.Store({
         method: "POST",
         data: user,
       }).then(({ data }) => {
-        commit("USER_LOGIN", data["access-token"]);
-        alert("오늘도 우리와 함께 신나게 운동해봐요!");
-        router.push({ name: "home" });
-        this.dispatch('who', user.id);
-        this.dispatch('getFollower', user);
-        this.dispatch('getFollowing', user);
+        if (data["access-token"] === undefined) {
+          alert("비밀번호가 잘못되었습니다.")
+          router.push({ name: "login" });
+        } else {
+          alert("오늘도 우리와 함께 신나게 운동해봐요!");
+          commit("USER_LOGIN", data["access-token"]);
+          this.dispatch('who', user.id);
+          this.dispatch('getFollower', user);
+          this.dispatch('getFollowing', user);
+          router.push({ name: "home" });
+          location.reload();
+        }
       })
     },
     who({commit}, id) {
@@ -118,6 +133,26 @@ export default new Vuex.Store({
       }).then((res) =>{
         commit("GET_USER", res.data);
       })
+    },
+    checkDuplId({commit}, id) {
+      api({
+        url:`user/${id}`,
+        method: "GET",
+      }).then((res) => {
+        // res.data가 null이면 false, 아니면 true를 반환
+        commit
+        console.log("중복 아이디" + res.data);
+        if (res.data === null) {
+          return false
+        } else {
+          return true;
+        }
+        // commit("CHECK_DUPL_ID", res.data);
+        
+      })
+      
+      
+
     },
     join({ commit }, user) {
       api({
@@ -155,6 +190,14 @@ export default new Vuex.Store({
         console.log(error);
       });
     },
+    getUserPlan({commit}) {
+      api({
+        url:`/plan/user`,
+        method:"GET",
+      }).then((res) =>{
+        commit("GET_USER_PLAN", res.data); 
+      })
+    },
     makePlan({commit}, plan) {
       api({
         url: `/plan/write`,
@@ -173,10 +216,9 @@ export default new Vuex.Store({
         url: `review/write`,
         method: "POST",
         data: data,
-      }).then((res) => {
+      }).then(() => {
         router.push({ name : "review"});
         commit();
-        console.log(res)
       })
     },
     getReview({commit}) {
@@ -222,6 +264,7 @@ export default new Vuex.Store({
         method: "DELETE",
       }).then((res) => {
         console.log(res);
+        
         commit();
       })
     },
@@ -314,7 +357,8 @@ export default new Vuex.Store({
       api({
         url: `user/delete`,
         method : "DELETE",
-      }).then(() =>{
+      }).then(() => {
+        router.push({ name: "home" });
         commit();
       })
     },
