@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="compliment">
-      <h1>🎉🎊 오늘도 운동하신 {{ user.nickname }}님 너무 멋있어요! 👍🏼</h1>
+      <h1>🎉🎊 와아! 고생많았어요! 👍🏼</h1><br>
       <h1>친구들한테 자랑하러 가볼까요?</h1>
     </div>
 
@@ -10,7 +10,7 @@
       <v-row justify="center">
         <v-dialog v-model="dialog" width="600px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="var(--color-blue5)" rounded dark v-bind="attrs" v-on="on">
+            <v-btn class="mb-10px" color="var(--color-blue5)" rounded dark v-bind="attrs" v-on="on">
               자랑하러가기
             </v-btn>
           </template>
@@ -107,21 +107,22 @@ export default {
       let review = {
         title: this.title,
         content: this.content,
-        videoList: [],
+        date: this.$store.state.date,
+        routineList: [],
       };
       // console.log(this.somedayPlan);
 
       this.somedayPlan.forEach((plan) => {
-        review.videoList.push({
+        review.routineList.push({
           videoNo: plan.no,
           difficulty: plan.partNo,
         });
       });
 
       // console.log(review);
+      alert('리뷰가 작성되었어요 \n 다른 분들의 리뷰를 보러 가볼까요?')
       this.$store.dispatch("writeReview", review);
 
-      alert('리뷰가 작성되었어요 \n 다른 분들의 리뷰를 보러 가볼까요?')
     },
   },
 };
@@ -143,7 +144,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px 0
+  margin: 20px 0
 }
+
+
 
 </style>

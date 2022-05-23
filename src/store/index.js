@@ -14,12 +14,15 @@ export default new Vuex.Store({
     isLogin: false,
     videoList: [],
     somedayPlan: [],
+    userPlan : [],
     date: "",
     user : {
       id : '',
       nickname: '',
       introduce:''
     },
+    // 회원 가입시 사용
+    duplId: '',
     reviews: [],
     userProfile : {
       id : '',
@@ -51,11 +54,17 @@ export default new Vuex.Store({
       state.somedayPlan = [];
       alert("로그아웃 됐습니다.");
     },
+    CHECK_DUPL_ID(state, id) {
+      state.duplId = id;
+    },
     SHOW_VIDEOS(state, videos) {
       state.videoList = videos;
     },
     GET_PLAN(state, data) {
       state.somedayPlan = data;
+    },
+    GET_USER_PLAN(state, data) {
+      state.userPlan = data;
     },
     SET_TODAY(state, date) {
       state.date = date;
@@ -93,7 +102,7 @@ export default new Vuex.Store({
       state.user.nickname = data.nickname;
       state.user.introduce = data.introduce;
       state.check = false;
-    }
+    },
   },
   
   actions: {
@@ -118,6 +127,26 @@ export default new Vuex.Store({
       }).then((res) =>{
         commit("GET_USER", res.data);
       })
+    },
+    checkDuplId({commit}, id) {
+      api({
+        url:`user/${id}`,
+        method: "GET",
+      }).then((res) => {
+        // res.data가 null이면 false, 아니면 true를 반환
+        commit
+        console.log("중복 아이디" + res.data);
+        if (res.data === null) {
+          return false
+        } else {
+          return true;
+        }
+        // commit("CHECK_DUPL_ID", res.data);
+        
+      })
+      
+      
+
     },
     join({ commit }, user) {
       api({
@@ -155,6 +184,14 @@ export default new Vuex.Store({
         console.log(error);
       });
     },
+    getUserPlan({commit}) {
+      api({
+        url:`/plan/user`,
+        method:"GET",
+      }).then((res) =>{
+        commit("GET_USER_PLAN", res.data); 
+      })
+    },
     makePlan({commit}, plan) {
       api({
         url: `/plan/write`,
@@ -174,9 +211,10 @@ export default new Vuex.Store({
         method: "POST",
         data: data,
       }).then((res) => {
-        router.push({ name : "review"});
         commit();
         console.log(res)
+        // console.log(data.slice(0))
+        router.push({ name : "review"});
       })
     },
     getReview({commit}) {

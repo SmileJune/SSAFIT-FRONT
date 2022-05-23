@@ -1,11 +1,4 @@
 <template>
-  <!-- <div>
-    <label for="id">ID : </label>
-    <input v-model="id" type="text" id="id" />
-    <label for="password">PASSWORD : </label>
-    <input v-model="password" type="password" id="password" @keyup.13="login" />
-    <v-btn @click="login">로그인</v-btn>
-  </div> -->
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <!-- Tabs Titles -->
@@ -35,7 +28,7 @@
           placeholder="비밀번호"
           @keyup.13="login"
         />
-        <v-btn id="btn" class="fadeIn fourth" @click="login">로그인</v-btn>
+        <v-btn id="btn" color="var(--color-blue5)" class="fadeIn fourth" @click="login">로그인</v-btn>
       </form>
 
       <!-- Remind Passowrd -->
@@ -147,12 +140,12 @@ input[type="reset"] {
   text-decoration: none;
   display: inline-block;
   text-transform: uppercase;
-  font-size: 13px;
+  font-size: 20px;
   -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
   box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
-  margin: 5px 20px 40px 20px;
+  margin: 30px auto;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;

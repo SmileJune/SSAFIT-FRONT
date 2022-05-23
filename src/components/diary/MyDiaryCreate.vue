@@ -83,7 +83,7 @@
                   id="img-gym"
                   max-width="200"
                   max-height="200"
-                  @click="spotNo = 1"
+                  @click="spotNo = 2"
                   src="@/assets/gym.png"
                 />
                 <div class="place">헬스장</div>
@@ -93,7 +93,7 @@
                   id="img-home"
                   max-width="200"
                   max-height="200"
-                  @click="spotNo = 2"
+                  @click="spotNo = 1"
                   src="@/assets/hometraing.png"
                 />
                 <div class="place">집</div>

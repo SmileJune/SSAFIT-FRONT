@@ -6,6 +6,7 @@ import JoinView from "@/views/JoinView.vue";
 import CommunityView from "@/views/CommunityView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import TogetherView from "@/views/TogetherView.vue";
+import MainVue from "@/views/MainVue.vue";
 
 import UpdateUser from "@/components/mypage/UpdateUser.vue";
 import MyDiaryCreate from "@/components/diary/MyDiaryCreate.vue";
@@ -35,6 +36,11 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/main",
+    name: "main",
+    component: MainVue,
   },
   {
     path: "/login",

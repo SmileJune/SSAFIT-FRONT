@@ -156,9 +156,6 @@ export default {
     this.$store.dispatch("getMyProfile");
   },
   methods: {
-    // updateProfile() {
-    //   this.dialog = true;
-    // },
     checkPassword() {
       let user = {
         password: this.password,
