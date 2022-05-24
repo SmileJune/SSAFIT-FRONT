@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <HeaderNav></HeaderNav>
-
-    <router-view />
-
+    <div id="main">
+      <router-view />
+    </div>
     <contact-us />
   </v-app>
 </template>

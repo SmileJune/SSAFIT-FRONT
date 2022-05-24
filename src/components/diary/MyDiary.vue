@@ -7,7 +7,6 @@
       class="ml-50 mr-0"
       id="diary-box"
     >
-
       <v-app-bar dark color="var(--color-blue5)" style="height: 87px">
         <v-toolbar-title v-if="isLogin"
           >{{ user.nickname }}님의 SSAFIT diary 📝
@@ -19,30 +18,46 @@
 
       <v-card-text>
         <v-row dense>
-          <div class="switch"> 
-
-            <v-btn color="var(--color-blue4)" rounded dark v-if="somedayPlan.length > 0"
-              ><router-link to="/showVideo"><h1><font-awesome-icon icon="fa-solid fa-person-running" /></h1></router-link></v-btn
-            >
-            <v-btn rounded color="var(--color-blue4)" dark v-if="somedayPlan.length > 0"
+          <div class="switch">
+            <v-btn
+              color="var(--color-blue4)"
+              rounded
+              dark
+              v-if="somedayPlan.length > 0"
+              ><router-link to="/showVideo"
+                ><h1>
+                  <font-awesome-icon
+                    icon="fa-solid fa-person-running"
+                  /></h1></router-link
+            ></v-btn>
+            <v-btn
+              rounded
+              color="var(--color-blue4)"
+              dark
+              v-if="somedayPlan.length > 0"
               ><router-link to="/createVideo"
-                ><h2><font-awesome-icon icon="fa-solid fa-pen" /></h2></router-link
+                ><h2>
+                  <font-awesome-icon icon="fa-solid fa-pen" /></h2></router-link
+            ></v-btn>
+
+            <!-- 운동 루틴이 없으면 보여주기 -->
+            <v-btn
+              class="mt-5"
+              rounded
+              color="var(--color-blue4)"
+              dark
+              style="width: 300px"
+              v-else
+              ><router-link to="/createVideo"
+                >새로운 운동 영상을 고르러 가볼까요?</router-link
               ></v-btn
             >
-
-
-             <!-- 운동 루틴이 없으면 보여주기 -->
-            <v-btn class="mt-5" rounded color="var(--color-blue4)" dark style="width: 300px" v-else
-            ><router-link to="/createVideo"
-              >새로운 운동 영상을 고르러 가볼까요?</router-link
-            ></v-btn
-            >
           </div>
-          
+
           <!-- v-col 반복 돌면 됨 -->
           <v-col cols="12" v-for="(plan, idx) in somedayPlan" :key="idx">
-            <v-card color="black" light >
-              <v-card-title class="text-h6" >
+            <v-card color="black" light>
+              <v-card-title class="text-h6">
                 <p id="ptitle">{{ plan.title }}</p>
               </v-card-title>
 
@@ -53,9 +68,10 @@
           </v-col>
           <!-- 여기까지 -->
 
-          <h4 id="no-video" v-if="somedayPlan.length == 0">오늘 운동할 영상이 없네요!</h4>
+          <h4 id="no-video" v-if="somedayPlan.length == 0">
+            오늘 운동할 영상이 없네요!
+          </h4>
         </v-row>
-      
       </v-card-text>
       <!-- 운동 루틴이 있으면 보여주기 -->
     </v-card>
@@ -94,9 +110,13 @@ export default {
 </script>
 
 <style scoped>
+h2 {
+  margin: 10px 8px 10px 8px;
+  color: white;
+}
+
 .diary {
   flex: 0;
-  
 }
 
 #diary-title {
@@ -148,11 +168,11 @@ export default {
 }
 
 .v-app-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 0;
 }
 p {
   overflow: hidden;
