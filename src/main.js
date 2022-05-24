@@ -6,6 +6,8 @@ import vuetify from './plugins/vuetify'
 import AOS from "aos";
 import "aos/dist/aos.css";
 import EasyCamera from 'easy-vue-camera';
+import jquery from 'jquery'
+
 // /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 
@@ -33,5 +35,5 @@ new Vue({
     FontAwesomeIcon,
     render: (h) => h(App),
     EasyCamera,
-    
+    jquery,
 }).$mount("#app");

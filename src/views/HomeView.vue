@@ -1,9 +1,8 @@
 <template>
   <div>
-    <router-view />
+    <!-- <router-view /> -->
     <h1 v-if="isLogin">{{ user.nickname }} 님 🙌🏻</h1>
     <h1 v-if="isLogin">오늘도 SSAFIT과 함께 운동해요 💪🏽</h1>
-    <br>
     <br>
     <br>
     <div class="calda">
@@ -39,6 +38,6 @@ export default {
 }
 .calda {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 </style>

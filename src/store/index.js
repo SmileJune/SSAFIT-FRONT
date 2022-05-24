@@ -33,6 +33,8 @@ export default new Vuex.Store({
     followerList : [],
     TimelineList : [],
     check: false,
+    latlng : null,
+    markerPositions1 : null,
   },
   
   mutations: {
@@ -93,7 +95,7 @@ export default new Vuex.Store({
     },
     GET_TIMELINELIST(state, data){
       state.TimelineList = data;
-      console.log(state.TimelineList);
+      // console.log(state.TimelineList);
     },
     GET_CHECK(state, data) {
       state.check = data;
@@ -103,6 +105,12 @@ export default new Vuex.Store({
       state.user.introduce = data.introduce;
       state.check = false;
     },
+    SET_LATLNG(state, data){
+      state.latlng = data;
+    },
+    GET_POSITIONS(state, data){
+      state.markerPositions1 = data;
+    }
   },
   
   actions: {
@@ -362,6 +370,24 @@ export default new Vuex.Store({
         commit();
       })
     },
+    createTogether({commit},payload){
+      api({
+        url: `together/create`,
+        method : "POST",
+        data : payload
+      }).then(() => {
+        router.push({name : "together"})
+        commit();
+      })
+    },
+    getPositions({commit}){
+      api({
+        url: `together`,
+        method : "GET",
+      }).then((res) => {
+        commit('GET_POSITIONS', res.data);
+      })
+    }
   },
   modules: {},
 });
