@@ -1,7 +1,7 @@
 <template>
   <div class="timeline">
     <br>
-    <h1 v-if="isLogin">내 친구들은 언제 운동했을까?</h1>
+    <h1 class="timeline-title" v-if="isLogin">내 친구들은 언제 운동했을까?</h1>
     <div v-for="(review, idx) in TimelineList" :key="idx">
       <!--실험시작-->
       <div class="timeline-box">
@@ -101,5 +101,9 @@ export default {
 
 .timeline-box {
   margin: 5px 0;
+}
+
+.timeline-title {
+  margin-bottom: 20px;
 }
 </style>

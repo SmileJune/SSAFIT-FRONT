@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>약속 잡기</h1>
     <div id="map" style="width: 1000px; height: 700px"></div>
     <div class="button-group">
       <v-btn @click="createTogether" color="primary" elevation="3" large rounded>약속 등록하기</v-btn>

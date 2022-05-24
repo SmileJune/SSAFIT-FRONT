@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- <router-view /> -->
-    <h1 v-if="isLogin">{{ user.nickname }} 님 🙌🏻</h1>
-    <h1 v-if="isLogin">오늘도 SSAFIT과 함께 운동해요 💪🏽</h1>
+    <h1 class="home-title" v-if="isLogin">{{ user.nickname }} 님 🙌🏻</h1>
+    <h1 class="home-title" v-if="isLogin">오늘도 SSAFIT과 함께 운동해요 💪🏽</h1>
     <br>
     <br>
     <div class="calda">
@@ -39,5 +39,9 @@ export default {
 .calda {
   display: flex;
   justify-content: space-between;
+}
+
+.home-title {
+  margin-top : 10px;
 }
 </style>
