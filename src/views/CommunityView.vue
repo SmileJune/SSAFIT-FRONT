@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="main">
     <h1 class="community-title" >다른 분들은 어떤 운동을 하셨을까요? 🧐</h1>
     <v-container id="rev" v-for="(review, idx) in pageReviewList" :key="idx">
       <v-row justify="space-around" class="">

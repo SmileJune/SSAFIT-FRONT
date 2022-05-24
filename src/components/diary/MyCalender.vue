@@ -1,5 +1,7 @@
 <template>
-  <div class="calender">
+  <div data-aos="fade-right" 
+  data-aos-duration="1500"
+  class="calender">
     <v-row>
       <v-col>
         <v-sheet height="300">

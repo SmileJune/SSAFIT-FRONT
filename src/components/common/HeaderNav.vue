@@ -10,6 +10,16 @@
         <div class="menuWrap">
           </div>
         <div class="logbox">
+
+          
+          <a href="#0">
+            <span>About</span>
+            <span>
+              <i class="fas fa-address-card" aria-hidden="true"></i>
+            </span>
+          </a>
+
+
           <router-link to="/home" class="link"><h4><font-awesome-icon icon="fa-solid fa-house" /></h4></router-link>
           <router-link to="/review" class="link"><h4><font-awesome-icon icon="fa-solid fa-people-group" /></h4></router-link>
           <div to="/together" class="link" @click="goTogether"><h4><font-awesome-icon icon="fa-solid fa-people-pulling" /></h4></div>

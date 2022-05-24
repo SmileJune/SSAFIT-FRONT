@@ -1,5 +1,8 @@
 <template>
-  <div class="diary">
+  <div
+  data-aos="fade-left"
+  data-aos-duration="1500" 
+  class="diary">
     <v-card
       min-height="500"
       max-height="500"

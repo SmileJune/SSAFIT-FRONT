@@ -1,10 +1,13 @@
 <template>
-  <div>
+  <div id="main">
     <!-- <router-view /> -->
+    <div data-aos="flip-up"
+    data-aos-duration="1500">
     <h1 class="home-title" v-if="isLogin">{{ user.nickname }} 님 🙌🏻</h1>
     <h1 class="home-title" v-if="isLogin">오늘도 SSAFIT과 함께 운동해요 💪🏽</h1>
     <br>
     <br>
+    </div>
     <div class="calda">
       <MyCalender></MyCalender>
       <MyDiary></MyDiary>

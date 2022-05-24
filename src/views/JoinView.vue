@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper fadeInDown">
+  <div class="wrapper fadeInDown" id="main">
     <div id="formContent">
       <!-- Tabs Titles -->
       <h2 class="active">Sign Up</h2>

@@ -1,5 +1,8 @@
 <template>
-  <div class="timeline">
+  <div 
+  data-aos="fade-up"
+  data-aos-duration="1500"
+  class="timeline">
     <br>
     <h1 class="timeline-title" v-if="isLogin">내 친구들은 언제 운동했을까?</h1>
     <div v-for="(review, idx) in TimelineList" :key="idx">

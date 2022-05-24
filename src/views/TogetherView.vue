@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="main">
     <h1>주변에 같이 운동할 친구 없나? 💪🏽</h1>
     <br>
     <div id="map" style="width: 1000px; height: 700px"></div>
