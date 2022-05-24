@@ -59,9 +59,17 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Poppins");
 
+  * {
+    box-sizing: border-box;
+  }
+  
+  #main {
+    width: 1050px;
+    margin: 30px auto;
+  }
 /* BASIC */
 
 a {
@@ -332,7 +340,4 @@ input[type="text"]:placeholder {
   width: 60%;
 }
 
-* {
-  box-sizing: border-box;
-}
 </style>

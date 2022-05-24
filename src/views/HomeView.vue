@@ -31,7 +31,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#main {
+  width: 1050px;
+  margin: 30px auto;
+}
+
 #my-schedule {
   display: flex;
   justify-content: space-around;

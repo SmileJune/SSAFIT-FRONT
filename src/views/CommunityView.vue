@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="community-title">다른 분들은 어떤 운동을 하셨을까요? 🧐</h1>
+    <h1 class="community-title" >다른 분들은 어떤 운동을 하셨을까요? 🧐</h1>
     <v-container id="rev" v-for="(review, idx) in pageReviewList" :key="idx">
       <v-row justify="space-around" class="">
         <v-card width="1000">
@@ -548,6 +548,11 @@ export default {
 };
 </script>
 <style scoped>
+#main {
+  width: 1050px;
+  margin: 30px auto;
+}
+
 .ment {
   font-size: 24px;
   font-weight: bold;

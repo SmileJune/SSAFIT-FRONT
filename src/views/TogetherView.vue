@@ -168,6 +168,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#main {
+  width: 1050px;
+  margin: 30px auto;
+}
+
 #map {
   width: 400px;
   height: 400px;
@@ -182,4 +187,5 @@ export default {
 button {
   margin: 0 3px;
 }
+
 </style>

@@ -10,7 +10,7 @@ import TogetherCreate from "@/views/TogetherCreate.vue";
 import UpdateUser from "@/components/mypage/UpdateUser.vue";
 import MyDiaryCreate from "@/components/diary/MyDiaryCreate.vue";
 import VideoShow from "@/components/video/VideoShow.vue";
-import MainView from "@/views/MainVue.vue";
+import MainView from "@/views/MainView.vue";
 import store from '@/store'
 // vuex가 아니라 store 객체를 직접 가져옴
 
