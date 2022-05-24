@@ -6,8 +6,7 @@ import JoinView from "@/views/JoinView.vue";
 import CommunityView from "@/views/CommunityView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import TogetherView from "@/views/TogetherView.vue";
-import MainVue from "@/views/MainVue.vue";
-
+import TogetherCreate from "@/views/TogetherCreate.vue";
 import UpdateUser from "@/components/mypage/UpdateUser.vue";
 import MyDiaryCreate from "@/components/diary/MyDiaryCreate.vue";
 import VideoShow from "@/components/video/VideoShow.vue";
@@ -41,11 +40,6 @@ const routes = [
     path: "/home",
     name: "home",
     component: HomeView,
-  },
-  {
-    path: "/main",
-    name: "main",
-    component: MainVue,
   },
   {
     path: "/login",
@@ -92,6 +86,12 @@ const routes = [
     path: "/together",
     name: "together",
     component: TogetherView,
+    beforeEnter: checkLogin(),
+  },
+  {
+    path: "/together-create",
+    name: "together-create",
+    component: TogetherCreate,
     beforeEnter: checkLogin(),
   }
 ];

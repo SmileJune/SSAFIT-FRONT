@@ -1,10 +1,16 @@
 <template>
   <div class="timeline">
+    <br>
     <h1 v-if="isLogin">내 친구들은 언제 운동했을까?</h1>
     <div v-for="(review, idx) in TimelineList" :key="idx">
       <!--실험시작-->
       <div class="timeline-box">
-        <v-card class="mx-auto" color="var(--color-blue4)" dark max-width="1023">
+        <v-card
+          class="mx-auto"
+          color="var(--color-blue4)"
+          dark
+          max-width="1023"
+        >
           <v-card-actions>
             <v-list-item class="grow">
               <v-list-item-avatar color="white">
@@ -16,7 +22,9 @@
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title>{{ review.userId }}님이 운동을 마쳤습니다!</v-list-item-title>
+                <v-list-item-title
+                  >{{ review.userId }}님이 운동을 마쳤습니다!</v-list-item-title
+                >
               </v-list-item-content>
 
               <v-row align="center" justify="end"> </v-row>
@@ -50,7 +58,7 @@ export default {
   },
   methods: {
     setDistance() {
-      console.log(this.TimelineList);
+      // console.log(this.TimelineList);
       let arr = new Array(this.TimelineList.length);
       let now = new Date();
       for (let i = 0; i < this.TimelineList.length; i++) {
@@ -88,10 +96,10 @@ export default {
 
 <style>
 .timeline {
-  margin: 50px;
+  margin: 50px 0;
 }
 
 .timeline-box {
-  margin: 5px;
+  margin: 5px 0;
 }
 </style>

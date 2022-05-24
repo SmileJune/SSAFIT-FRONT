@@ -4,7 +4,7 @@
       min-height="500"
       max-height="500"
       width="450"
-      class="mx-auto"
+      class="ml-50 mr-0"
       id="diary-box"
     >
 
@@ -26,7 +26,7 @@
             >
             <v-btn rounded color="var(--color-blue4)" dark v-if="somedayPlan.length > 0"
               ><router-link to="/createVideo"
-                ><h3><font-awesome-icon icon="fa-solid fa-pen" /></h3></router-link
+                ><h2><font-awesome-icon icon="fa-solid fa-pen" /></h2></router-link
               ></v-btn
             >
 
@@ -95,7 +95,8 @@ export default {
 
 <style scoped>
 .diary {
-  flex: 1;
+  flex: 0;
+  
 }
 
 #diary-title {

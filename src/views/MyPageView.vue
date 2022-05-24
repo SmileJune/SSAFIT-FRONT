@@ -190,7 +190,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import "../assets/style.css";
 #adad {
   color: var(--color-blue5);

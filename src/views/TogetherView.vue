@@ -10,38 +10,46 @@
         @click="displayInfoWindow"
         >내 주위 등록된 약속 보기</v-btn
       >
-      <v-btn color="primary" elevation="3" large rounded>약속잡기</v-btn>
+
+      <router-link to="/together-create"><v-btn color="primary" elevation="3" large rounded>약속잡기</v-btn></router-link>
+      <!-- <v-btn color="primary" elevation="3" large rounded>약속잡기</v-btn> -->
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: "KakaoMap",
   data() {
     return {
-      markerPositions1: [
-        {
-          latlng: [36.3574142, 127.3093141],
-          content: "1번",
-        },
-        {
-          latlng: [36.3584142, 127.3103141],
-          content: "2번",
-        },
-        {
-          latlng: [36.3594142, 127.3083141],
-          content: "3번",
-        },
-        {
-          latlng: [36.3544142, 127.3033141],
-          content: "4번",
-        },
-      ],
+      // markerPositions1: [
+      //   {
+      //     latlng: [36.3574142, 127.3093141],
+      //     content: "1번",
+      //   },
+      //   {
+      //     latlng: [36.3584142, 127.3103141],
+      //     content: "2번",
+      //   },
+      //   {
+      //     latlng: [36.3594142, 127.3083141],
+      //     content: "3번",
+      //   },
+      //   {
+      //     latlng: [36.3544142, 127.3033141],
+      //     content: "4번",
+      //   },
+      // ],
       markers: [],
       infowindow: null,
       now: null,
     };
+  },
+  computed : {
+    ...mapState([
+      'markerPositions1'
+    ])
   },
   created() {
     if (navigator.geolocation) {
@@ -64,6 +72,7 @@ export default {
     } else {
       alert("GPS를 지원하지 않습니다");
     }
+
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -75,6 +84,8 @@ export default {
       script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
       document.head.appendChild(script);
     }
+
+    this.$store.dispatch('getPositions');
   },
   methods: {
     initMap() {
@@ -118,20 +129,26 @@ export default {
     displayInfoWindow() {
       for (let i = 0; i < this.markerPositions1.length; i++) {
         let latDistance = Math.abs(
-          this.now.lat - this.markerPositions1[i].latlng[0]
+          this.now.lat - this.markerPositions1[i].lat
         );
         let lngDistance = Math.abs(
-          this.now.lng - this.markerPositions1[i].latlng[1]
+          this.now.lng - this.markerPositions1[i].lng
         );
 
         console.log(latDistance);
         console.log(lngDistance);
 
         if ((latDistance < 0.007) & (lngDistance < 0.007)) {
-          var iwContent = `<div style="padding:5px;">${this.markerPositions1[i].content}</div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+          var iwContent = 
+          `
+          <div>${this.markerPositions1[i].date} ${this.markerPositions1[i].userId}</div>
+          <div style="padding:5px;">${this.markerPositions1[i].content}</div>
+          
+          `,
+           // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
             iwPosition = new kakao.maps.LatLng(
-              this.markerPositions1[i].latlng[0],
-              this.markerPositions1[i].latlng[1]
+              this.markerPositions1[i].lat,
+              this.markerPositions1[i].lng
             ), //인포윈도우 표시 위치입니다
             iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 

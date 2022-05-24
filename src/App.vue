@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <HeaderNav></HeaderNav>
-    <div id="main">
-      <router-view />
-    </div>
+
+    <router-view />
+
     <contact-us />
   </v-app>
 </template>
@@ -36,11 +36,11 @@ export default {
 }
 
 #main {
-  width: 1023px;
+  width: 1050px;
   margin: 30px auto;
 }
 
 .v-btn {
-  color : var(--color-blue5)
+  color: var(--color-blue5);
 }
 </style>

@@ -87,6 +87,7 @@
                   src="@/assets/gym.png"
                 />
                 <div class="place">헬스장</div>
+                <div id="underline"></div>
               </div>
               <div class="img-home">
                 <v-img
@@ -178,6 +179,20 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Poppins");
+
+#underline {
+  position: absolute;
+  background-color: pink;
+  height: 4px;
+  top: 0;
+  left: 0;
+  width: 0;
+  /* top: 390px;
+  left: 85px;
+  width: 1023px; */
+
+}
+
 .container {
   display: flex;
   justify-content: space-around;
