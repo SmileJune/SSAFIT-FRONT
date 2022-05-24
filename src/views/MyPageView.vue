@@ -192,6 +192,11 @@ export default {
 
 <style scoped>
 @import "../assets/style.css";
+#main {
+  width: 1050px;
+  margin: 30px auto;
+}
+
 #adad {
   color: var(--color-blue5);
 }

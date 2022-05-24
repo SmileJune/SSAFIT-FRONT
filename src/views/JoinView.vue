@@ -93,7 +93,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Poppins");
 
 /* BASIC */
@@ -368,5 +368,10 @@ input[type="text"]:placeholder {
 
 * {
   box-sizing: border-box;
+}
+
+#main {
+  width: 1050px;
+  margin: 30px auto;
 }
 </style>

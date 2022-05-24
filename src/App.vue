@@ -35,10 +35,16 @@ export default {
   font-family: "Spoqa Han Sans", "Spoqa Han Sans JP", "Sans-serif";
 }
 
-#main {
+/* #main {
   width: 1050px;
   margin: 30px auto;
+*/
+#main {
+  width: 100%;
+  margin: 0;
 }
+
+
 
 .v-btn {
   color: var(--color-blue5);
