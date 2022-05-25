@@ -12,6 +12,7 @@ import MyDiaryCreate from "@/components/diary/MyDiaryCreate.vue";
 import VideoShow from "@/components/video/VideoShow.vue";
 import MainView from "@/views/MainView.vue";
 import store from '@/store'
+import VideoWeakPart from '@/components/video/VideoWeakPart.vue'
 // vuex가 아니라 store 객체를 직접 가져옴
 
 Vue.use(VueRouter);
@@ -92,6 +93,12 @@ const routes = [
     path: "/together-create",
     name: "together-create",
     component: TogetherCreate,
+    beforeEnter: checkLogin(),
+  },
+  {
+    path: "/weak-part",
+    name: "weak-part",
+    component: VideoWeakPart,
     beforeEnter: checkLogin(),
   }
 ];

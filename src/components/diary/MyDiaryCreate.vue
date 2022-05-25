@@ -119,7 +119,8 @@
         </v-progress-circular>
       </div>
       </div>
-
+    
+  
     <video-select v-if="finish"></video-select>
   </div>
 </template>
@@ -140,12 +141,13 @@ export default {
       okStep3: false,
       interval: {},
       value: "0 %",
+      weak : false,
     };
   },
   beforeDestroy() {
     clearInterval(this.interval);
   },
-
+  
   computed: {
     ...mapState(["videoList"]),
   },
@@ -363,6 +365,10 @@ export default {
   -webkit-animation-duration: 1s;
   -moz-animation-duration: 1s;
   animation-duration: 1s;
+}
+.weakbtn {
+  display: flex;
+  justify-content: center;
 }
 
 /* .step1 {

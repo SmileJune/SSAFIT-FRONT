@@ -26,7 +26,7 @@
               ><span aria-hidden="true" style="font-size: 80%;">Community</span></router-link
             >
           </li>
-          <li>
+          <li class="cursor">
             <div to="/together" class="link" @click="goTogether">
               
               <span
@@ -194,6 +194,9 @@ header {
   transform: translateY(-100%);
 }
 
+.cursor:hover {
+  cursor: pointer;
+}
 #logo {
   height: 150px;
 }

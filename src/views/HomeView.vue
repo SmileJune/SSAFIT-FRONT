@@ -13,7 +13,6 @@
       <MyDiary></MyDiary>
     </div>
     <TimelineVue></TimelineVue>
-    <WeakPartVue></WeakPartVue>
   </div>
 </template>
 
@@ -21,7 +20,6 @@
 import MyCalender from "@/components/diary/MyCalender.vue";
 import MyDiary from "@/components/diary/MyDiary.vue";
 import TimelineVue from "@/components/common/TimelineVue.vue";
-import WeakPartVue from "@/components/video/VideoWeakPart.vue";
 import { mapState } from "vuex";
 export default {
   name: "HomeView",
@@ -32,7 +30,6 @@ export default {
     MyCalender,
     MyDiary,
     TimelineVue,
-    WeakPartVue,
   },
 };
 </script>

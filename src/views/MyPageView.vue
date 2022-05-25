@@ -1,7 +1,11 @@
 <template>
   <div class="mypage" id="main">
     <div class="first">
-      <h1 class="mypage-title">마이페이지</h1>
+      <div class="mypageTop">
+        <h1 class="mypage-title">마이페이지</h1>
+        <div data-aos="fade-left" data-aos-duration="2000"
+        class="weakbtn"><router-link to="weak-part"><v-btn color="primary" style="font-size: large;" @click="showWeak">나의 운동 분석👉🏼</v-btn></router-link></div>
+      </div>
       <hr />
       <div class="user-box">
         <h6>아이디</h6>
@@ -228,4 +232,11 @@ export default {
 .introduce {
   margin-left: 20px;
 }
+.mypageTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
 </style>

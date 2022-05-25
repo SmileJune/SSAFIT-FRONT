@@ -7,7 +7,7 @@
   <div class="weather">
    <vue-weather
     api-key="e4440d2e63625cac64aa8c732b44bcc3"
-    units="uk"
+    units="us"
     :latitude= now.lat
     :longitude= now.lng
     />

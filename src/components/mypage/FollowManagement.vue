@@ -60,12 +60,13 @@ export default {
 }
 .follow-third {
   display: flex;
+  align-items: center;
 }
 .follow {
   height: 84px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 .but {

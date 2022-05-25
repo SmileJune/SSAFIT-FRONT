@@ -6,11 +6,14 @@ import vuetify from './plugins/vuetify'
 import AOS from "aos";
 import "aos/dist/aos.css";
 import EasyCamera from 'easy-vue-camera';
-import jquery from 'jquery'
+import jquery from 'jquery';
+
+
 import DatetimePicker from 'vuetify-datetime-picker'
 import VueWeather from 'vue-weather-widget';
 // /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
+
 
 // /* import specific icons */
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
