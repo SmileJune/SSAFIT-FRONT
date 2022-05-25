@@ -6,30 +6,79 @@
           <img id="logo" src="@/assets/ssafit.png" alt="logo" />
         </router-link>
       </div>
-      <div class="menu">
-        <div class="menuWrap">
-          </div>
-        <div class="logbox">
+      <div class="menucontainer">
+        <ul class="menu" data-animation="to-top">
+          <li>
+            <router-link to="/home" class="link">
+              <span
+                ><h4><font-awesome-icon icon="fa-solid fa-house" /></h4
+              ></span>
+              <span aria-hidden="true">Home</span></router-link
+            >
+          </li>
+          <li>
+            <router-link to="/review" class="link"
+              ><span
+                ><h4>
+                  <font-awesome-icon
+                    icon="fa-solid fa-people-group"
+                  /></h4></span
+              ><span aria-hidden="true" style="font-size: 80%;">Community</span></router-link
+            >
+          </li>
+          <li>
+            <div to="/together" class="link" @click="goTogether">
+              
+              <span
+                ><h4><font-awesome-icon icon="fa-solid fa-people-pulling" /></h4
+              ></span>
+             
+              <span aria-hidden="true" style="font-size: 90%;">Together</span>
+            </div>
+          </li>
 
-          
-          <a href="#0">
-            <span>About</span>
-            <span>
-              <i class="fas fa-address-card" aria-hidden="true"></i>
-            </span>
-          </a>
+          <li>
+            <router-link v-if="isLogin" to="/mypage" class="link"
+              ><span>
+                <h4><font-awesome-icon icon="fa-solid fa-user" /></h4></span
+              ><span aria-hidden="true">Mypage</span></router-link
+            >
+          </li>
 
-
-          <router-link to="/home" class="link"><h4><font-awesome-icon icon="fa-solid fa-house" /></h4></router-link>
-          <router-link to="/review" class="link"><h4><font-awesome-icon icon="fa-solid fa-people-group" /></h4></router-link>
-          <div to="/together" class="link" @click="goTogether"><h4><font-awesome-icon icon="fa-solid fa-people-pulling" /></h4></div>
-          <router-link v-if="isLogin" to="/mypage" class="link"><h4><font-awesome-icon icon="fa-solid fa-user" /></h4></router-link>
-          <router-link v-if="!isLogin" to="/login" class="link"
-            ><h4><font-awesome-icon icon="fa-solid fa-arrow-right-to-bracket" /></h4></router-link
-          >
-          <a v-else @click="doLogout" class="link"><h4><font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" /></h4></a>
-
-        </div>
+          <li>
+            <router-link v-if="!isLogin" to="/login" class="link">
+      
+              <span>
+                <h4>
+                  <font-awesome-icon
+                    icon="fa-solid fa-arrow-right-to-bracket"
+                  />
+                </h4>
+              </span>
+              <span aria-hidden="true">Login</span></router-link
+            >
+          </li>
+          <li>
+            <a v-if="isLogin" @click="doLogout" class="link">
+              <span>
+                <h4>
+                  <font-awesome-icon
+                    icon="fa-solid fa-arrow-right-from-bracket"
+                    
+                  />
+                </h4>
+              </span>
+              <span aria-hidden="true">Logout</span>
+            </a>
+          </li>
+          <!-- <a v-else @click="doLogout" class="link"
+            ><h4>
+              <font-awesome-icon
+                icon="fa-solid fa-arrow-right-from-bracket"
+              /></h4
+          ></a> -->
+        
+        </ul>
       </div>
     </div>
   </header>
@@ -54,11 +103,26 @@ export default {
     goTogether() {
       this.$router.push({ name: "together" });
       location.reload();
-    }
+    },
   },
 };
 </script>
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
+.logo {
+  display: flex;
+  justify-content: center;
+}
+ul {
+  list-style: none;
+}
+.link {
+  text-decoration: none;
+  color: inherit;
+}
 
 header {
   width: 100%;
@@ -76,25 +140,61 @@ header {
 }
 .menu {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   font-size: 1.5rem;
   font-style: bold;
 }
-.logo {
-  display: flex;
-  justify-content: center;
+
+.menu li {
+  margin-right: 0px;
 }
+
+.menu .link {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding : 5px;
+}
+
+.menu .link span {
+  transition: transform 0.2s ease-out;
+}
+
+.menu .link span:first-child {
+  display: inline-block;
+  padding: 30px;
+}
+
+.menu .link span:last-child {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-100%);
+}
+
+.menu .link :hover span:first-child {
+  transform: translateY(100%);
+}
+
+.menu .link:hover span:last-child,
+.menu[data-animation] .link:hover span:last-child {
+  transform: none;
+}
+
+.menu[data-animation="to-top"] .link span:last-child {
+  transform: translateY(100%);
+}
+
+.menu[data-animation="to-top"] .link:hover span:first-child {
+  transform: translateY(-100%);
+}
+
 #logo {
   height: 150px;
 }
-.link {
-  padding: 10px 15px;
-  color: #000;
-  font-weight: bold;
-  font-size: 23px;
-}
-.logbox {
-  display: flex;
-}
-
 </style>

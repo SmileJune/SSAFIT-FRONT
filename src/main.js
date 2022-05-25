@@ -7,7 +7,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import EasyCamera from 'easy-vue-camera';
 import jquery from 'jquery'
-
+import DatetimePicker from 'vuetify-datetime-picker'
+import VueWeather from 'vue-weather-widget';
 // /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 
@@ -24,7 +25,7 @@ library.add(faUserSecret);
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
-
+Vue.use(DatetimePicker)
 new Vue({
     created() {
         AOS.init();
@@ -36,4 +37,5 @@ new Vue({
     render: (h) => h(App),
     EasyCamera,
     jquery,
+    VueWeather,
 }).$mount("#app");

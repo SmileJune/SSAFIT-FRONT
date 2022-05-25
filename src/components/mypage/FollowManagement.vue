@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="followBox">
     <hr />
     <div class="second">
       <div class="follow-first">
@@ -9,13 +9,13 @@
       <hr />
       <div class="follow-second">
         <div>
-          <div v-show="followerList.length === 0">팔로우 한 사람이 없습니다.</div>
+          <div  v-show="followerList.length === 0">팔로우 한 사람이 없습니다.</div>
           <div v-for="(follower, idx) in followerList" :key="idx">
             <div class="follow">{{ follower.nickname }}</div>
           </div>
         </div>
         <div class="border-left">
-          <div v-show="followingList.length === 0">팔로우 한 사람이 없습니다.</div>
+          <div style="font-size: 1.5rem;" v-show="followingList.length === 0">팔로우 한 사람이 없습니다.</div>
           <div v-for="(following, idx) in followingList" :key="idx">
             <div class="follow-third">
               <v-btn class="but" text color="error" x-large @click="unFollow(following.id)">
@@ -46,6 +46,10 @@ export default {
 </script>
 
 <style>
+.followBox {
+  width: 800px;
+  margin: 0 auto;
+}
 .follow-first {
   display: flex;
   justify-content: space-between;
@@ -57,12 +61,15 @@ export default {
 .follow-third {
   display: flex;
 }
-
+.follow {
+  height: 84px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .but {
   margin-top: 5px;
 }
 
-.border-left {
-  border-left: 1px solid #000;
-}
 </style>

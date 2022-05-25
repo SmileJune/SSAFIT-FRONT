@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div id="main">
       <div class="container">
         <div class="step1">
           <div class="wrapper fadeInDown">
-            <!-- <div class="step"> -->
-            <h1>step1</h1>
-            <h1>오늘은 어느 부위를 운동해볼까요?</h1>
-            <!-- </div> -->
+            <div>
+              <h1>step1</h1>
+              <h1>오늘은 어느 부위를 운동해볼까요?</h1>
+            </div>
             <div class="select-part">
               <div>
                 <input
@@ -46,7 +46,6 @@
                   value="4"
                   v-model="partNo"
                 />
-
                 <label for="abs">복부</label>
               </div>
             </div>
@@ -179,6 +178,11 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Poppins");
+#main {
+  width: 1050px;
+  margin: 0 auto;
+}
+
 
 #underline {
   position: absolute;
@@ -267,7 +271,8 @@ export default {
 .step1,
 .step2,
 .step3 {
-  margin: 50px 0;
+  margin: 50px 10px;
+  text-align: center;
 }
 .step3 {
   display: flexbox;

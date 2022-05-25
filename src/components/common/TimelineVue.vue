@@ -6,7 +6,7 @@
     <br>
     <h1 class="timeline-title" v-if="isLogin">내 친구들은 언제 운동했을까?</h1>
     <div v-for="(review, idx) in TimelineList" :key="idx">
-      <!--실험시작-->
+      
       <div class="timeline-box">
         <v-card
           class="mx-auto"
@@ -29,6 +29,7 @@
                   >{{ review.userId }}님이 운동을 마쳤습니다!</v-list-item-title
                 >
               </v-list-item-content>
+              <v-btn @click="setPlanFromFollowing(idx)">이 루틴 가져오기</v-btn>
 
               <v-row align="center" justify="end"> </v-row>
               <span class="subheading">{{ distance[idx] }}</span>
@@ -36,6 +37,9 @@
           </v-card-actions>
         </v-card>
       </div>
+
+<!--실험시작 -->
+
       <!--실험끝-->
     </div>
   </div>
@@ -47,10 +51,11 @@ export default {
   data() {
     return {
       distance: [],
+      dialog: false,
     };
   },
   computed: {
-    ...mapState(["TimelineList", "isLogin"]),
+    ...mapState(["TimelineList", "isLogin", "date"]),
   },
 
   created() {
@@ -69,12 +74,12 @@ export default {
         let distance = now - before;
         distance = distance / 1000 / 60 / 60 / 24 / 12;
         if (distance >= 1) {
-          arr[i] = Math.floor(distance) + "년 전";
+          arr[i] = Math.floor(distance) + "월 전";
           continue;
         }
         distance = distance * 12;
         if (distance >= 1) {
-          arr[i] = Math.floor(distance) + "달 전";
+          arr[i] = Math.floor(distance) + "일 전";
           continue;
         }
         distance = distance * 24;
@@ -93,8 +98,24 @@ export default {
       }
       this.distance = arr;
     },
-  },
-};
+
+    setPlanFromFollowing(idx){
+      // console.log(idx);
+      // console.log(this.TimelineList[idx]);
+      // for(let i=0; this.TimelineList[idx].videoList.length; i++){
+      // }
+      //   // console.log(this.TimelineList[idx]);
+      //   // videoList.push(this.TimelineList[idx].videoList[i].no);
+      // }
+      //   const plan = {
+      //   date: this.date,
+      //   videoList: videoList
+      // };
+      // // this.$store.dispatch("makePlan", plan);
+      // 
+    },
+  }
+}
 </script>
 
 <style>
@@ -109,4 +130,5 @@ export default {
 .timeline-title {
   margin-bottom: 20px;
 }
+
 </style>

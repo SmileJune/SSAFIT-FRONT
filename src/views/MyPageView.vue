@@ -1,7 +1,7 @@
 <template>
   <div class="mypage" id="main">
-    <h1 class="mypage-title">마이페이지</h1>
     <div class="first">
+      <h1 class="mypage-title">마이페이지</h1>
       <hr />
       <div class="user-box">
         <h6>아이디</h6>
@@ -14,7 +14,7 @@
       <div class="user-box">
         <h6>자기소개</h6>
       </div>
-      <div>{{ userProfile.introduce }}</div>
+      <div class="introduce">{{ userProfile.introduce }}</div>
     </div>
     <!-- <v-btn @click="updateProfile">수정</v-btn> -->
     <v-row justify="center">
@@ -81,7 +81,7 @@
         </v-card>
       </v-dialog>
     </v-row>
-    <div class="follow"><FollowManageMent></FollowManageMent></div>
+    <div class="followArea"><FollowManageMent></FollowManageMent></div>
     <div>
       <v-row justify="center">
         <v-dialog v-model="deleteDialog" persistent max-width="600px">
@@ -193,8 +193,8 @@ export default {
 <style scoped>
 @import "../assets/style.css";
 #main {
-  width: 1050px;
-  margin: 30px auto;
+  width: 1000px;
+  margin: 0 auto;
 }
 
 #adad {
@@ -207,11 +207,12 @@ export default {
 
 .mypage-title {
   margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 .first {
-  margin: 20px;
-  margin-bottom: 50px;
+  margin: 0 auto;
+  width: 800px;
 }
 
 .user-box {
@@ -221,7 +222,10 @@ export default {
   margin: 10px;
 }
 
-.follow {
+.followArea {
   padding: 20px;
+}
+.introduce {
+  margin-left: 20px;
 }
 </style>

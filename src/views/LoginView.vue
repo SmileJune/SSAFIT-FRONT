@@ -339,5 +339,8 @@ input[type="text"]:placeholder {
 #icon {
   width: 60%;
 }
-
+button {
+  display: flex;
+  flex-direction: column;
+}
 </style>

@@ -1,7 +1,10 @@
 <template>
   <div id="main">
-    <h1 class="community-title" >다른 분들은 어떤 운동을 하셨을까요? 🧐</h1>
-    <v-container id="rev" v-for="(review, idx) in pageReviewList" :key="idx">
+    <h1 class="community-title" ><span>
+                  <font-awesome-icon
+                    icon="fa-solid fa-people-group"
+                  /></span>  다른 분들은 어떤 운동을 하셨을까요? 🧐</h1>
+    <v-container v-for="(review, idx) in pageReviewList" :key="idx">
       <v-row justify="space-around" class="">
         <v-card width="1000">
           <!-- 리뷰 파트 -->
@@ -71,60 +74,6 @@
                 </div>
                 <div class="mr-3">{{ review.date }}</div>
               </div>
-
-              <!-- 스테퍼 실험 중 -->
-              <v-stepper v-model="el">
-                <v-stepper-header>
-                  <div v-for="(video, idx4) in review.videoList" :key="idx4">
-                    <template v-if="idx4 != review.videoList.length - 1">
-                      <v-stepper-step
-                        :complete="el > idx4 + 1"
-                        :step="idx4 + 1"
-                      >
-                        step {{ idx4 + 1 }}
-                      </v-stepper-step>
-                      <v-divider></v-divider>
-                    </template>
-                    <template v-else>
-                      <v-stepper-step :step="idx + 1">
-                        step {{ idx4 + 1 }}
-                      </v-stepper-step>
-                    </template>
-                  </div>
-                </v-stepper-header>
-
-                <v-stepper-items>
-                  <div v-for="(video2, idx5) in review.videoList" :key="idx5">
-                    <v-stepper-content :step="idx5 + 1">
-                      <!-- <div class="thumbnail"> 
-                        <img
-                          :src="
-                            'https://img.youtube.com/vi/' +
-                            makeId(video2.url) +
-                            '/maxresdefault.jpg'
-                          "
-                          alt=""
-                        />
-                       </div>
-
-                       <v-btn color="primary" @click="slideVideo(idx5)">
-                        Continue 지금 고치는 주ㅇ
-                      </v-btn>
-
-                      <v-btn
-                        text
-                        v-if="idx5 > 0"
-                        color="primary"
-                        @click="beforeVideo(idx5)"
-                      >
-                        Cancel
-                      </v-btn> -->
-                    </v-stepper-content>
-                  </div>
-                </v-stepper-items>
-              </v-stepper>
-
-              <!-- 스테퍼 실험중  -->
 
               <!-- 이게 본래 리스트운동한 비디오 -->
               <div v-for="(video, idx4) in review.videoList" :key="idx4">
@@ -654,5 +603,9 @@ div {
 }
 .community-title {
   margin: 40px;
+}
+
+.container {
+  margin-bottom : 100px;
 }
 </style>

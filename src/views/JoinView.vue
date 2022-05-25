@@ -45,7 +45,8 @@
           placeholder="자기소개"
           @keyup.13="join"
         />
-        <v-btn id="btn" class="fadeIn fourth" @click="join">회원가입</v-btn>
+        <v-btn id="btn" color="var(--color-blue5)" class="fadeIn fourth" @click="join"
+        style="font-size: 1.2rem;">회원가입</v-btn>
       </form>
 
       <div id="formFooter">
@@ -374,4 +375,9 @@ input[type="text"]:placeholder {
   width: 1050px;
   margin: 30px auto;
 }
+button {
+  display: flex;
+  flex-direction: column;
+}
+
 </style>

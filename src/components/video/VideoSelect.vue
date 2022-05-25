@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="main">
     <h3 v-show="videoList.length == 0">
       죄송해요 조건에 맞는 운동 영상이 없네요 😂
     </h3>
@@ -83,7 +83,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#main {
+  width : 1050px;
+  margin : 0 auto;
+}
+
 .video {
   width: 100%;
   max-width: 900px;

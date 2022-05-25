@@ -341,6 +341,7 @@ export default new Vuex.Store({
         method: "GET",
       }).then((res)=>{
         commit("GET_TIMELINELIST",res.data);
+        console.log(res.data);
       })
     },
     checkPassword({commit}, user) {

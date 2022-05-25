@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <!-- <router-view /> -->
-    <div data-aos="flip-up"
+    <div data-aos="fade-in"
     data-aos-duration="1500">
     <h1 class="home-title" v-if="isLogin">{{ user.nickname }} 님 🙌🏻</h1>
     <h1 class="home-title" v-if="isLogin">오늘도 SSAFIT과 함께 운동해요 💪🏽</h1>
@@ -13,6 +13,7 @@
       <MyDiary></MyDiary>
     </div>
     <TimelineVue></TimelineVue>
+    <WeakPartVue></WeakPartVue>
   </div>
 </template>
 
@@ -20,6 +21,7 @@
 import MyCalender from "@/components/diary/MyCalender.vue";
 import MyDiary from "@/components/diary/MyDiary.vue";
 import TimelineVue from "@/components/common/TimelineVue.vue";
+import WeakPartVue from "@/components/video/VideoWeakPart.vue";
 import { mapState } from "vuex";
 export default {
   name: "HomeView",
@@ -30,6 +32,7 @@ export default {
     MyCalender,
     MyDiary,
     TimelineVue,
+    WeakPartVue,
   },
 };
 </script>
