@@ -3,8 +3,6 @@
     <div class="first">
       <div class="mypageTop">
         <h1 class="mypage-title">마이페이지</h1>
-        <div data-aos="fade-left" data-aos-duration="2000"
-        class="weakbtn"><router-link to="weak-part"><v-btn color="primary" style="font-size: large;" @click="showWeak">나의 운동 분석👉🏼</v-btn></router-link></div>
       </div>
       <hr />
       <div class="user-box">
@@ -131,12 +129,14 @@
         </v-dialog>
       </v-row>
     </div>
+    <VideoWeakPart></VideoWeakPart>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import FollowManageMent from "@/components/mypage/FollowManagement.vue";
+import VideoWeakPart from "@/components/video/VideoWeakPart.vue";
 export default {
   data() {
     return {
@@ -152,6 +152,7 @@ export default {
   },
   components: {
     FollowManageMent,
+    VideoWeakPart,
   },
   computed: {
     ...mapState(["userProfile"]),
@@ -183,10 +184,10 @@ export default {
       } else {
         this.$store.dispatch("deleteUser", this.profile);
         this.deleteDialog = false;
-        localStorage.removeItem("vuex")
-        sessionStorage.removeItem("access-token")
+        localStorage.removeItem("vuex");
+        sessionStorage.removeItem("access-token");
         // this.check = false;
-        alert('회원 탈퇴가 되었습니다.')
+        alert("회원 탈퇴가 되었습니다.");
         this.$router.go();
       }
     },
@@ -238,5 +239,4 @@ export default {
   align-items: flex-end;
   margin-bottom: 10px;
 }
-
 </style>

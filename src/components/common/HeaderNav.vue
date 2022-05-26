@@ -99,6 +99,7 @@ export default {
     ...mapMutations(["USER_LOGOUT"]),
     doLogout() {
       this.USER_LOGOUT();
+      this.$router.push({name : 'main'});
     },
     goTogether() {
       this.$router.push({ name: "together" });
