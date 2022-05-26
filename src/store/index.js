@@ -35,6 +35,7 @@ export default new Vuex.Store({
     check: false,
     latlng : null,
     markerPositions1 : null,
+    mydata : [],
   },
   
   mutations: {
@@ -110,6 +111,9 @@ export default new Vuex.Store({
     },
     GET_POSITIONS(state, data){
       state.markerPositions1 = data;
+    },
+    GET_MYDATA(state, data) {
+      state.mydata = data;
     }
   },
   
@@ -341,6 +345,7 @@ export default new Vuex.Store({
         method: "GET",
       }).then((res)=>{
         commit("GET_TIMELINELIST",res.data);
+        console.log(res.data);
       })
     },
     checkPassword({commit}, user) {
@@ -386,6 +391,14 @@ export default new Vuex.Store({
         method : "GET",
       }).then((res) => {
         commit('GET_POSITIONS', res.data);
+      })
+    },
+    getMyData({commit}) {
+      api({
+        url: `user/mydata`,
+        method : "GET",
+      }).then((res) => {
+        commit('GET_MYDATA', res.data);
       })
     }
   },

@@ -1,7 +1,9 @@
 <template>
-  <div class="mypage">
-    <h1 class="mypage-title">마이페이지</h1>
+  <div class="mypage" id="main">
     <div class="first">
+      <div class="mypageTop">
+        <h1 class="mypage-title">마이페이지</h1>
+      </div>
       <hr />
       <div class="user-box">
         <h6>아이디</h6>
@@ -14,7 +16,7 @@
       <div class="user-box">
         <h6>자기소개</h6>
       </div>
-      <div>{{ userProfile.introduce }}</div>
+      <div class="introduce">{{ userProfile.introduce }}</div>
     </div>
     <!-- <v-btn @click="updateProfile">수정</v-btn> -->
     <v-row justify="center">
@@ -81,7 +83,7 @@
         </v-card>
       </v-dialog>
     </v-row>
-    <div class="follow"><FollowManageMent></FollowManageMent></div>
+    <div class="followArea"><FollowManageMent></FollowManageMent></div>
     <div>
       <v-row justify="center">
         <v-dialog v-model="deleteDialog" persistent max-width="600px">
@@ -127,12 +129,14 @@
         </v-dialog>
       </v-row>
     </div>
+    <VideoWeakPart></VideoWeakPart>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import FollowManageMent from "@/components/mypage/FollowManagement.vue";
+import VideoWeakPart from "@/components/video/VideoWeakPart.vue";
 export default {
   data() {
     return {
@@ -148,6 +152,7 @@ export default {
   },
   components: {
     FollowManageMent,
+    VideoWeakPart,
   },
   computed: {
     ...mapState(["userProfile"]),
@@ -179,10 +184,10 @@ export default {
       } else {
         this.$store.dispatch("deleteUser", this.profile);
         this.deleteDialog = false;
-        localStorage.removeItem("vuex")
-        sessionStorage.removeItem("access-token")
+        localStorage.removeItem("vuex");
+        sessionStorage.removeItem("access-token");
         // this.check = false;
-        alert('회원 탈퇴가 되었습니다.')
+        alert("회원 탈퇴가 되었습니다.");
         this.$router.go();
       }
     },
@@ -192,6 +197,11 @@ export default {
 
 <style scoped>
 @import "../assets/style.css";
+#main {
+  width: 1000px;
+  margin: 0 auto;
+}
+
 #adad {
   color: var(--color-blue5);
 }
@@ -202,11 +212,12 @@ export default {
 
 .mypage-title {
   margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 .first {
-  margin: 20px;
-  margin-bottom: 50px;
+  margin: 0 auto;
+  width: 800px;
 }
 
 .user-box {
@@ -216,7 +227,16 @@ export default {
   margin: 10px;
 }
 
-.follow {
+.followArea {
   padding: 20px;
+}
+.introduce {
+  margin-left: 20px;
+}
+.mypageTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 10px;
 }
 </style>

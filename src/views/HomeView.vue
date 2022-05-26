@@ -1,10 +1,13 @@
 <template>
-  <div>
+  <div id="main">
     <!-- <router-view /> -->
-    <h1 v-if="isLogin">{{ user.nickname }} 님 🙌🏻</h1>
-    <h1 v-if="isLogin">오늘도 SSAFIT과 함께 운동해요 💪🏽</h1>
+    <div data-aos="fade-in"
+    data-aos-duration="1500">
+    <h1 class="home-title" v-if="isLogin">{{ user.nickname }} 님 🙌🏻</h1>
+    <h1 class="home-title" v-if="isLogin">오늘도 SSAFIT과 함께 운동해요 💪🏽</h1>
     <br>
     <br>
+    </div>
     <div class="calda">
       <MyCalender></MyCalender>
       <MyDiary></MyDiary>
@@ -31,7 +34,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#main {
+  width: 1050px;
+  margin: 30px auto;
+}
+
 #my-schedule {
   display: flex;
   justify-content: space-around;
@@ -39,5 +47,9 @@ export default {
 .calda {
   display: flex;
   justify-content: space-between;
+}
+
+.home-title {
+  margin-top : 10px;
 }
 </style>

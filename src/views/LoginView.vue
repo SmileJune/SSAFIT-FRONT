@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper fadeInDown">
+  <div class="wrapper fadeInDown" id="main">
     <div id="formContent">
       <!-- Tabs Titles -->
       <h2 class="active">Sign In</h2>
@@ -59,9 +59,17 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Poppins");
 
+  * {
+    box-sizing: border-box;
+  }
+  
+  #main {
+    width: 1050px;
+    margin: 30px auto;
+  }
 /* BASIC */
 
 a {
@@ -331,8 +339,8 @@ input[type="text"]:placeholder {
 #icon {
   width: 60%;
 }
-
-* {
-  box-sizing: border-box;
+button {
+  display: flex;
+  flex-direction: column;
 }
 </style>

@@ -1,10 +1,14 @@
 <template>
-  <div class="timeline">
+  <div 
+  data-aos="fade-up"
+  data-aos-duration="1500"
+  class="timeline"
+  >
     <br>
-    <h1 v-if="isLogin">내 친구들은 언제 운동했을까?</h1>
+    <h1 class="timeline-title" v-if="isLogin">내 친구들은 언제 운동했을까?</h1>
     <div v-for="(review, idx) in TimelineList" :key="idx">
-      <!--실험시작-->
-      <div class="timeline-box">
+      
+      <div class="timeline-box" @click="open(idx)">
         <v-card
           class="mx-auto"
           color="var(--color-blue4)"
@@ -33,9 +37,64 @@
           </v-card-actions>
         </v-card>
       </div>
+
+<!--실험시작 -->
+      
+              <v-dialog v-model="dialog[idx]" width="600px">
+                <v-card>
+                  <v-card-title class="jarang-header">
+                    <span class="text-h5">{{review.userId}}님이 하신 운동</span>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-col cols="12" v-for="(video, idx2) in review.videoList" :key="idx2">
+                      <v-card>
+                        <v-card-title class="text-h5">
+                          {{ video.title }}
+                        </v-card-title>
+
+                        <v-card-subtitle>
+                          {{ video.channelName }}
+                        </v-card-subtitle>
+                        <div class="planVideo">
+                          <div>
+                          <img :src="'https://img.youtube.com/vi/' + makeId(video.url) + '/maxresdefault.jpg'" alt="">
+                          </div>
+                        <!-- 별점 주기 -->
+                        <div class="rating">
+                          <v-rating
+                            full-icon="★"
+                            empty-icon="☆"
+                            hover
+                            v-model="review.routineList[idx2].difficulty"
+                            background-color="grey lighten-1"
+                            color="red lighten-3"
+                            large
+                          ></v-rating>
+                        </div>
+                        </div>
+                        <!-- 영상이 안들어와 썸네일만 보여주게 해야겠어 -->
+                        
+                      </v-card>
+                    </v-col>
+                  </v-card-text>
+                
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="var(--color-blue5)" text @click="setPlanFromFollowing(idx)">
+                      루틴 그대로 가져오기
+                    </v-btn>
+                    <v-btn color="var(--color-blue5)" text @click="dialog.splice(idx,1,false)">
+                      닫기
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </div>
+          </div>
+          
       <!--실험끝-->
-    </div>
-  </div>
+    
+  
 </template>
 
 <script>
@@ -44,10 +103,11 @@ export default {
   data() {
     return {
       distance: [],
+      dialog: [],
     };
   },
   computed: {
-    ...mapState(["TimelineList", "isLogin"]),
+    ...mapState(["TimelineList", "isLogin", "date"]),
   },
 
   created() {
@@ -55,6 +115,7 @@ export default {
       this.$store.dispatch("getTimelineList");
       this.setDistance();
     }
+    this.dialog = new Array(this.TimelineList.length);
   },
   methods: {
     setDistance() {
@@ -66,12 +127,12 @@ export default {
         let distance = now - before;
         distance = distance / 1000 / 60 / 60 / 24 / 12;
         if (distance >= 1) {
-          arr[i] = Math.floor(distance) + "년 전";
+          arr[i] = Math.floor(distance) + "월 전";
           continue;
         }
         distance = distance * 12;
         if (distance >= 1) {
-          arr[i] = Math.floor(distance) + "달 전";
+          arr[i] = Math.floor(distance) + "일 전";
           continue;
         }
         distance = distance * 24;
@@ -90,11 +151,32 @@ export default {
       }
       this.distance = arr;
     },
-  },
-};
+    open(idx){
+      this.dialog.splice(idx,1,true);
+    },
+
+    setPlanFromFollowing(idx){
+      let videoNoList = [];
+      for(let i=0; i<this.TimelineList[idx].videoList.length; i++){
+          videoNoList.push(this.TimelineList[idx].videoList[i].no);
+      }
+      const plan = {
+        date: this.date,
+        videoList: videoNoList
+      };
+      console.log(plan);
+      this.$store.dispatch("makePlan", plan);
+      this.dialog.splice(idx,1,false);
+      location.reload();
+    },
+    makeId(url) {
+      return url.substring(30,41);
+    }
+  }
+}
 </script>
 
-<style>
+<style scoped>
 .timeline {
   margin: 50px 0;
 }
@@ -102,4 +184,23 @@ export default {
 .timeline-box {
   margin: 5px 0;
 }
+
+.timeline-title {
+  margin-bottom: 20px;
+}
+
+img {
+  width: 200px;
+  height: 155px;
+}
+.rating {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.timeline-box:hover {
+  cursor: pointer;
+}
+
 </style>

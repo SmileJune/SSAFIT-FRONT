@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="main">
     <h1>따라만 하세요 유후 🏋🏽‍♀️</h1>
     <!-- 플랜 비디오만큼 반복 돌면서 보여주기
     <div class="video-container">
@@ -77,6 +77,10 @@
       </div>
     </v-stepper-items>
     </v-stepper>
+    <div class="controll">
+      <v-btn color="primary" @click="showMirror">거울 모드 켜기</v-btn>
+      <v-btn color="primary" @click="closeMirror">거울 모드 끄기</v-btn>
+    </div>
     <!-- 축하 모달창 뜸 -->
       <template>
         <div class="text-center">
@@ -122,9 +126,16 @@
             </v-card>
           </v-dialog>
         </div>
+        
       </template>
-      <v-easy-camera
-    v-model="picture"></v-easy-camera>
+      <v-card class="mirror-card" :style="{display: display}">
+      <div class="mirror">
+      <v-easy-camera 
+    v-model="picture"
+    ref="cameraComponent"
+    ></v-easy-camera>
+    </div>
+    </v-card>
     <!-- <VideoGoodJob v-show="done"></VideoGoodJob> -->
   </div> 
 </template>
@@ -140,6 +151,7 @@ export default {
       el: 1,
       isEnd: false,
       picture : "",
+      display: "none",
     };
   },
   components: {
@@ -167,12 +179,25 @@ export default {
     },
     beforeVideo(idx2) {
       this.el = idx2;
+    },
+    showMirror() {
+      this.$refs.cameraComponent.start();
+      this.display = 'block';
+    },
+    closeMirror () {
+      this.$refs.cameraComponent.close();
+      this.display = 'none';
     }
   },
 };
 </script>
 
 <style scoped>
+#main {
+  width : 1050px;
+  margin : 0 auto;
+}
+
 .video-container {
   position: relative;
   width: 1000px;
@@ -212,8 +237,24 @@ h1 {
 .congratulation-modal-header {
   background-color: var(--color-blue2);
 }
-.v-easy-camera {
-  max-width: 100px;
-  max-height: 500px;
+.mirror {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  width: 1000px;
+  height: 560px;
+}
+.video-wrapper {
+  max-height: 560px;
+}
+.controll {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+.mirror-card {
+  width: 1050px;
+  height: 600px;
 }
 </style>

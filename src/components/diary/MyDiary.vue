@@ -1,5 +1,8 @@
 <template>
-  <div class="diary">
+  <div
+  data-aos="fade-left"
+  data-aos-duration="1500" 
+  class="diary">
     <v-card
       min-height="500"
       max-height="500"
@@ -71,6 +74,7 @@
           <h4 id="no-video" v-if="somedayPlan.length == 0">
             오늘 운동할 영상이 없네요!
           </h4>
+     
         </v-row>
       </v-card-text>
       <!-- 운동 루틴이 있으면 보여주기 -->
@@ -80,6 +84,7 @@
 
 <script>
 import { mapState } from "vuex";
+
 // import MyDiaryCreate from '@/components/diary/MyDiaryCreate.vue';
 export default {
   data() {
@@ -87,6 +92,7 @@ export default {
       date: "",
     };
   },
+
   computed: {
     ...mapState(["somedayPlan", "user", "isLogin"]),
   },

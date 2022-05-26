@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper fadeInDown">
+  <div class="wrapper fadeInDown" id="main">
     <div id="formContent">
       <!-- Tabs Titles -->
       <h2 class="active">Sign Up</h2>
@@ -45,7 +45,8 @@
           placeholder="자기소개"
           @keyup.13="join"
         />
-        <v-btn id="btn" class="fadeIn fourth" @click="join">회원가입</v-btn>
+        <v-btn id="btn" color="var(--color-blue5)" class="fadeIn fourth" @click="join"
+        style="font-size: 1.2rem;">회원가입</v-btn>
       </form>
 
       <div id="formFooter">
@@ -93,7 +94,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Poppins");
 
 /* BASIC */
@@ -369,4 +370,14 @@ input[type="text"]:placeholder {
 * {
   box-sizing: border-box;
 }
+
+#main {
+  width: 1050px;
+  margin: 30px auto;
+}
+button {
+  display: flex;
+  flex-direction: column;
+}
+
 </style>

@@ -1,6 +1,19 @@
 <template>
-  <div>
-    <div id="map" style="width: 1000px; height: 700px"></div>
+  <div id="main" data-aos="fade-up" data-aos-duration="2000">
+    <h1><span><font-awesome-icon icon="fa-solid fa-people-pulling" /></span
+              >   주변에 같이 운동할 친구 없나? 💪🏽</h1>
+    <br />
+   
+  <div class="weather">
+   <vue-weather
+    api-key="e4440d2e63625cac64aa8c732b44bcc3"
+    units="us"
+    :latitude= now.lat
+    :longitude= now.lng
+    />
+  </div>
+
+  <div id="map" style="width: 1000px; height: 700px"></div>
     <div class="button-group">
       <v-btn
         color="primary"
@@ -11,14 +24,19 @@
         >내 주위 등록된 약속 보기</v-btn
       >
 
-      <router-link to="/together-create"><v-btn color="primary" elevation="3" large rounded>약속잡기</v-btn></router-link>
+      <router-link to="/together-create"
+        ><v-btn color="primary" elevation="3" large rounded
+          >약속잡기</v-btn
+        ></router-link
+      >
       <!-- <v-btn color="primary" elevation="3" large rounded>약속잡기</v-btn> -->
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
+import VueWeather from "vue-weather-widget";
 export default {
   name: "KakaoMap",
   data() {
@@ -46,10 +64,11 @@ export default {
       now: null,
     };
   },
-  computed : {
-    ...mapState([
-      'markerPositions1'
-    ])
+   components: {
+      VueWeather,
+    },
+  computed: {
+    ...mapState(["markerPositions1"]),
   },
   created() {
     if (navigator.geolocation) {
@@ -72,7 +91,6 @@ export default {
     } else {
       alert("GPS를 지원하지 않습니다");
     }
-
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -85,7 +103,7 @@ export default {
       document.head.appendChild(script);
     }
 
-    this.$store.dispatch('getPositions');
+    this.$store.dispatch("getPositions");
   },
   methods: {
     initMap() {
@@ -128,36 +146,48 @@ export default {
     },
     displayInfoWindow() {
       for (let i = 0; i < this.markerPositions1.length; i++) {
-        let latDistance = Math.abs(
-          this.now.lat - this.markerPositions1[i].lat
-        );
-        let lngDistance = Math.abs(
-          this.now.lng - this.markerPositions1[i].lng
-        );
-
-        console.log(latDistance);
-        console.log(lngDistance);
+        let latDistance = Math.abs(this.now.lat - this.markerPositions1[i].lat);
+        let lngDistance = Math.abs(this.now.lng - this.markerPositions1[i].lng);
 
         if ((latDistance < 0.007) & (lngDistance < 0.007)) {
-          var iwContent = 
-          `
-          <div>${this.markerPositions1[i].date} ${this.markerPositions1[i].userId}</div>
-          <div style="padding:5px;">${this.markerPositions1[i].content}</div>
-          
-          `,
-           // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-            iwPosition = new kakao.maps.LatLng(
+          var marker = new kakao.maps.Marker({
+            map: this.map,
+            position: new kakao.maps.LatLng(
               this.markerPositions1[i].lat,
               this.markerPositions1[i].lng
-            ), //인포윈도우 표시 위치입니다
-            iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
-
-          this.infowindow = new kakao.maps.InfoWindow({
-            map: this.map, // 인포윈도우가 표시될 지도
-            position: iwPosition,
-            content: iwContent,
-            removable: iwRemoveable,
+            ),
           });
+
+          var content = `
+          <div class="wrap">
+            <div>${this.markerPositions1[i].date.substr(
+              5,
+              2
+            )}월 ${this.markerPositions1[i].date.substr(8, 2)}일
+            ${this.markerPositions1[i].date.substr(11, 2)}시
+            ${this.markerPositions1[i].date.substr(14, 2)}분
+            </div>
+            <div>${this.markerPositions1[i].content}</div>
+          </div>
+          `;
+
+          // 마커 위에 커스텀오버레이를 표시합니다
+          // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+          var overlay = new kakao.maps.CustomOverlay({
+            content: content,
+            map: this.map,
+            position: marker.getPosition(),
+          });
+
+          // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+          kakao.maps.event.addListener(marker, "click", function () {
+            overlay.setMap(this.map);
+          });
+
+          // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
+          // function closeOverlay() {
+          //   overlay.setMap(null);
+          // }
         }
       }
       this.map.setCenter(new kakao.maps.LatLng(this.now.lat, this.now.lng));
@@ -168,6 +198,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#main {
+  width: 1050px;
+  margin: 30px auto;
+}
+
 #map {
   width: 400px;
   height: 400px;
@@ -182,4 +217,14 @@ export default {
 button {
   margin: 0 3px;
 }
+
+.wrap {
+  background-color: #123123;
+  position: relative;
+  bottom: 100px;
+}
+.weather {
+  padding-left: 80px;
+}
+
 </style>

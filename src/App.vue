@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <TestVue/>
     <HeaderNav></HeaderNav>
     <div id="main">
       <router-view />
@@ -12,12 +13,14 @@
 //import HomeView from '@/views/HomeView.vue'
 import HeaderNav from "./components/common/HeaderNav.vue";
 import ContactUs from "@/components/common/ContactUsvue.vue";
+import TestVue from "@/views/TestVue.vue"
 export default {
   name: "App",
   components: {
     //HomeView,
     HeaderNav,
     ContactUs,
+    TestVue,
   },
   data() {
     return {
@@ -29,16 +32,26 @@ export default {
 <style>
 /* @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css); */
 @import url("//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css");
+
+
 @import "@/assets/style.css";
 
 * {
-  font-family: "Spoqa Han Sans", "Spoqa Han Sans JP", "Sans-serif";
+  font-family: sangsang, Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif;
+  
 }
 
-#main {
+/* #main {
   width: 1050px;
   margin: 30px auto;
+*/
+#main {
+  width: 100%;
+  height : auto;
+  margin: 0;
 }
+
+
 
 .v-btn {
   color: var(--color-blue5);
